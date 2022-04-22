@@ -15,7 +15,7 @@ $dotenv->load();
 $req = new Request();
 $router = new Router();
 
-// print "Hello " . $req->getQueryParam("name");
+print json_encode($req->getQueryParams());
 
 // header('Content-Type: application/json');
 // print json_encode($_ENV);

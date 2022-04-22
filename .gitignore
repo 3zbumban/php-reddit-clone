@@ -1,3 +1,5 @@
 mysqldata/
 app/vendor
 .env
+.idea
+.vscode

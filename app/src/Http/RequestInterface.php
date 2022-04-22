@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sem\Weben\Http;
 
 interface RequestInterface {

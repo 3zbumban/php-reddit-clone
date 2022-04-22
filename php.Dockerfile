@@ -13,5 +13,8 @@ RUN php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa7
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
-#RUN composer init --name=sem/weben --type=project -a src/
-RUN composer --version
+# RUN composer init --name=sem/weben --type=project -a src/
+# RUN composer --version
+# WORKDIR /app
+# RUN composer install
+# RUN ls -la

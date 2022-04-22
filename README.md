@@ -1,0 +1,6 @@
+- [composer inside docker](https://stackoverflow.com/questions/51443557/how-to-install-php-composer-inside-a-docker-container)
+- [develop php with docker](https://www.sitepoint.com/docker-php-development-environment/)
+- []()
+- []()
+- []()
+- []()

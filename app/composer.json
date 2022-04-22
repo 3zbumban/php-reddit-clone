@@ -1,0 +1,16 @@
+{
+    "name": "sem/weben",
+    "description": "trying to learn some php too",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Sem\\Weben\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sINFalseme"
+        }
+    ],
+    "require": {}
+}

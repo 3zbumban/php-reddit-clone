@@ -8,4 +8,8 @@
 - [](https://www.doctrine-project.org/projects/orm.html)
 - [](https://github.com/doctrine/orm)
 - [](https://inf-git.fh-rosenheim.de/b.wick/wess22-musterloesung)
+- [](http://propelorm.org/)
+- []()
+- []()
+- []()
 - []()

@@ -3,14 +3,13 @@
 namespace Sem\Weben;
 
 class Router {
-  private string $basePath;
+  private array $routes;
   
-  function __construct(string $basePath) {
-    print "In constructor :)\n";
-    $this->basePath = $basePath;
+  function __construct() {
+    $this->routes = [];
   }
 
-  function getBase() {
-    return $this->basePath;
+  public function addRoute(string $method, string $path, callable $callback) {
+    $this->routes[$method][$path] = $callback;
   }
 }

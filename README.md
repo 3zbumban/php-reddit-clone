@@ -4,5 +4,8 @@
 - [develop php with docker](https://www.sitepoint.com/docker-php-development-environment/)
 - [php-docs](https://www.php.net/manual/en/control-structures.foreach.php)
 - [getcomposer](https://getcomposer.org/download/)
+- [phpdotenv](https://github.com/vlucas/phpdotenv)
+- [](https://www.doctrine-project.org/projects/orm.html)
+- [](https://github.com/doctrine/orm)
 - []()
 - []()

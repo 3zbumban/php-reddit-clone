@@ -4,19 +4,20 @@ namespace Sem\Weben\Http;
 
 class Request implements RequestInterface
 {
-    private $url;
-    private $method;
-    private $params;
-    private $body;
-    private $header;
-    private $queryParams;
+    private string $url;
+    private string $method;
+    private array $params;
+    // private $body;
+    private array $headers;
+    private array $queryParams;
 
     public function __construct()
     {
+        // print 'Request created';
         $this->url = $_SERVER['REQUEST_URI'];
         $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->params = $_REQUEST;
-        $this->body = json_decode(file_get_contents('php://input'), true);
+        // $this->params = $_REQUEST;
+        // $this->body = json_decode(file_get_contents('php://input'), true);
         $this->header = getallheaders();
         $this->queryParams = $_GET;
     }
@@ -31,15 +32,25 @@ class Request implements RequestInterface
         return $this->method;
     }
 
-    public function getParams(): array
+    public function getQueryParam(string $key): string
     {
-        return $this->params;
+        return $this->queryParams[$key];
     }
 
-    public function getBody(): array
-    {
-        return $this->body;
-    }
+    // public function getParams(): array
+    // {
+    //     return $this->params;
+    // }
+
+    // public function getParam(string $name): string
+    // {
+    //     return $this->params[$name];
+    // }
+
+    // public function getBody(): array
+    // {
+    //     return $this->body;
+    // }
 
     public function getHeader(): array
     {

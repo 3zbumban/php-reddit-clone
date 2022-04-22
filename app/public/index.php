@@ -1,24 +1,21 @@
 <?php
 
+// $pdo = new PDO('mysql:dbname=database_dev;host=mysql', 'tester', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+// $query = $pdo->query('SHOW VARIABLES like "version"');
+// $row = $query->fetch();
+
 require '../vendor/autoload.php';
+
+use Sem\Weben\Router;
+use Sem\Weben\Http\Request;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-// $pdo = new PDO('mysql:dbname=database_dev;host=mysql', 'tester', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+$req = new Request();
+$router = new Router();
 
-// $query = $pdo->query('SHOW VARIABLES like "version"');
+// print "Hello " . $req->getQueryParam("name");
 
-// $row = $query->fetch();
-
-
-// use Sem\Weben\Reddit;
-
-// $r = new Reddit();
-
-// $posts = $r->getPosts();
-
-header('Content-Type: application/json');
-print json_encode($_ENV);
-
-// print json_encode($posts);
+// header('Content-Type: application/json');
+// print json_encode($_ENV);

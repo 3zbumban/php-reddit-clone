@@ -9,7 +9,13 @@
 - [](https://github.com/doctrine/orm)
 - [](https://inf-git.fh-rosenheim.de/b.wick/wess22-musterloesung)
 - [](http://propelorm.org/)
+- [](https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html#configuring-xdebug-vagrant)
+- [](https://dev.to/jackmiras/xdebug-in-vscode-with-docker-379l)
 - []()
 - []()
 - []()
 - []()
+- []()
+- []()
+
+echo "xdebug.client_host = host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

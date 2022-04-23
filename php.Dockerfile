@@ -1,20 +1,30 @@
 FROM php:fpm
 
+WORKDIR /app
+VOLUME /app
+
 RUN docker-php-ext-install pdo pdo_mysql
 
 RUN apt-get update
 RUN apt-get install -y git
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug
-# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN cd /usr/local/bin
+RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
-# RUN composer init --name=sem/weben --type=project -a src/
-# RUN composer --version
-# WORKDIR /app
+
+# RUN adduser -D cuser
+# RUN useradd -ms /bin/bash cuser
+# USER cuser
+# RUN pwd
 # RUN composer install
-# RUN ls -la
+# RUN test composer.json
+# USER root
+# RUN whoami
+
+EXPOSE 9003

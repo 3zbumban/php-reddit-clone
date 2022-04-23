@@ -14,6 +14,8 @@ services:
       dockerfile: php.Dockerfile
     volumes:
       - ./app:/app
+    ports:
+      - 3037:9003
   
   mysql:
     image: mariadb:latest

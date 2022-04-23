@@ -15,20 +15,15 @@ class Router {
   }
 
   public function route(RequestInterface $req, ResponseInterface $res): void {
-//                  echo json_encode(array_keys($this->routes));
-
+      $method = $req->getMethod();
       foreach($this->routes as $route => $routeMapping) {
-//            echo json_encode($routeMapping);
         if (preg_match($route, strtolower($req->getUrl()))) {
-            $method = $req->getMethod();
             if (array_key_exists($method, $routeMapping)) {
                 $controllerName = $routeMapping[$method]["controllerName"];
                 $actionName = $routeMapping[$method]["actionName"];
-//                echo json_encode();
                 if (class_exists($controllerName) && method_exists($controllerName, $actionName)) {
-//                    echo "console and classes do exist";
-                    $controller = new $controllerName();
-                    $controller->$actionName($req, $res);
+                  $controller = new $controllerName();
+                  $controller->$actionName($req, $res);
                 } else {
                     throw new \Exception(
                         sprintf(
@@ -38,12 +33,13 @@ class Router {
                         )
                     );
                 }
-            } else {
-                echo "cannot " . $method;
             }
-//            $controllerName = $routeMapping["controllerName"];
-        }
+        } 
+        // else {
+          // echo "cannot " . $method . " " . $req->getUrl();
+        // }
       }
+      // echo "cannot " . $method . " " . $req->getUrl();
   }
 
   public function addRoute(string $method, string $path,  string $controllerName, string $actionName): void {

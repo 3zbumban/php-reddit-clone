@@ -9,12 +9,15 @@ use Sem\Weben\Reddit;
 class ThreadController
 
 {
-    public function list(RequestInterface $req, ResponseInterface $res): void {
-        $r = new Reddit();
-        $res->json($r->getPosts());
-    }
+  public function list(RequestInterface $req, ResponseInterface $res): void
+  {
+    $r = new Reddit();
 
-    public function create(RequestInterface $req, ResponseInterface $res): void {
-        $res->json([]);
-    }
+    $res->json($req->getBody());
+  }
+
+  public function create(RequestInterface $req, ResponseInterface $res): void
+  {
+    $res->json([]);
+  }
 }

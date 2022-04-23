@@ -20,8 +20,8 @@ $req = new Request();
 $res = new Response();
 $router = new Router();
 
-$router->addRoute("POST", '/^\/$/', ThreadController::class, "create");
-$router->addRoute("GET", '/\/threads/', ThreadController::class, "list");
+$router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
+$router->addRoute("GET", '/^\/threads\/?/', ThreadController::class, "list");
 // $router->addRoute("GET", '/^\/$/', ThreadController::class, "list");
 
 //$router->addRoute("POST", '/\//', ThreadController::class, "create");

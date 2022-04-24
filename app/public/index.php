@@ -6,12 +6,14 @@ declare(strict_types=1);
 // $query = $pdo->query('SHOW VARIABLES like "version"');
 // $row = $query->fetch();
 
-require '../vendor/autoload.php';
+require_once '../vendor/autoload.php';
+require_once '../generated-conf/config.php';
 
 use Sem\Weben\Router;
 use Sem\Weben\Http\Request;
 use Sem\Weben\Http\Response;
 use Sem\Weben\Controller\ThreadController;
+use Sem\Weben\Controller\UserController;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
@@ -20,8 +22,11 @@ $req = new Request();
 $res = new Response();
 $router = new Router();
 
-$router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
-$router->addRoute("GET", '/^\/threads\/?/', ThreadController::class, "list");
+$router->addRoute("POST", '/^\/auth\/signup$/', UserController::class, "signup");
+$router->addRoute("POST", '/^\/auth\/login$/', UserController::class, "login");
+// $router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
+// $router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
+// $router->addRoute("GET", '/^\/threads\/?/', ThreadController::class, "list");
 // $router->addRoute("GET", '/^\/$/', ThreadController::class, "list");
 
 //$router->addRoute("POST", '/\//', ThreadController::class, "create");

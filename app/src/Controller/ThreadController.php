@@ -11,13 +11,13 @@ class ThreadController
 {
   public function list(RequestInterface $req, ResponseInterface $res): void
   {
-    $r = new Reddit();
+    // $r = new Reddit();
 
-    $res->json($req->getBody());
+    // $res->json($req->getBody());
   }
 
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
-    $res->json([]);
+    // $res->json([]);
   }
 }

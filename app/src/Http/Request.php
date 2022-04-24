@@ -51,7 +51,7 @@ class Request implements RequestInterface
   //     return $this->params[$name];
   // }
 
-  public function getBody()
+  public function getBody(): mixed
   {
     return $this->body;
   }

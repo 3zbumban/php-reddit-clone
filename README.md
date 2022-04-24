@@ -2,20 +2,23 @@
 
 - [composer inside docker](https://stackoverflow.com/questions/51443557/how-to-install-php-composer-inside-a-docker-container)
 - [develop php with docker](https://www.sitepoint.com/docker-php-development-environment/)
-- [php-docs](https://www.php.net/manual/en/control-structures.foreach.php)
+- [doctrine](https://github.com/doctrine/orm)~~
+- [doctrine](https://www.doctrine-project.org/projects/orm.html)~~
 - [getcomposer](https://getcomposer.org/download/)
+- [liveregex](https://www.phpliveregex.com/)
+- [php-docs](https://www.php.net/manual/en/control-structures.foreach.php)
+- [php: datetime](https://www.php.net/manual/en/datetime.gettimestamp.php)
 - [phpdotenv](https://github.com/vlucas/phpdotenv)
-- [](https://www.doctrine-project.org/projects/orm.html)
-- [](https://github.com/doctrine/orm)
-- [](https://inf-git.fh-rosenheim.de/b.wick/wess22-musterloesung)
-- [](http://propelorm.org/)
-- [](https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html#configuring-xdebug-vagrant)
-- [](https://dev.to/jackmiras/xdebug-in-vscode-with-docker-379l)
+- [propelorm: basic](http://propelorm.org/documentation/03-basic-crud.html)
+- [propelorm: schema](http://propelorm.org/documentation/reference/schema.html)
+- [propelorm](http://propelorm.org/)
+- [uuid](https://www.uuidgenerator.net/dev-corner/php)
+  - https://github.com/ramsey/uuid
+  - 1ee9aa1b-6510-4105-92b9-7171bb2f3089
+- [wess22-musterloesung](https://inf-git.fh-rosenheim.de/b.wick/wess22-musterloesung)
+- [wireframes](https://www.figma.com/file/rJgqXhmzwbCIQe8fPSpuv1/we-not-reddit?node-id=0%3A1)
+- [xdebug phpstorm](https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html#configuring-xdebug-vagrant)
+- [xdebug vscode](https://dev.to/jackmiras/xdebug-in-vscode-with-docker-379l)
 - []()
 - []()
 - []()
-- []()
-- []()
-- []()
-
-echo "xdebug.client_host = host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

@@ -50,26 +50,26 @@ class PostService {
   }
 
   public static function findOneByUid(string $postId) {
-
-
     $post = PostQuery::create()->findOneByUid($postId);
+    $votes = VoteService::getVotesForPost($post->getId());
     $comments = CommentQuery::create()->findByPostid($post->getId());
-    $votesCount = VoteQuery::create()->findByPostid($post->getId())->count();
-    $votesUp = VoteQuery::create()->filterByVote(1)->findByPostid($post->getId())->count();
-    $votes = VoteQuery::create()->findByPostid($post->getId());
-    $voting = 1;
-    foreach ($votes as &$vote) {
-      $voting += $vote->getVote();
-    }
+//    $votesCount = VoteQuery::create()->findByPostid($post->getId())->count();
+//    $votesUp = VoteQuery::create()->filterByVote(1)->findByPostid($post->getId())->count();
+//    $votes = VoteQuery::create()->findByPostid($post->getId());
+//    $voting = 1;
+//    foreach ($votes as &$vote) {
+//      $voting += $vote->getVote();
+//    }
     return [
         "post" => $post->toArray(),
         "comments" => $comments->toArray(),
-        "votes" => [
-            "voting" => $voting,
-            "count" => $votesCount,
-            "up" => $votesUp,
-            "down" => $votesCount - $votesUp
-        ]
+        "votes" => $votes
+//        "votes" => [
+//            "voting" => $voting,
+//            "count" => $votesCount,
+//            "up" => $votesUp,
+//            "down" => $votesCount - $votesUp
+//        ]
     ];
   }
 }

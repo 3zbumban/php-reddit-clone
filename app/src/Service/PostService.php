@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
 class PostService
 {
 
-  public static function createPost(string $title, string $text, string $userId, string $threadId)
+  public static function createPost(string $title, string $text, string $userId, string $threadId): array
   {
     $thread = ThreadQuery::create()->findOneByUid($threadId);
     $user = UserQuery::create()->findOneById($userId);
@@ -34,27 +34,26 @@ class PostService
     }
   }
 
-  public static function findPostsByThreadId(string $threadId)
+  public static function findPostsByThreadId(string $threadId): array
   {
     $posts = PostQuery::create()->findByThreadid($threadId);
     $response = [];
     foreach ($posts as &$post) {
-//      $comments = CommentQuery::create()->findByPostid($post->getId());
       $comments = CommentService::getCommentsForPost($post->getId());
       $votes = VoteService::getVotesForPost($post->getId());
-      $tmp = [
+
+      $response[] = [
           "post" => $post->toArray(),
           "thread" => $post->getThread()->toArray(),
           "username" => $post->getUser()->getUsername(),
           "votes" => $votes,
           "comments" => $comments
       ];
-      array_push($response, (object)$tmp);
     }
     return $response;
   }
 
-  public static function findOneByUid(string $postId)
+  public static function findOneByUid(string $postId): array
   {
     $post = PostQuery::create()->findOneByUid($postId);
     $votes = VoteService::getVotesForPost($post->getId());

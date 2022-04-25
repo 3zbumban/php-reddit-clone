@@ -37,14 +37,14 @@ class CommentService
     $response = [];
     foreach ($comments as &$comment) {
       $user = UserQuery::create()->findOneById($comment->getUserid());
-      array_push($response, (object) array(
-         "text" => $comment->getText(),
+      $response[] = array(
+          "text" => $comment->getText(),
           "uid" => $comment->getUid(),
           "user" => [
               "username" => $user->getUsername()
           ],
           "createdAt" => $comment->getCreatedat()
-      ));
+      );
     }
     return $response;
   }

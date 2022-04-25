@@ -10,9 +10,12 @@ use Model\Post as ChildPost;
 use Model\PostQuery as ChildPostQuery;
 use Model\User as ChildUser;
 use Model\UserQuery as ChildUserQuery;
+use Model\Vote as ChildVote;
+use Model\VoteQuery as ChildVoteQuery;
 use Model\Map\CommentTableMap;
 use Model\Map\PostTableMap;
 use Model\Map\UserTableMap;
+use Model\Map\VoteTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
@@ -115,6 +118,13 @@ abstract class User implements ActiveRecordInterface
     protected $collCommentsPartial;
 
     /**
+     * @var        ObjectCollection|ChildVote[] Collection to store aggregation of ChildVote objects.
+     * @phpstan-var ObjectCollection&\Traversable<ChildVote> Collection to store aggregation of ChildVote objects.
+     */
+    protected $collVotes;
+    protected $collVotesPartial;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
@@ -152,6 +162,13 @@ abstract class User implements ActiveRecordInterface
      * @phpstan-var ObjectCollection&\Traversable<ChildComment>
      */
     protected $commentsScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildVote[]
+     * @phpstan-var ObjectCollection&\Traversable<ChildVote>
+     */
+    protected $votesScheduledForDeletion = null;
 
     /**
      * Initializes internal state of Model\Base\User object.
@@ -585,6 +602,8 @@ abstract class User implements ActiveRecordInterface
 
             $this->collComments = null;
 
+            $this->collVotes = null;
+
         } // if (deep)
     }
 
@@ -727,6 +746,23 @@ abstract class User implements ActiveRecordInterface
 
             if ($this->collComments !== null) {
                 foreach ($this->collComments as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->votesScheduledForDeletion !== null) {
+                if (!$this->votesScheduledForDeletion->isEmpty()) {
+                    \Model\VoteQuery::create()
+                        ->filterByPrimaryKeys($this->votesScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->votesScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collVotes !== null) {
+                foreach ($this->collVotes as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -926,6 +962,21 @@ abstract class User implements ActiveRecordInterface
                 }
 
                 $result[$key] = $this->collComments->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collVotes) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'votes';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'votes';
+                        break;
+                    default:
+                        $key = 'Votes';
+                }
+
+                $result[$key] = $this->collVotes->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1167,6 +1218,12 @@ abstract class User implements ActiveRecordInterface
                 }
             }
 
+            foreach ($this->getVotes() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addVote($relObj->copy($deepCopy));
+                }
+            }
+
         } // if ($deepCopy)
 
         if ($makeNew) {
@@ -1214,6 +1271,10 @@ abstract class User implements ActiveRecordInterface
         }
         if ('Comment' === $relationName) {
             $this->initComments();
+            return;
+        }
+        if ('Vote' === $relationName) {
+            $this->initVotes();
             return;
         }
     }
@@ -1745,6 +1806,269 @@ abstract class User implements ActiveRecordInterface
     }
 
     /**
+     * Clears out the collVotes collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return $this
+     * @see addVotes()
+     */
+    public function clearVotes()
+    {
+        $this->collVotes = null; // important to set this to NULL since that means it is uninitialized
+
+        return $this;
+    }
+
+    /**
+     * Reset is the collVotes collection loaded partially.
+     */
+    public function resetPartialVotes($v = true)
+    {
+        $this->collVotesPartial = $v;
+    }
+
+    /**
+     * Initializes the collVotes collection.
+     *
+     * By default this just sets the collVotes collection to an empty array (like clearcollVotes());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param bool $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initVotes(bool $overrideExisting = true): void
+    {
+        if (null !== $this->collVotes && !$overrideExisting) {
+            return;
+        }
+
+        $collectionClassName = VoteTableMap::getTableMap()->getCollectionClassName();
+
+        $this->collVotes = new $collectionClassName;
+        $this->collVotes->setModel('\Model\Vote');
+    }
+
+    /**
+     * Gets an array of ChildVote objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildUser is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildVote[] List of ChildVote objects
+     * @phpstan-return ObjectCollection&\Traversable<ChildVote> List of ChildVote objects
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function getVotes(?Criteria $criteria = null, ?ConnectionInterface $con = null)
+    {
+        $partial = $this->collVotesPartial && !$this->isNew();
+        if (null === $this->collVotes || null !== $criteria || $partial) {
+            if ($this->isNew()) {
+                // return empty collection
+                if (null === $this->collVotes) {
+                    $this->initVotes();
+                } else {
+                    $collectionClassName = VoteTableMap::getTableMap()->getCollectionClassName();
+
+                    $collVotes = new $collectionClassName;
+                    $collVotes->setModel('\Model\Vote');
+
+                    return $collVotes;
+                }
+            } else {
+                $collVotes = ChildVoteQuery::create(null, $criteria)
+                    ->filterByUser($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collVotesPartial && count($collVotes)) {
+                        $this->initVotes(false);
+
+                        foreach ($collVotes as $obj) {
+                            if (false == $this->collVotes->contains($obj)) {
+                                $this->collVotes->append($obj);
+                            }
+                        }
+
+                        $this->collVotesPartial = true;
+                    }
+
+                    return $collVotes;
+                }
+
+                if ($partial && $this->collVotes) {
+                    foreach ($this->collVotes as $obj) {
+                        if ($obj->isNew()) {
+                            $collVotes[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collVotes = $collVotes;
+                $this->collVotesPartial = false;
+            }
+        }
+
+        return $this->collVotes;
+    }
+
+    /**
+     * Sets a collection of ChildVote objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param Collection $votes A Propel collection.
+     * @param ConnectionInterface $con Optional connection object
+     * @return $this The current object (for fluent API support)
+     */
+    public function setVotes(Collection $votes, ?ConnectionInterface $con = null)
+    {
+        /** @var ChildVote[] $votesToDelete */
+        $votesToDelete = $this->getVotes(new Criteria(), $con)->diff($votes);
+
+
+        $this->votesScheduledForDeletion = $votesToDelete;
+
+        foreach ($votesToDelete as $voteRemoved) {
+            $voteRemoved->setUser(null);
+        }
+
+        $this->collVotes = null;
+        foreach ($votes as $vote) {
+            $this->addVote($vote);
+        }
+
+        $this->collVotes = $votes;
+        $this->collVotesPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Vote objects.
+     *
+     * @param Criteria $criteria
+     * @param bool $distinct
+     * @param ConnectionInterface $con
+     * @return int Count of related Vote objects.
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function countVotes(?Criteria $criteria = null, bool $distinct = false, ?ConnectionInterface $con = null): int
+    {
+        $partial = $this->collVotesPartial && !$this->isNew();
+        if (null === $this->collVotes || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collVotes) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getVotes());
+            }
+
+            $query = ChildVoteQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByUser($this)
+                ->count($con);
+        }
+
+        return count($this->collVotes);
+    }
+
+    /**
+     * Method called to associate a ChildVote object to this object
+     * through the ChildVote foreign key attribute.
+     *
+     * @param ChildVote $l ChildVote
+     * @return $this The current object (for fluent API support)
+     */
+    public function addVote(ChildVote $l)
+    {
+        if ($this->collVotes === null) {
+            $this->initVotes();
+            $this->collVotesPartial = true;
+        }
+
+        if (!$this->collVotes->contains($l)) {
+            $this->doAddVote($l);
+
+            if ($this->votesScheduledForDeletion and $this->votesScheduledForDeletion->contains($l)) {
+                $this->votesScheduledForDeletion->remove($this->votesScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildVote $vote The ChildVote object to add.
+     */
+    protected function doAddVote(ChildVote $vote)
+    {
+        $this->collVotes[]= $vote;
+        $vote->setUser($this);
+    }
+
+    /**
+     * @param ChildVote $vote The ChildVote object to remove.
+     * @return $this The current object (for fluent API support)
+     */
+    public function removeVote(ChildVote $vote)
+    {
+        if ($this->getVotes()->contains($vote)) {
+            $pos = $this->collVotes->search($vote);
+            $this->collVotes->remove($pos);
+            if (null === $this->votesScheduledForDeletion) {
+                $this->votesScheduledForDeletion = clone $this->collVotes;
+                $this->votesScheduledForDeletion->clear();
+            }
+            $this->votesScheduledForDeletion[]= clone $vote;
+            $vote->setUser(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this User is new, it will return
+     * an empty collection; or if this User has previously
+     * been saved, it will retrieve related Votes from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in User.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param ConnectionInterface $con optional connection object
+     * @param string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildVote[] List of ChildVote objects
+     * @phpstan-return ObjectCollection&\Traversable<ChildVote}> List of ChildVote objects
+     */
+    public function getVotesJoinPost(?Criteria $criteria = null, ?ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildVoteQuery::create(null, $criteria);
+        $query->joinWith('Post', $joinBehavior);
+
+        return $this->getVotes($query, $con);
+    }
+
+    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
@@ -1787,10 +2111,16 @@ abstract class User implements ActiveRecordInterface
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collVotes) {
+                foreach ($this->collVotes as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
         $this->collPosts = null;
         $this->collComments = null;
+        $this->collVotes = null;
         return $this;
     }
 
@@ -1857,6 +2187,15 @@ abstract class User implements ActiveRecordInterface
             }
             if (null !== $this->collComments) {
                 foreach ($this->collComments as $referrerFK) {
+                    if (method_exists($referrerFK, 'validate')) {
+                        if (!$referrerFK->validate($validator)) {
+                            $failureMap->addAll($referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+            }
+            if (null !== $this->collVotes) {
+                foreach ($this->collVotes as $referrerFK) {
                     if (method_exists($referrerFK, 'validate')) {
                         if (!$referrerFK->validate($validator)) {
                             $failureMap->addAll($referrerFK->getValidationFailures());

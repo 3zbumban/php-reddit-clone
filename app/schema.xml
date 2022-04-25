@@ -51,4 +51,18 @@
 			<reference local="userId" foreign="id" />
 		</foreign-key>
 	</table>
+
+	<table name="vote" phpName="Vote">
+		<column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="vote" type="char" size="5" required="true"/>
+		<column name="on" type="integer" required="true" />
+		<column name="userId" type="integer" required="true" />
+
+		<foreign-key foreignTable="post">
+			<reference local="on" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="user">
+			<reference local="userId" foreign="id"/>
+		</foreign-key>
+	</table>
 </database>

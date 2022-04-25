@@ -74,7 +74,17 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildPostQuery rightJoinWithComment() Adds a RIGHT JOIN clause and with to the query using the Comment relation
  * @method     ChildPostQuery innerJoinWithComment() Adds a INNER JOIN clause and with to the query using the Comment relation
  *
- * @method     \Model\UserQuery|\Model\ThreadQuery|\Model\CommentQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     ChildPostQuery leftJoinVote($relationAlias = null) Adds a LEFT JOIN clause to the query using the Vote relation
+ * @method     ChildPostQuery rightJoinVote($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Vote relation
+ * @method     ChildPostQuery innerJoinVote($relationAlias = null) Adds a INNER JOIN clause to the query using the Vote relation
+ *
+ * @method     ChildPostQuery joinWithVote($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Vote relation
+ *
+ * @method     ChildPostQuery leftJoinWithVote() Adds a LEFT JOIN clause and with to the query using the Vote relation
+ * @method     ChildPostQuery rightJoinWithVote() Adds a RIGHT JOIN clause and with to the query using the Vote relation
+ * @method     ChildPostQuery innerJoinWithVote() Adds a INNER JOIN clause and with to the query using the Vote relation
+ *
+ * @method     \Model\UserQuery|\Model\ThreadQuery|\Model\CommentQuery|\Model\VoteQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildPost|null findOne(?ConnectionInterface $con = null) Return the first ChildPost matching the query
  * @method     ChildPost findOneOrCreate(?ConnectionInterface $con = null) Return the first ChildPost matching the query, or a new ChildPost object populated from the query conditions when no match is found
@@ -968,6 +978,138 @@ abstract class PostQuery extends ModelCriteria
     public function useCommentNotExistsQuery($modelAlias = null, $queryClass = null)
     {
         return $this->useExistsQuery('Comment', $modelAlias, $queryClass, 'NOT EXISTS');
+    }
+    /**
+     * Filter the query by a related \Model\Vote object
+     *
+     * @param \Model\Vote|ObjectCollection $vote the related object to use as filter
+     * @param string|null $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this The current query, for fluid interface
+     */
+    public function filterByVote($vote, ?string $comparison = null)
+    {
+        if ($vote instanceof \Model\Vote) {
+            $this
+                ->addUsingAlias(PostTableMap::COL_ID, $vote->getOn(), $comparison);
+
+            return $this;
+        } elseif ($vote instanceof ObjectCollection) {
+            $this
+                ->useVoteQuery()
+                ->filterByPrimaryKeys($vote->getPrimaryKeys())
+                ->endUse();
+
+            return $this;
+        } else {
+            throw new PropelException('filterByVote() only accepts arguments of type \Model\Vote or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Vote relation
+     *
+     * @param string|null $relationAlias Optional alias for the relation
+     * @param string|null $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this The current query, for fluid interface
+     */
+    public function joinVote(?string $relationAlias = null, ?string $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Vote');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Vote');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Vote relation Vote object
+     *
+     * @see useQuery()
+     *
+     * @param string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Model\VoteQuery A secondary query class using the current class as primary query
+     */
+    public function useVoteQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinVote($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Vote', '\Model\VoteQuery');
+    }
+
+    /**
+     * Use the Vote relation Vote object
+     *
+     * @param callable(\Model\VoteQuery):\Model\VoteQuery $callable A function working on the related query
+     *
+     * @param string|null $relationAlias optional alias for the relation
+     *
+     * @param string|null $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this
+     */
+    public function withVoteQuery(
+        callable $callable,
+        string $relationAlias = null,
+        ?string $joinType = Criteria::INNER_JOIN
+    ) {
+        $relatedQuery = $this->useVoteQuery(
+            $relationAlias,
+            $joinType
+        );
+        $callable($relatedQuery);
+        $relatedQuery->endUse();
+
+        return $this;
+    }
+    /**
+     * Use the relation to Vote table for an EXISTS query.
+     *
+     * @see \Propel\Runtime\ActiveQuery\ModelCriteria::useExistsQuery()
+     *
+     * @param string|null $queryClass Allows to use a custom query class for the exists query, like ExtendedBookQuery::class
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string $typeOfExists Either ExistsCriterion::TYPE_EXISTS or ExistsCriterion::TYPE_NOT_EXISTS
+     *
+     * @return \Model\VoteQuery The inner query object of the EXISTS statement
+     */
+    public function useVoteExistsQuery($modelAlias = null, $queryClass = null, $typeOfExists = 'EXISTS')
+    {
+        return $this->useExistsQuery('Vote', $modelAlias, $queryClass, $typeOfExists);
+    }
+
+    /**
+     * Use the relation to Vote table for a NOT EXISTS query.
+     *
+     * @see useVoteExistsQuery()
+     *
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string|null $queryClass Allows to use a custom query class for the exists query, like ExtendedBookQuery::class
+     *
+     * @return \Model\VoteQuery The inner query object of the NOT EXISTS statement
+     */
+    public function useVoteNotExistsQuery($modelAlias = null, $queryClass = null)
+    {
+        return $this->useExistsQuery('Vote', $modelAlias, $queryClass, 'NOT EXISTS');
     }
     /**
      * Exclude object from result

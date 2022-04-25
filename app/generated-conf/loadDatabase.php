@@ -7,5 +7,6 @@ $serviceContainer->initDatabaseMaps(array (
     1 => '\\Model\\Map\\PostTableMap',
     2 => '\\Model\\Map\\ThreadTableMap',
     3 => '\\Model\\Map\\UserTableMap',
+    4 => '\\Model\\Map\\VoteTableMap',
   ),
 ));

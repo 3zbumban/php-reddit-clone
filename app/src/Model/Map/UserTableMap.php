@@ -191,6 +191,13 @@ class UserTableMap extends TableMap
     1 => ':id',
   ),
 ), null, null, 'Comments', false);
+        $this->addRelation('Vote', '\\Model\\Vote', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':userId',
+    1 => ':id',
+  ),
+), null, null, 'Votes', false);
     }
 
     /**

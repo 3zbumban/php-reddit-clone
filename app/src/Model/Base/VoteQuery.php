@@ -22,12 +22,12 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildVoteQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildVoteQuery orderByVote($order = Criteria::ASC) Order by the vote column
- * @method     ChildVoteQuery orderByOn($order = Criteria::ASC) Order by the on column
+ * @method     ChildVoteQuery orderByPostid($order = Criteria::ASC) Order by the postId column
  * @method     ChildVoteQuery orderByUserid($order = Criteria::ASC) Order by the userId column
  *
  * @method     ChildVoteQuery groupById() Group by the id column
  * @method     ChildVoteQuery groupByVote() Group by the vote column
- * @method     ChildVoteQuery groupByOn() Group by the on column
+ * @method     ChildVoteQuery groupByPostid() Group by the postId column
  * @method     ChildVoteQuery groupByUserid() Group by the userId column
  *
  * @method     ChildVoteQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
@@ -65,7 +65,7 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildVote|null findOneById(int $id) Return the first ChildVote filtered by the id column
  * @method     ChildVote|null findOneByVote(int $vote) Return the first ChildVote filtered by the vote column
- * @method     ChildVote|null findOneByOn(int $on) Return the first ChildVote filtered by the on column
+ * @method     ChildVote|null findOneByPostid(int $postId) Return the first ChildVote filtered by the postId column
  * @method     ChildVote|null findOneByUserid(int $userId) Return the first ChildVote filtered by the userId column *
 
  * @method     ChildVote requirePk($key, ?ConnectionInterface $con = null) Return the ChildVote by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -73,7 +73,7 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildVote requireOneById(int $id) Return the first ChildVote filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildVote requireOneByVote(int $vote) Return the first ChildVote filtered by the vote column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildVote requireOneByOn(int $on) Return the first ChildVote filtered by the on column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildVote requireOneByPostid(int $postId) Return the first ChildVote filtered by the postId column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildVote requireOneByUserid(int $userId) Return the first ChildVote filtered by the userId column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildVote[]|ObjectCollection find(?ConnectionInterface $con = null) Return ChildVote objects based on current ModelCriteria
@@ -82,8 +82,8 @@ use Propel\Runtime\Exception\PropelException;
  * @psalm-method ObjectCollection&\Traversable<ChildVote> findById(int $id) Return ChildVote objects filtered by the id column
  * @method     ChildVote[]|ObjectCollection findByVote(int $vote) Return ChildVote objects filtered by the vote column
  * @psalm-method ObjectCollection&\Traversable<ChildVote> findByVote(int $vote) Return ChildVote objects filtered by the vote column
- * @method     ChildVote[]|ObjectCollection findByOn(int $on) Return ChildVote objects filtered by the on column
- * @psalm-method ObjectCollection&\Traversable<ChildVote> findByOn(int $on) Return ChildVote objects filtered by the on column
+ * @method     ChildVote[]|ObjectCollection findByPostid(int $postId) Return ChildVote objects filtered by the postId column
+ * @psalm-method ObjectCollection&\Traversable<ChildVote> findByPostid(int $postId) Return ChildVote objects filtered by the postId column
  * @method     ChildVote[]|ObjectCollection findByUserid(int $userId) Return ChildVote objects filtered by the userId column
  * @psalm-method ObjectCollection&\Traversable<ChildVote> findByUserid(int $userId) Return ChildVote objects filtered by the userId column
  * @method     ChildVote[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ?ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -185,7 +185,7 @@ abstract class VoteQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, vote, on, userId FROM vote WHERE id = :p0';
+        $sql = 'SELECT id, vote, postId, userId FROM vote WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -366,18 +366,18 @@ abstract class VoteQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the on column
+     * Filter the query on the postId column
      *
      * Example usage:
      * <code>
-     * $query->filterByOn(1234); // WHERE on = 1234
-     * $query->filterByOn(array(12, 34)); // WHERE on IN (12, 34)
-     * $query->filterByOn(array('min' => 12)); // WHERE on > 12
+     * $query->filterByPostid(1234); // WHERE postId = 1234
+     * $query->filterByPostid(array(12, 34)); // WHERE postId IN (12, 34)
+     * $query->filterByPostid(array('min' => 12)); // WHERE postId > 12
      * </code>
      *
      * @see       filterByPost()
      *
-     * @param mixed $on The value to use as filter.
+     * @param mixed $postid The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -385,16 +385,16 @@ abstract class VoteQuery extends ModelCriteria
      *
      * @return $this The current query, for fluid interface
      */
-    public function filterByOn($on = null, ?string $comparison = null)
+    public function filterByPostid($postid = null, ?string $comparison = null)
     {
-        if (is_array($on)) {
+        if (is_array($postid)) {
             $useMinMax = false;
-            if (isset($on['min'])) {
-                $this->addUsingAlias(VoteTableMap::COL_ON, $on['min'], Criteria::GREATER_EQUAL);
+            if (isset($postid['min'])) {
+                $this->addUsingAlias(VoteTableMap::COL_POSTID, $postid['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($on['max'])) {
-                $this->addUsingAlias(VoteTableMap::COL_ON, $on['max'], Criteria::LESS_EQUAL);
+            if (isset($postid['max'])) {
+                $this->addUsingAlias(VoteTableMap::COL_POSTID, $postid['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -405,7 +405,7 @@ abstract class VoteQuery extends ModelCriteria
             }
         }
 
-        $this->addUsingAlias(VoteTableMap::COL_ON, $on, $comparison);
+        $this->addUsingAlias(VoteTableMap::COL_POSTID, $postid, $comparison);
 
         return $this;
     }
@@ -469,14 +469,14 @@ abstract class VoteQuery extends ModelCriteria
     {
         if ($post instanceof \Model\Post) {
             return $this
-                ->addUsingAlias(VoteTableMap::COL_ON, $post->getId(), $comparison);
+                ->addUsingAlias(VoteTableMap::COL_POSTID, $post->getId(), $comparison);
         } elseif ($post instanceof ObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             $this
-                ->addUsingAlias(VoteTableMap::COL_ON, $post->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(VoteTableMap::COL_POSTID, $post->toKeyValue('PrimaryKey', 'Id'), $comparison);
 
             return $this;
         } else {

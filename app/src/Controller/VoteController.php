@@ -10,8 +10,8 @@ class VoteController
 {
   public function vote(RequestInterface $req, ResponseInterface $res) {
     $vote = $req->getQueryParams()["vote"];
-    $postId = $req->getQueryParams()["postId"];
-    $userId = $req->getQueryParams()["userId"];
+    $postId = (int) $req->getQueryParams()["postId"];
+    $userId = (int) $req->getQueryParams()["userId"];
 
     $voteType = $vote === "up" ? 1 : -1;
 
@@ -19,6 +19,11 @@ class VoteController
 
     $res->setStatusCode(200);
     $res->setBody($voted);
+//    $res->setBody([
+//      "vote" => $voteType,
+//      "postId" => $postId,
+//      "userId" => $userId
+//    ]);
     $res->json();
   }
 }

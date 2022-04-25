@@ -255,7 +255,7 @@ class PostTableMap extends TableMap
         $this->addRelation('Vote', '\\Model\\Vote', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (
-    0 => ':on',
+    0 => ':postId',
     1 => ':id',
   ),
 ), null, null, 'Votes', false);

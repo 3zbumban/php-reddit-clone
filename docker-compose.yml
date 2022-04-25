@@ -29,15 +29,15 @@ services:
     ports:
       - 3306:3306
 
-  mongodb:
-    image: mongo:latest
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "mongouser"
-      MONGO_INITDB_ROOT_PASSWORD: "mongopassword123"
-    volumes:
-      - ./mongodata:/data/db
-    ports:
-      - 27017:27017
+  # mongodb:
+  #   image: mongo:latest
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: "mongouser"
+  #     MONGO_INITDB_ROOT_PASSWORD: "mongopassword123"
+  #   volumes:
+  #     - ./mongodata:/data/db
+  #   ports:
+  #     - 27017:27017
 
 
 # to not store with project

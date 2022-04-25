@@ -991,7 +991,7 @@ abstract class PostQuery extends ModelCriteria
     {
         if ($vote instanceof \Model\Vote) {
             $this
-                ->addUsingAlias(PostTableMap::COL_ID, $vote->getOn(), $comparison);
+                ->addUsingAlias(PostTableMap::COL_ID, $vote->getPostid(), $comparison);
 
             return $this;
         } elseif ($vote instanceof ObjectCollection) {

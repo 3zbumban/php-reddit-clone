@@ -36,4 +36,8 @@ class PostController
     $res->json();
   }
 
+  public function get(RequestInterface $req, ResponseInterface $res) {
+    $postId = $req->getQueryParams()["postId"];
+    echo $postId;
+  }
 }

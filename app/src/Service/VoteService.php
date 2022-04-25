@@ -17,16 +17,16 @@ class VoteService
     $vote->setVote($voteType);
 
     try {
-      $vote->setUser($user);
       $vote->setPost($post);
-//      $vote->save();
+      $vote->setUser($user);
+      $vote->save();
       return [
           "post" => $post->toArray(),
           "user" => $user->toArray(),
           "vote" => $vote->toArray()
       ];
     } catch (\Exception $exception) {
-      echo $exception->getTraceAsString();
+//      echo $exception->getLine();
       throw new \Exception("could not vote");
     }
   }

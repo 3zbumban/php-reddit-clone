@@ -81,9 +81,9 @@ class VoteTableMap extends TableMap
     public const COL_VOTE = 'vote.vote';
 
     /**
-     * the column name for the on field
+     * the column name for the postId field
      */
-    public const COL_ON = 'vote.on';
+    public const COL_POSTID = 'vote.postId';
 
     /**
      * the column name for the userId field
@@ -104,10 +104,10 @@ class VoteTableMap extends TableMap
      * @var array<string, mixed>
      */
     protected static $fieldNames = [
-        self::TYPE_PHPNAME       => ['Id', 'Vote', 'On', 'Userid', ],
-        self::TYPE_CAMELNAME     => ['id', 'vote', 'on', 'userid', ],
-        self::TYPE_COLNAME       => [VoteTableMap::COL_ID, VoteTableMap::COL_VOTE, VoteTableMap::COL_ON, VoteTableMap::COL_USERID, ],
-        self::TYPE_FIELDNAME     => ['id', 'vote', 'on', 'userId', ],
+        self::TYPE_PHPNAME       => ['Id', 'Vote', 'Postid', 'Userid', ],
+        self::TYPE_CAMELNAME     => ['id', 'vote', 'postid', 'userid', ],
+        self::TYPE_COLNAME       => [VoteTableMap::COL_ID, VoteTableMap::COL_VOTE, VoteTableMap::COL_POSTID, VoteTableMap::COL_USERID, ],
+        self::TYPE_FIELDNAME     => ['id', 'vote', 'postId', 'userId', ],
         self::TYPE_NUM           => [0, 1, 2, 3, ]
     ];
 
@@ -120,10 +120,10 @@ class VoteTableMap extends TableMap
      * @var array<string, mixed>
      */
     protected static $fieldKeys = [
-        self::TYPE_PHPNAME       => ['Id' => 0, 'Vote' => 1, 'On' => 2, 'Userid' => 3, ],
-        self::TYPE_CAMELNAME     => ['id' => 0, 'vote' => 1, 'on' => 2, 'userid' => 3, ],
-        self::TYPE_COLNAME       => [VoteTableMap::COL_ID => 0, VoteTableMap::COL_VOTE => 1, VoteTableMap::COL_ON => 2, VoteTableMap::COL_USERID => 3, ],
-        self::TYPE_FIELDNAME     => ['id' => 0, 'vote' => 1, 'on' => 2, 'userId' => 3, ],
+        self::TYPE_PHPNAME       => ['Id' => 0, 'Vote' => 1, 'Postid' => 2, 'Userid' => 3, ],
+        self::TYPE_CAMELNAME     => ['id' => 0, 'vote' => 1, 'postid' => 2, 'userid' => 3, ],
+        self::TYPE_COLNAME       => [VoteTableMap::COL_ID => 0, VoteTableMap::COL_VOTE => 1, VoteTableMap::COL_POSTID => 2, VoteTableMap::COL_USERID => 3, ],
+        self::TYPE_FIELDNAME     => ['id' => 0, 'vote' => 1, 'postId' => 2, 'userId' => 3, ],
         self::TYPE_NUM           => [0, 1, 2, 3, ]
     ];
 
@@ -145,12 +145,14 @@ class VoteTableMap extends TableMap
         'vote.vote' => 'VOTE',
         'VoteTableMap::COL_VOTE' => 'VOTE',
         'COL_VOTE' => 'VOTE',
-        'On' => 'ON',
-        'Vote.On' => 'ON',
-        'on' => 'ON',
-        'vote.on' => 'ON',
-        'VoteTableMap::COL_ON' => 'ON',
-        'COL_ON' => 'ON',
+        'Postid' => 'POSTID',
+        'Vote.Postid' => 'POSTID',
+        'postid' => 'POSTID',
+        'vote.postid' => 'POSTID',
+        'VoteTableMap::COL_POSTID' => 'POSTID',
+        'COL_POSTID' => 'POSTID',
+        'postId' => 'POSTID',
+        'vote.postId' => 'POSTID',
         'Userid' => 'USERID',
         'Vote.Userid' => 'USERID',
         'userid' => 'USERID',
@@ -180,7 +182,7 @@ class VoteTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('vote', 'Vote', 'INTEGER', true, null, null);
-        $this->addForeignKey('on', 'On', 'INTEGER', 'post', 'id', true, null, null);
+        $this->addForeignKey('postId', 'Postid', 'INTEGER', 'post', 'id', true, null, null);
         $this->addForeignKey('userId', 'Userid', 'INTEGER', 'user', 'id', true, null, null);
     }
 
@@ -194,7 +196,7 @@ class VoteTableMap extends TableMap
         $this->addRelation('Post', '\\Model\\Post', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
-    0 => ':on',
+    0 => ':postId',
     1 => ':id',
   ),
 ), null, null, null, false);
@@ -351,12 +353,12 @@ class VoteTableMap extends TableMap
         if (null === $alias) {
             $criteria->addSelectColumn(VoteTableMap::COL_ID);
             $criteria->addSelectColumn(VoteTableMap::COL_VOTE);
-            $criteria->addSelectColumn(VoteTableMap::COL_ON);
+            $criteria->addSelectColumn(VoteTableMap::COL_POSTID);
             $criteria->addSelectColumn(VoteTableMap::COL_USERID);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.vote');
-            $criteria->addSelectColumn($alias . '.on');
+            $criteria->addSelectColumn($alias . '.postId');
             $criteria->addSelectColumn($alias . '.userId');
         }
     }
@@ -378,12 +380,12 @@ class VoteTableMap extends TableMap
         if (null === $alias) {
             $criteria->removeSelectColumn(VoteTableMap::COL_ID);
             $criteria->removeSelectColumn(VoteTableMap::COL_VOTE);
-            $criteria->removeSelectColumn(VoteTableMap::COL_ON);
+            $criteria->removeSelectColumn(VoteTableMap::COL_POSTID);
             $criteria->removeSelectColumn(VoteTableMap::COL_USERID);
         } else {
             $criteria->removeSelectColumn($alias . '.id');
             $criteria->removeSelectColumn($alias . '.vote');
-            $criteria->removeSelectColumn($alias . '.on');
+            $criteria->removeSelectColumn($alias . '.postId');
             $criteria->removeSelectColumn($alias . '.userId');
         }
     }

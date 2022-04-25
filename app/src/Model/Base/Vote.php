@@ -80,11 +80,11 @@ abstract class Vote implements ActiveRecordInterface
     protected $vote;
 
     /**
-     * The value for the on field.
+     * The value for the postid field.
      *
      * @var        int
      */
-    protected $on;
+    protected $postid;
 
     /**
      * The value for the userid field.
@@ -356,13 +356,13 @@ abstract class Vote implements ActiveRecordInterface
     }
 
     /**
-     * Get the [on] column value.
+     * Get the [postid] column value.
      *
      * @return int
      */
-    public function getOn()
+    public function getPostid()
     {
-        return $this->on;
+        return $this->postid;
     }
 
     /**
@@ -416,20 +416,20 @@ abstract class Vote implements ActiveRecordInterface
     }
 
     /**
-     * Set the value of [on] column.
+     * Set the value of [postid] column.
      *
      * @param int $v New value
      * @return $this The current object (for fluent API support)
      */
-    public function setOn($v)
+    public function setPostid($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->on !== $v) {
-            $this->on = $v;
-            $this->modifiedColumns[VoteTableMap::COL_ON] = true;
+        if ($this->postid !== $v) {
+            $this->postid = $v;
+            $this->modifiedColumns[VoteTableMap::COL_POSTID] = true;
         }
 
         if ($this->aPost !== null && $this->aPost->getId() !== $v) {
@@ -505,8 +505,8 @@ abstract class Vote implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : VoteTableMap::translateFieldName('Vote', TableMap::TYPE_PHPNAME, $indexType)];
             $this->vote = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : VoteTableMap::translateFieldName('On', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->on = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : VoteTableMap::translateFieldName('Postid', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->postid = (null !== $col) ? (int) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : VoteTableMap::translateFieldName('Userid', TableMap::TYPE_PHPNAME, $indexType)];
             $this->userid = (null !== $col) ? (int) $col : null;
@@ -541,7 +541,7 @@ abstract class Vote implements ActiveRecordInterface
      */
     public function ensureConsistency(): void
     {
-        if ($this->aPost !== null && $this->on !== $this->aPost->getId()) {
+        if ($this->aPost !== null && $this->postid !== $this->aPost->getId()) {
             $this->aPost = null;
         }
         if ($this->aUser !== null && $this->userid !== $this->aUser->getId()) {
@@ -753,8 +753,8 @@ abstract class Vote implements ActiveRecordInterface
         if ($this->isColumnModified(VoteTableMap::COL_VOTE)) {
             $modifiedColumns[':p' . $index++]  = 'vote';
         }
-        if ($this->isColumnModified(VoteTableMap::COL_ON)) {
-            $modifiedColumns[':p' . $index++]  = 'on';
+        if ($this->isColumnModified(VoteTableMap::COL_POSTID)) {
+            $modifiedColumns[':p' . $index++]  = 'postId';
         }
         if ($this->isColumnModified(VoteTableMap::COL_USERID)) {
             $modifiedColumns[':p' . $index++]  = 'userId';
@@ -776,8 +776,8 @@ abstract class Vote implements ActiveRecordInterface
                     case 'vote':
                         $stmt->bindValue($identifier, $this->vote, PDO::PARAM_INT);
                         break;
-                    case 'on':
-                        $stmt->bindValue($identifier, $this->on, PDO::PARAM_INT);
+                    case 'postId':
+                        $stmt->bindValue($identifier, $this->postid, PDO::PARAM_INT);
                         break;
                     case 'userId':
                         $stmt->bindValue($identifier, $this->userid, PDO::PARAM_INT);
@@ -851,7 +851,7 @@ abstract class Vote implements ActiveRecordInterface
                 return $this->getVote();
 
             case 2:
-                return $this->getOn();
+                return $this->getPostid();
 
             case 3:
                 return $this->getUserid();
@@ -886,7 +886,7 @@ abstract class Vote implements ActiveRecordInterface
         $result = [
             $keys[0] => $this->getId(),
             $keys[1] => $this->getVote(),
-            $keys[2] => $this->getOn(),
+            $keys[2] => $this->getPostid(),
             $keys[3] => $this->getUserid(),
         ];
         $virtualColumns = $this->virtualColumns;
@@ -968,7 +968,7 @@ abstract class Vote implements ActiveRecordInterface
                 $this->setVote($value);
                 break;
             case 2:
-                $this->setOn($value);
+                $this->setPostid($value);
                 break;
             case 3:
                 $this->setUserid($value);
@@ -1006,7 +1006,7 @@ abstract class Vote implements ActiveRecordInterface
             $this->setVote($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setOn($arr[$keys[2]]);
+            $this->setPostid($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
             $this->setUserid($arr[$keys[3]]);
@@ -1060,8 +1060,8 @@ abstract class Vote implements ActiveRecordInterface
         if ($this->isColumnModified(VoteTableMap::COL_VOTE)) {
             $criteria->add(VoteTableMap::COL_VOTE, $this->vote);
         }
-        if ($this->isColumnModified(VoteTableMap::COL_ON)) {
-            $criteria->add(VoteTableMap::COL_ON, $this->on);
+        if ($this->isColumnModified(VoteTableMap::COL_POSTID)) {
+            $criteria->add(VoteTableMap::COL_POSTID, $this->postid);
         }
         if ($this->isColumnModified(VoteTableMap::COL_USERID)) {
             $criteria->add(VoteTableMap::COL_USERID, $this->userid);
@@ -1155,7 +1155,7 @@ abstract class Vote implements ActiveRecordInterface
     public function copyInto(object $copyObj, bool $deepCopy = false, bool $makeNew = true): void
     {
         $copyObj->setVote($this->getVote());
-        $copyObj->setOn($this->getOn());
+        $copyObj->setPostid($this->getPostid());
         $copyObj->setUserid($this->getUserid());
         if ($makeNew) {
             $copyObj->setNew(true);
@@ -1195,9 +1195,9 @@ abstract class Vote implements ActiveRecordInterface
     public function setPost(ChildPost $v = null)
     {
         if ($v === null) {
-            $this->setOn(NULL);
+            $this->setPostid(NULL);
         } else {
-            $this->setOn($v->getId());
+            $this->setPostid($v->getId());
         }
 
         $this->aPost = $v;
@@ -1222,8 +1222,8 @@ abstract class Vote implements ActiveRecordInterface
      */
     public function getPost(?ConnectionInterface $con = null)
     {
-        if ($this->aPost === null && ($this->on != 0)) {
-            $this->aPost = ChildPostQuery::create()->findPk($this->on, $con);
+        if ($this->aPost === null && ($this->postid != 0)) {
+            $this->aPost = ChildPostQuery::create()->findPk($this->postid, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
@@ -1304,7 +1304,7 @@ abstract class Vote implements ActiveRecordInterface
         }
         $this->id = null;
         $this->vote = null;
-        $this->on = null;
+        $this->postid = null;
         $this->userid = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();

@@ -13,7 +13,9 @@ use Sem\Weben\Router;
 use Sem\Weben\Http\Request;
 use Sem\Weben\Http\Response;
 use Sem\Weben\Controller\ThreadController;
+use Sem\Weben\Controller\PostController;
 use Sem\Weben\Controller\UserController;
+use Sem\Weben\Controller\CommentController;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
@@ -26,6 +28,9 @@ $router->addRoute("POST", '/^\/auth\/signup$/', UserController::class, "signup")
 $router->addRoute("POST", '/^\/auth\/login$/', UserController::class, "login");
 $router->addRoute("POST", '/^\/thread\/?$/', ThreadController::class, "create");
 $router->addRoute("GET", '/^\/thread\/?$/', ThreadController::class, "list");
+$router->addRoute("POST", '/^\/post\/?$/', PostController::class, "create");
+$router->addRoute("GET", '/^\/post\/?/', PostController::class, "list");
+$router->addRoute("POST", '/^\/comment\/?/', CommentController::class, "create");
 // $router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
 // $router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
 // $router->addRoute("GET", '/^\/threads\/?/', ThreadController::class, "list");

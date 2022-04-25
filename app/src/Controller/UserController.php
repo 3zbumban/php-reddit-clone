@@ -20,9 +20,8 @@ class UserController {
   }
 
   public function signup(RequestInterface $req, ResponseInterface $res): void {
-    $body = $req->getBody();
-    $username = $body["username"];
-    $password = $body["password"];
+    $username = $req->getBody()["username"];
+    $password = $req->getBody()["password"];
 
     $user = UserService::createUser($username, $password);
 

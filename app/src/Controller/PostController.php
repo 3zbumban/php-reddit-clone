@@ -2,17 +2,38 @@
 
 namespace Sem\Weben\Controller;
 
+use Ramsey\Uuid\Uuid;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
+use Sem\Weben\Service\PostService;
 
-class PostController {
+class PostController
+{
 
-  public function find(RequestInterface $req, ResponseInterface $res): void {
-    // $res->json($req->getBody());
+  public function list(RequestInterface $req, ResponseInterface $res): void
+  {
+    $query = $req->getQueryParams();
+    $threadId = $query["threadId"];
+
+    $posts = PostService::findPostsByThreadId($threadId);
+    $res->setStatusCode(200);
+    $res->setBody($posts);
+    $res->json();
   }
 
-  public function create(RequestInterface $req, ResponseInterface $res): void {
-    // $res->json([]);
+  public function create(RequestInterface $req, ResponseInterface $res)
+  {
+    $body = $req->getBody();
+    $title = $body["title"];
+    $text = $body["text"];
+    $userUid = $body["userUid"];
+    $threadUid = $body["threadUid"];
+
+    $post = PostService::createPost($title, $text, $userUid, $threadUid);
+
+    $res->setStatusCode(200);
+    $res->setBody($post);
+    $res->json();
   }
 
 }

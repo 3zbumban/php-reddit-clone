@@ -1,17 +1,17 @@
 {
-    "propel": {
-        "database": {
-            "connections": {
-                "default": {
-                    "adapter": "mysql",
-                    "dsn": "mysql:host=mysql;port=3306;dbname=database_dev",
-                    "user": "root",
-                    "password": "toor",
-                    "settings": {
-                        "charset": "utf8"
-                    }
-                }
-            }
+  "propel": {
+    "database": {
+      "connections": {
+        "default": {
+          "adapter": "mysql",
+          "dsn": "mysql:host=mysql;port=3306;dbname=database_dev",
+          "user": "root",
+          "password": "toor",
+          "settings": {
+            "charset": "utf8"
+          }
         }
+      }
     }
+  }
 }

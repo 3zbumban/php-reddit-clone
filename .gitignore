@@ -1,5 +1,7 @@
 mysqldata/
+mongodata/
 app/vendor
 .env
 .idea
 .vscode
+*.drawio.bkp

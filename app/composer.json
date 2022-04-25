@@ -1,25 +1,27 @@
 {
-	"name": "sem/weben",
-	"type": "project",
-	"description": "trying to learn some php too",
-	"authors": [
-		{
-			"name": "sINFalseme"
-		}
-	],
-	"require": {
-		"php": "^7.4|^8.0",
-		"vlucas/phpdotenv": "^5.4",
-		"propel/propel": "~2.0@dev",
-		"ramsey/uuid": "^4.3",
-		"respect/validation": "^2.2",
-		"mongodb/mongodb": "^1.12",
-		"firebase/php-jwt": "^6.1"
-	},
-	"autoload": {
-		"psr-4": {
-			"Sem\\Weben\\": "src/"
-		},
-		"classmap": ["src/Model"]
-	}
+  "name": "sem/weben",
+  "type": "project",
+  "description": "trying to learn some php too",
+  "authors": [
+    {
+      "name": "sINFalseme"
+    }
+  ],
+  "require": {
+    "php": "^7.4|^8.0",
+    "vlucas/phpdotenv": "^5.4",
+    "propel/propel": "~2.0@dev",
+    "ramsey/uuid": "^4.3",
+    "respect/validation": "^2.2",
+    "mongodb/mongodb": "^1.12",
+    "firebase/php-jwt": "^6.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sem\\Weben\\": "src/"
+    },
+    "classmap": [
+      "src/Model"
+    ]
+  }
 }

@@ -2,10 +2,10 @@
 
 namespace Sem\Weben\Service;
 
+use Exception;
 use Model\User;
 use Model\UserQuery;
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
 class UserService
 {
@@ -28,7 +28,7 @@ class UserService
     $user->setPassword($passwordHash);
 
     if (!$user->validate()) {
-      throw new \Exception("Invalid user");
+      throw new Exception("Invalid user");
     } else {
       try {
         $user->save();
@@ -37,8 +37,8 @@ class UserService
             "userId" => $user->getId(),
             "jwt" => self::jwtSign($user->getUsername(), $user->getId())
         ];
-      } catch (\Exception $exception) {
-        throw new \Exception("could not save or sign user");
+      } catch (Exception $exception) {
+        throw new Exception("could not save or sign user");
       }
     }
   }
@@ -55,10 +55,10 @@ class UserService
             "jwt" => self::jwtSign($user->getUsername(), $user->getId())
         ];
       } else {
-        throw new \Exception("password incorrect");
+        throw new Exception("password incorrect");
       }
     } else {
-      throw new \Exception("user not found");
+      throw new Exception("user not found");
     }
   }
 }

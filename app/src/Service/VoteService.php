@@ -2,7 +2,7 @@
 
 namespace Sem\Weben\Service;
 
-use Model\Base\CommentQuery;
+use Exception;
 use Model\UserQuery;
 use Model\Vote;
 use Model\PostQuery;
@@ -30,12 +30,12 @@ class VoteService
             "user" => $user->toArray(),
             "vote" => $vote->toArray()
         ];
-      } catch (\Exception $exception) {
+      } catch (Exception $exception) {
 //      echo $exception->getLine();
-        throw new \Exception("could not vote");
+        throw new Exception("could not vote");
       }
     } else {
-      throw new \Exception("already voted");
+      throw new Exception("already voted");
     }
   }
 
@@ -46,7 +46,7 @@ class VoteService
     $votesUp = VoteQuery::create()->filterByVote(1)->findByPostid($post->getId())->count();
     $votes = VoteQuery::create()->findByPostid($post->getId());
     $voting = 1;
-    foreach ($votes as &$vote) {
+    foreach ($votes as $vote) {
       $voting += $vote->getVote();
     }
     return [

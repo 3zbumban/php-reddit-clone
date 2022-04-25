@@ -35,7 +35,7 @@ class CommentService
   public static function getCommentsForPost(int $postId) {
     $comments = CommentQuery::create()->findByPostid($postId);
     $response = [];
-    foreach ($comments as &$comment) {
+    foreach ($comments as $comment) {
       $user = UserQuery::create()->findOneById($comment->getUserid());
       $response[] = array(
           "text" => $comment->getText(),

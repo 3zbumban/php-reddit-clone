@@ -2,8 +2,6 @@
 
 namespace Sem\Weben\Controller;
 
-use Model\PostQuery;
-use Ramsey\Uuid\Uuid;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\PostService;

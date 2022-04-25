@@ -2,6 +2,7 @@
 
 namespace Sem\Weben\Service;
 
+use Exception;
 use Model\Thread;
 use Model\ThreadQuery;
 use Propel\Runtime\Collection\ObjectCollection;
@@ -12,7 +13,7 @@ class ThreadService
 {
 
   /**
-   * @throws \Exception
+   * @throws Exception
    */
   public static function createThread(string $name): Thread
   {
@@ -28,11 +29,11 @@ class ThreadService
       try {
         $thread->save();
         return $thread;
-      } catch (\Exception $exception) {
-        throw new \Exception("could not create thread");
+      } catch (Exception $exception) {
+        throw new Exception("could not create thread");
       }
     } else {
-      throw new \Exception("thread already exists");
+      throw new Exception("thread already exists");
     }
   }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sem\Weben;
 
+use Exception;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 
@@ -29,7 +30,7 @@ class Router
             $controller->$actionName($req, $res);
             return true;
           } else {
-            throw new \Exception(
+            throw new Exception(
                 sprintf(
                     'The "%s" controller does not exist of misses the action "%s"',
                     $controllerName,

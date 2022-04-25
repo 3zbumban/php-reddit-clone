@@ -2,6 +2,8 @@
 
 namespace Sem\Weben\Http;
 
+use Exception;
+
 class Response implements ResponseInterface
 {
   private mixed $body;
@@ -24,7 +26,7 @@ class Response implements ResponseInterface
       http_response_code($this->statusCode);
       echo json_encode($this->body);
     } else {
-      throw new \Exception('No body or status code set');
+      throw new Exception('No body or status code set');
     }
   }
 }

@@ -2,7 +2,8 @@
 
 namespace Sem\Weben\Service;
 
-use Model\Base\CommentQuery;
+use Exception;
+use JetBrains\PhpStorm\ArrayShape;
 use Model\Post;
 use Model\PostQuery;
 use Model\ThreadQuery;
@@ -29,8 +30,8 @@ class PostService
       $post->setUser($user);
       $post->save();
       return $post->toArray();
-    } catch (\Exception $exception) {
-      throw new \Exception("could not create post");
+    } catch (Exception $exception) {
+      throw new Exception("could not create post");
     }
   }
 
@@ -38,7 +39,7 @@ class PostService
   {
     $posts = PostQuery::create()->findByThreadid($threadId);
     $response = [];
-    foreach ($posts as &$post) {
+    foreach ($posts as $post) {
       $comments = CommentService::getCommentsForPost($post->getId());
       $votes = VoteService::getVotesForPost($post->getId());
 

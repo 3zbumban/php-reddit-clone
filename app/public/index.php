@@ -24,6 +24,8 @@ $router = new Router();
 
 $router->addRoute("POST", '/^\/auth\/signup$/', UserController::class, "signup");
 $router->addRoute("POST", '/^\/auth\/login$/', UserController::class, "login");
+$router->addRoute("POST", '/^\/thread\/?$/', ThreadController::class, "create");
+$router->addRoute("GET", '/^\/thread\/?$/', ThreadController::class, "list");
 // $router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
 // $router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
 // $router->addRoute("GET", '/^\/threads\/?/', ThreadController::class, "list");

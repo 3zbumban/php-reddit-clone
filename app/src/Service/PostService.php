@@ -37,10 +37,12 @@ class PostService {
     $response = [];
     foreach ($posts as &$post) {
       $comments = CommentQuery::create()->findByPostid($post->getId());
+      $votes = VoteService::getVotesForPost($post->getId());
       $tmp = [
           "post" => $post->toArray(),
           "thread" => $post->getThread()->toArray(),
           "user" => $post->getUser()->toArray(),
+          "votes" => $votes,
           "comments" => $comments->toArray()
       ];
       array_push($response, (object) $tmp);

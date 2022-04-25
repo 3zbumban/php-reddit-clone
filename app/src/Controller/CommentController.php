@@ -24,7 +24,7 @@ class CommentController
 
     $res->setStatusCode(200);
     $res->setBody($comment->toArray());
-    $res->json();
+//    $res->json();
   }
 
 }

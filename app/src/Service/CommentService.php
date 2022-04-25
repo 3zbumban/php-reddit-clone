@@ -2,6 +2,7 @@
 
 namespace Sem\Weben\Service;
 
+use Model\Base\CommentQuery;
 use Model\Comment;
 use Model\PostQuery;
 use Model\UserQuery;
@@ -29,5 +30,22 @@ class CommentService
     } catch (\Exception $exception) {
       throw new \Exception("could not create comment");
     }
+  }
+
+  public static function getCommentsForPost(int $postId) {
+    $comments = CommentQuery::create()->findByPostid($postId);
+    $response = [];
+    foreach ($comments as &$comment) {
+      $user = UserQuery::create()->findOneById($comment->getUserid());
+      array_push($response, (object) array(
+         "text" => $comment->getText(),
+          "uid" => $comment->getUid(),
+          "user" => [
+              "username" => $user->getUsername()
+          ],
+          "createdAt" => $comment->getCreatedat()
+      ));
+    }
+    return $response;
   }
 }

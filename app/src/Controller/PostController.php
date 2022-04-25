@@ -19,7 +19,7 @@ class PostController
     $posts = PostService::findPostsByThreadId($threadId);
     $res->setStatusCode(200);
     $res->setBody($posts);
-    $res->json();
+//    $res->json();
   }
 
   public function create(RequestInterface $req, ResponseInterface $res)
@@ -34,7 +34,7 @@ class PostController
 
     $res->setStatusCode(200);
     $res->setBody($post);
-    $res->json();
+//    $res->json();
   }
 
   public function get(RequestInterface $req, ResponseInterface $res)
@@ -44,6 +44,6 @@ class PostController
 
     $res->setStatusCode(200);
     $res->setBody($post);
-    $res->json();
+//    $res->json();
   }
 }

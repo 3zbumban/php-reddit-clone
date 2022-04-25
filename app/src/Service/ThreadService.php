@@ -11,7 +11,10 @@ use Ramsey\Uuid\Uuid;
 class ThreadService
 {
 
-  public static function createThread(string $name)
+  /**
+   * @throws \Exception
+   */
+  public static function createThread(string $name): Thread
   {
     $thread = new Thread();
     $uuid = Uuid::uuid4()->toString();
@@ -31,7 +34,6 @@ class ThreadService
     } else {
       throw new \Exception("thread already exists");
     }
-
   }
 
   public static function getThreads(): ObjectCollection

@@ -20,6 +20,6 @@ class VoteController
 
     $res->setStatusCode(200);
     $res->setBody($voted);
-    $res->json();
+//    $res->json();
   }
 }

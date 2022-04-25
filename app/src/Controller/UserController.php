@@ -18,7 +18,7 @@ class UserController
 
     $res->setBody($user);
     $res->setStatusCode(200);
-    $res->json();
+//    $res->json();
   }
 
   public function signup(RequestInterface $req, ResponseInterface $res): void
@@ -30,6 +30,6 @@ class UserController
 
     $res->setBody($user);
     $res->setStatusCode(200);
-    $res->json();
+//    $res->json();
   }
 }

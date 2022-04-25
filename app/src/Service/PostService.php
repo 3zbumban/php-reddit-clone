@@ -39,14 +39,15 @@ class PostService
     $posts = PostQuery::create()->findByThreadid($threadId);
     $response = [];
     foreach ($posts as &$post) {
-      $comments = CommentQuery::create()->findByPostid($post->getId());
+//      $comments = CommentQuery::create()->findByPostid($post->getId());
+      $comments = CommentService::getCommentsForPost($post->getId());
       $votes = VoteService::getVotesForPost($post->getId());
       $tmp = [
           "post" => $post->toArray(),
           "thread" => $post->getThread()->toArray(),
-          "user" => $post->getUser()->toArray(),
+          "username" => $post->getUser()->getUsername(),
           "votes" => $votes,
-          "comments" => $comments->toArray()
+          "comments" => $comments
       ];
       array_push($response, (object)$tmp);
     }
@@ -57,11 +58,11 @@ class PostService
   {
     $post = PostQuery::create()->findOneByUid($postId);
     $votes = VoteService::getVotesForPost($post->getId());
-    $comments = CommentQuery::create()->findByPostid($post->getId());
+    $comments = CommentService::getCommentsForPost($post->getId());
 
     return [
         "post" => $post->toArray(),
-        "comments" => $comments->toArray(),
+        "comments" => $comments,
         "votes" => $votes
     ];
   }

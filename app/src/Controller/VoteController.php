@@ -8,12 +8,14 @@ use Sem\Weben\Service\VoteService;
 
 class VoteController
 {
-  public function create(RequestInterface $req, ResponseInterface $res) {
+  public function vote(RequestInterface $req, ResponseInterface $res) {
     $vote = $req->getQueryParams()["vote"];
     $postId = $req->getQueryParams()["postId"];
     $userId = $req->getQueryParams()["userId"];
 
-    $voted = VoteService::voteOnPost($postId, $vote, $userId);
+    $voteType = $vote === "up" ? 1 : -1;
+
+    $voted = VoteService::voteOnPost($postId, $userId, $voteType);
 
     $res->setStatusCode(200);
     $res->setBody($voted);

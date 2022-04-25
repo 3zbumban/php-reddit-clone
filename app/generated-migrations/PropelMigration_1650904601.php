@@ -3,10 +3,10 @@ use Propel\Generator\Manager\MigrationManager;
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1650891669.
- * Generated on 2022-04-25 13:01:09 by root 
+ * up to version 1650904601.
+ * Generated on 2022-04-25 16:36:41 by root 
  */
-class PropelMigration_1650891669 
+class PropelMigration_1650904601 
 {
     public $comment = '';
 
@@ -100,6 +100,23 @@ CREATE TABLE `comment`
         REFERENCES `user` (`id`)
 ) ENGINE=InnoDB;
 
+CREATE TABLE `vote`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `vote` INTEGER NOT NULL,
+    `on` INTEGER NOT NULL,
+    `userId` INTEGER NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `vote_fi_cff77e` (`on`),
+    INDEX `vote_fi_f4311f` (`userId`),
+    CONSTRAINT `vote_fk_cff77e`
+        FOREIGN KEY (`on`)
+        REFERENCES `post` (`id`),
+    CONSTRAINT `vote_fk_f4311f`
+        FOREIGN KEY (`userId`)
+        REFERENCES `user` (`id`)
+) ENGINE=InnoDB;
+
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
 EOT;
@@ -130,6 +147,8 @@ DROP TABLE IF EXISTS `thread`;
 DROP TABLE IF EXISTS `user`;
 
 DROP TABLE IF EXISTS `comment`;
+
+DROP TABLE IF EXISTS `vote`;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

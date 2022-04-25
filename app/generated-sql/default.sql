@@ -92,14 +92,18 @@ DROP TABLE IF EXISTS `vote`;
 CREATE TABLE `vote`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `ups` INTEGER NOT NULL,
-    `downs` INTEGER NOT NULL,
+    `vote` INTEGER NOT NULL,
     `on` INTEGER NOT NULL,
+    `userId` INTEGER NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `vote_fi_cff77e` (`on`),
+    INDEX `vote_fi_f4311f` (`userId`),
     CONSTRAINT `vote_fk_cff77e`
         FOREIGN KEY (`on`)
-        REFERENCES `post` (`id`)
+        REFERENCES `post` (`id`),
+    CONSTRAINT `vote_fk_f4311f`
+        FOREIGN KEY (`userId`)
+        REFERENCES `user` (`id`)
 ) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier

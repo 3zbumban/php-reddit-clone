@@ -75,7 +75,7 @@ abstract class Vote implements ActiveRecordInterface
     /**
      * The value for the vote field.
      *
-     * @var        string
+     * @var        int
      */
     protected $vote;
 
@@ -348,7 +348,7 @@ abstract class Vote implements ActiveRecordInterface
     /**
      * Get the [vote] column value.
      *
-     * @return string
+     * @return int
      */
     public function getVote()
     {
@@ -398,13 +398,13 @@ abstract class Vote implements ActiveRecordInterface
     /**
      * Set the value of [vote] column.
      *
-     * @param string $v New value
+     * @param int $v New value
      * @return $this The current object (for fluent API support)
      */
     public function setVote($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (int) $v;
         }
 
         if ($this->vote !== $v) {
@@ -503,7 +503,7 @@ abstract class Vote implements ActiveRecordInterface
             $this->id = (null !== $col) ? (int) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : VoteTableMap::translateFieldName('Vote', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->vote = (null !== $col) ? (string) $col : null;
+            $this->vote = (null !== $col) ? (int) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : VoteTableMap::translateFieldName('On', TableMap::TYPE_PHPNAME, $indexType)];
             $this->on = (null !== $col) ? (int) $col : null;
@@ -774,7 +774,7 @@ abstract class Vote implements ActiveRecordInterface
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
                     case 'vote':
-                        $stmt->bindValue($identifier, $this->vote, PDO::PARAM_STR);
+                        $stmt->bindValue($identifier, $this->vote, PDO::PARAM_INT);
                         break;
                     case 'on':
                         $stmt->bindValue($identifier, $this->on, PDO::PARAM_INT);

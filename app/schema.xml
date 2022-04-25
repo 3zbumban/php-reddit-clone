@@ -1,68 +1,69 @@
 <database name="default" defaultIdMethod="native" namespace="Model">
-	<table name="post" phpName="Post">
-		<column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<column name="uid" type="char" size="39" required="true" />
-		<column name="title" type="varchar" size="140" required="true" />
-		<column name="text" type="longvarchar" required="true" />
-		<column name="createdAt" type="timestamp" required="true" />
-		<column name="threadId" type="integer" required="true" />
-		<column name="userId" type="integer" required="true" />
-		
-		<foreign-key foreignTable="user">
-			<reference local="userId" foreign="id" />
-		</foreign-key>
-		<foreign-key foreignTable="thread">
-			<reference local="threadId" foreign="id" />
-		</foreign-key>
-	</table>
+    <table name="post" phpName="Post">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="uid" type="char" size="39" required="true"/>
+        <column name="title" type="varchar" size="140" required="true"/>
+        <column name="text" type="longvarchar" required="true"/>
+        <column name="createdAt" type="timestamp" required="true"/>
+        <column name="threadId" type="integer" required="true"/>
+        <column name="userId" type="integer" required="true"/>
 
-	<table name="thread" phpName="Thread">
-		<column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<column name="uid" type="char" size="39" required="true" />
-		<column name="name" type="varchar" size="140" required="true" />
-		<column name="createdAt" type="timestamp" required="true" />
-		
-		<behavior name="validate">
-			<parameter name="rule1" value="{column: name, validator: Unique}" />
-		</behavior>
-	</table>
+        <foreign-key foreignTable="user">
+            <reference local="userId" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="thread">
+            <reference local="threadId" foreign="id"/>
+        </foreign-key>
+    </table>
 
-	<table name="user" phpName="User">
-		<column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<column name="username" type="varchar" required="true" unique="true" size="128" />
-		<column name="password" type="varchar" required="true" size="128" />
+    <table name="thread" phpName="Thread">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="uid" type="char" size="39" required="true"/>
+        <column name="name" type="varchar" size="140" required="true"/>
+        <column name="createdAt" type="timestamp" required="true"/>
 
-		<behavior name="validate">
-			<parameter name="rule1" value="{column: username, validator: Unique}" />
-		</behavior>
-	</table>
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: name, validator: Unique}"/>
+        </behavior>
+    </table>
 
-	<table name="comment" phpName="Comment">-->
-		<column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<column name="uid" type="char" size="39" required="true" />
-		<column name="text" type="longvarchar" required="true" />
-		<column name="createdAt" type="timestamp" required="true" />
-		<column name="postId" type="integer" required="true" />
-		<column name="userId" type="integer" required="true" />
-		<foreign-key foreignTable="post">
-			<reference local="postId" foreign="id" />
-		</foreign-key>
-		<foreign-key foreignTable="user">
-			<reference local="userId" foreign="id" />
-		</foreign-key>
-	</table>
+    <table name="user" phpName="User">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="username" type="varchar" required="true" unique="true" size="128"/>
+        <column name="password" type="varchar" required="true" size="128"/>
 
-	<table name="vote" phpName="Vote">
-		<column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<column name="vote" type="char" size="5" required="true"/>
-		<column name="on" type="integer" required="true" />
-		<column name="userId" type="integer" required="true" />
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: username, validator: Unique}"/>
+        </behavior>
+    </table>
 
-		<foreign-key foreignTable="post">
-			<reference local="on" foreign="id"/>
-		</foreign-key>
-		<foreign-key foreignTable="user">
-			<reference local="userId" foreign="id"/>
-		</foreign-key>
-	</table>
+    <table name="comment" phpName="Comment">-->
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="uid" type="char" size="39" required="true"/>
+        <column name="text" type="longvarchar" required="true"/>
+        <column name="createdAt" type="timestamp" required="true"/>
+        <column name="postId" type="integer" required="true"/>
+        <column name="userId" type="integer" required="true"/>
+
+        <foreign-key foreignTable="post">
+            <reference local="postId" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="user">
+            <reference local="userId" foreign="id"/>
+        </foreign-key>
+    </table>
+
+    <table name="vote" phpName="Vote">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="vote" type="integer" required="true"/>
+        <column name="on" type="integer" required="true"/>
+        <column name="userId" type="integer" required="true"/>
+
+        <foreign-key foreignTable="post">
+            <reference local="on" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="user">
+            <reference local="userId" foreign="id"/>
+        </foreign-key>
+    </table>
 </database>

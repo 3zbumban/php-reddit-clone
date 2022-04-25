@@ -64,7 +64,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildVote findOneOrCreate(?ConnectionInterface $con = null) Return the first ChildVote matching the query, or a new ChildVote object populated from the query conditions when no match is found
  *
  * @method     ChildVote|null findOneById(int $id) Return the first ChildVote filtered by the id column
- * @method     ChildVote|null findOneByVote(string $vote) Return the first ChildVote filtered by the vote column
+ * @method     ChildVote|null findOneByVote(int $vote) Return the first ChildVote filtered by the vote column
  * @method     ChildVote|null findOneByOn(int $on) Return the first ChildVote filtered by the on column
  * @method     ChildVote|null findOneByUserid(int $userId) Return the first ChildVote filtered by the userId column *
 
@@ -72,7 +72,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildVote requireOne(?ConnectionInterface $con = null) Return the first ChildVote matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildVote requireOneById(int $id) Return the first ChildVote filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildVote requireOneByVote(string $vote) Return the first ChildVote filtered by the vote column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildVote requireOneByVote(int $vote) Return the first ChildVote filtered by the vote column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildVote requireOneByOn(int $on) Return the first ChildVote filtered by the on column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildVote requireOneByUserid(int $userId) Return the first ChildVote filtered by the userId column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -80,8 +80,8 @@ use Propel\Runtime\Exception\PropelException;
  * @psalm-method ObjectCollection&\Traversable<ChildVote> find(?ConnectionInterface $con = null) Return ChildVote objects based on current ModelCriteria
  * @method     ChildVote[]|ObjectCollection findById(int $id) Return ChildVote objects filtered by the id column
  * @psalm-method ObjectCollection&\Traversable<ChildVote> findById(int $id) Return ChildVote objects filtered by the id column
- * @method     ChildVote[]|ObjectCollection findByVote(string $vote) Return ChildVote objects filtered by the vote column
- * @psalm-method ObjectCollection&\Traversable<ChildVote> findByVote(string $vote) Return ChildVote objects filtered by the vote column
+ * @method     ChildVote[]|ObjectCollection findByVote(int $vote) Return ChildVote objects filtered by the vote column
+ * @psalm-method ObjectCollection&\Traversable<ChildVote> findByVote(int $vote) Return ChildVote objects filtered by the vote column
  * @method     ChildVote[]|ObjectCollection findByOn(int $on) Return ChildVote objects filtered by the on column
  * @psalm-method ObjectCollection&\Traversable<ChildVote> findByOn(int $on) Return ChildVote objects filtered by the on column
  * @method     ChildVote[]|ObjectCollection findByUserid(int $userId) Return ChildVote objects filtered by the userId column
@@ -327,20 +327,35 @@ abstract class VoteQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByVote('fooValue');   // WHERE vote = 'fooValue'
-     * $query->filterByVote('%fooValue%', Criteria::LIKE); // WHERE vote LIKE '%fooValue%'
-     * $query->filterByVote(['foo', 'bar']); // WHERE vote IN ('foo', 'bar')
+     * $query->filterByVote(1234); // WHERE vote = 1234
+     * $query->filterByVote(array(12, 34)); // WHERE vote IN (12, 34)
+     * $query->filterByVote(array('min' => 12)); // WHERE vote > 12
      * </code>
      *
-     * @param string|string[] $vote The value to use as filter.
+     * @param mixed $vote The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param string|null $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this The current query, for fluid interface
      */
     public function filterByVote($vote = null, ?string $comparison = null)
     {
-        if (null === $comparison) {
-            if (is_array($vote)) {
+        if (is_array($vote)) {
+            $useMinMax = false;
+            if (isset($vote['min'])) {
+                $this->addUsingAlias(VoteTableMap::COL_VOTE, $vote['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($vote['max'])) {
+                $this->addUsingAlias(VoteTableMap::COL_VOTE, $vote['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
         }

@@ -179,7 +179,7 @@ class VoteTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('vote', 'Vote', 'CHAR', true, 5, null);
+        $this->addColumn('vote', 'Vote', 'INTEGER', true, null, null);
         $this->addForeignKey('on', 'On', 'INTEGER', 'post', 'id', true, null, null);
         $this->addForeignKey('userId', 'Userid', 'INTEGER', 'user', 'id', true, null, null);
     }

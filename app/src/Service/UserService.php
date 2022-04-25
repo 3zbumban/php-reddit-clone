@@ -10,7 +10,7 @@ use Firebase\JWT\JWT;
 class UserService
 {
 
-  private static function jwtSign(string $username, int $userId)
+  private static function jwtSign(string $username, int $userId): string
   {
     $jwt_secret = $_ENV["JWT_SECRET"];
     $payload = [
@@ -20,6 +20,9 @@ class UserService
     return JWT::encode($payload, $jwt_secret, "HS256");
   }
 
+  /**
+   * @throws Exception
+   */
   public static function createUser(string $username, string $password): array
   {
     $user = new User();
@@ -43,6 +46,9 @@ class UserService
     }
   }
 
+  /**
+   * @throws Exception
+   */
   public static function signin(string $username, string $password): array
   {
     $user = UserQuery::create()->findOneByUsername($username);

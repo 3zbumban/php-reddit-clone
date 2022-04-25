@@ -2,6 +2,7 @@
 
 namespace Sem\Weben\Service;
 
+use Exception;
 use Model\Base\CommentQuery;
 use Model\Comment;
 use Model\PostQuery;
@@ -11,7 +12,10 @@ use Ramsey\Uuid\Uuid;
 class CommentService
 {
 
-  public static function commentOnPost(int $postId, string $text, int $userId)
+  /**
+   * @throws Exception
+   */
+  public static function commentOnPost(int $postId, string $text, int $userId): Comment
   {
     $user = UserQuery::create()->findOneById($userId);
     $post = PostQuery::create()->findOneById($postId);
@@ -27,12 +31,16 @@ class CommentService
       $comment->setPost($post);
       $comment->save();
       return $comment;
-    } catch (\Exception $exception) {
-      throw new \Exception("could not create comment");
+    } catch (Exception $exception) {
+      throw new Exception("could not create comment");
     }
   }
 
-  public static function getCommentsForPost(int $postId) {
+  /**
+   * @throws \Propel\Runtime\Exception\PropelException
+   */
+  public static function getCommentsForPost(int $postId): array
+  {
     $comments = CommentQuery::create()->findByPostid($postId);
     $response = [];
     foreach ($comments as $comment) {

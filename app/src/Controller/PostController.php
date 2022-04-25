@@ -20,7 +20,7 @@ class PostController
 //    $res->json();
   }
 
-  public function create(RequestInterface $req, ResponseInterface $res)
+  public function create(RequestInterface $req, ResponseInterface $res): void
   {
     $body = $req->getBody();
     $title = $body["title"];
@@ -35,7 +35,7 @@ class PostController
 //    $res->json();
   }
 
-  public function get(RequestInterface $req, ResponseInterface $res)
+  public function get(RequestInterface $req, ResponseInterface $res): void
   {
     $postId = $req->getPathParams()[2];
     $post = PostService::findOneByUid($postId);

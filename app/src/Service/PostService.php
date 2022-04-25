@@ -3,7 +3,6 @@
 namespace Sem\Weben\Service;
 
 use Exception;
-use JetBrains\PhpStorm\ArrayShape;
 use Model\Post;
 use Model\PostQuery;
 use Model\ThreadQuery;
@@ -13,6 +12,9 @@ use Ramsey\Uuid\Uuid;
 class PostService
 {
 
+  /**
+   * @throws Exception
+   */
   public static function createPost(string $title, string $text, string $userId, string $threadId): array
   {
     $thread = ThreadQuery::create()->findOneByUid($threadId);
@@ -35,6 +37,9 @@ class PostService
     }
   }
 
+  /**
+   * @throws \Propel\Runtime\Exception\PropelException
+   */
   public static function findPostsByThreadId(string $threadId): array
   {
     $posts = PostQuery::create()->findByThreadid($threadId);

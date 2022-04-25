@@ -17,6 +17,9 @@ class Router
     $this->routes = [];
   }
 
+  /**
+   * @throws Exception
+   */
   public function route(RequestInterface $req, ResponseInterface $res): bool
   {
     $method = $req->getMethod();

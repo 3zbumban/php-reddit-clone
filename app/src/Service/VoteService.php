@@ -10,7 +10,10 @@ use Model\VoteQuery;
 
 class VoteService
 {
-  public static function voteOnPost(int $postId, int $userId, int $voteType)
+  /**
+   * @throws Exception
+   */
+  public static function voteOnPost(int $postId, int $userId, int $voteType): array
   {
     $post = PostQuery::create()->findOneById($postId);
     $user = UserQuery::create()->findOneById($userId);
@@ -39,7 +42,7 @@ class VoteService
     }
   }
 
-  public static function getVotesForPost(int $postId)
+  public static function getVotesForPost(int $postId): array
   {
     $post = PostQuery::create()->findOneById($postId);
     $votesCount = VoteQuery::create()->findByPostid($post->getId())->count();

@@ -19,6 +19,9 @@ class Response implements ResponseInterface
     $this->statusCode = $statusCode;
   }
 
+  /**
+   * @throws Exception
+   */
   public function json(): void
   {
     if (isset($this->body) && isset($this->statusCode)) {

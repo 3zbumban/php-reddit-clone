@@ -8,7 +8,7 @@ use Sem\Weben\Service\VoteService;
 
 class VoteController
 {
-  public function vote(RequestInterface $req, ResponseInterface $res)
+  public function vote(RequestInterface $req, ResponseInterface $res): void
   {
     $vote = $req->getQueryParams()["vote"];
     $postId = (int)$req->getQueryParams()["postId"];

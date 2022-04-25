@@ -9,7 +9,7 @@ class Request implements RequestInterface
   private string $url;
   private string $method;
   private array $pathParams;
-  private $body;
+  private mixed $body;
   private array $headers;
   private array $queryParams;
   private array|false $header;

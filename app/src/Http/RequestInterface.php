@@ -10,7 +10,7 @@ interface RequestInterface
 
   public function getMethod(): string;
 
-  public function getBody(): mixed;
+  public function getBody();
 
   public function getHeader(): array;
 

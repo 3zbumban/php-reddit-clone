@@ -6,9 +6,11 @@ use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\UserService;
 
-class UserController {
+class UserController
+{
 
-  public function login(RequestInterface $req, ResponseInterface $res): void {
+  public function login(RequestInterface $req, ResponseInterface $res): void
+  {
     $username = $req->getBody()['username'];
     $password = $req->getBody()['password'];
 
@@ -19,7 +21,8 @@ class UserController {
     $res->json();
   }
 
-  public function signup(RequestInterface $req, ResponseInterface $res): void {
+  public function signup(RequestInterface $req, ResponseInterface $res): void
+  {
     $username = $req->getBody()["username"];
     $password = $req->getBody()["password"];
 

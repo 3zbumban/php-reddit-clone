@@ -6,13 +6,15 @@ use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\CommentService;
 
-class CommentController {
+class CommentController
+{
 
-  public function find(RequestInterface $req, ResponseInterface $res): void {
-    // $res->json($req->getBody());
-  }
+//  public function find(RequestInterface $req, ResponseInterface $res): void {
+//    // $res->json($req->getBody());
+//  }
 
-  public function create(RequestInterface $req, ResponseInterface $res): void {
+  public function create(RequestInterface $req, ResponseInterface $res): void
+  {
     $query = $req->getQueryParams();
     $postId = $query["postId"];
     $userId = $query["userId"];

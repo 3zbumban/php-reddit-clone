@@ -37,7 +37,8 @@ class PostController
     $res->json();
   }
 
-  public function get(RequestInterface $req, ResponseInterface $res) {
+  public function get(RequestInterface $req, ResponseInterface $res)
+  {
     $postId = $req->getPathParams()[2];
     $post = PostService::findOneByUid($postId);
 

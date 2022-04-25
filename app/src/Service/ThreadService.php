@@ -20,7 +20,7 @@ class ThreadService
     $thread->setUid($uuid);
     $thread->setCreatedat($createdAt);
 
-    if($thread->validate()) {
+    if ($thread->validate()) {
       // echo $uuid . " " . $name;
       try {
         $thread->save();
@@ -31,7 +31,7 @@ class ThreadService
     } else {
       throw new \Exception("thread already exists");
     }
-    
+
   }
 
   public static function getThreads(): ObjectCollection

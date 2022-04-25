@@ -20,21 +20,17 @@ class ThreadController
 
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
-    try {
-      $body = $req->getBody();
-      $name = $body["name"];
+    $body = $req->getBody();
+    $name = $body["name"];
 
-      $thread = ThreadService::createThread($name);
+    $thread = ThreadService::createThread($name);
 
-      $res->setStatusCode(200);
-      $res->setBody([
-          "name" => $thread->getName(),
-          "uid" => $thread->getUid(),
-          "createdAt" => $thread->getCreatedat()
-      ]);
-      $res->json();
-    } catch (\Exception $exception) {
-      throw new \Exception($exception->getMessage());
-    }
+    $res->setStatusCode(200);
+    $res->setBody([
+        "name" => $thread->getName(),
+        "uid" => $thread->getUid(),
+        "createdAt" => $thread->getCreatedat()
+    ]);
+    $res->json();
   }
 }

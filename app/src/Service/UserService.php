@@ -26,7 +26,7 @@ class UserService
     $passwordHash = password_hash($password, PASSWORD_ARGON2I);
     $user->setUsername($username);
     $user->setPassword($passwordHash);
-    
+
     if (!$user->validate()) {
       throw new \Exception("Invalid user");
     } else {
@@ -49,11 +49,11 @@ class UserService
     if ($user !== NULL) {
       $valid = password_verify($password, $user->getPassword());
       if ($valid) {
-          return [
+        return [
             "username" => $user->getUsername(),
             "userId" => $user->getId(),
             "jwt" => self::jwtSign($user->getUsername(), $user->getId())
-          ];
+        ];
       } else {
         throw new \Exception("password incorrect");
       }

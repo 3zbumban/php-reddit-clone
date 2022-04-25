@@ -9,9 +9,11 @@ use Model\ThreadQuery;
 use Model\UserQuery;
 use Ramsey\Uuid\Uuid;
 
-class PostService {
+class PostService
+{
 
-  public static function createPost(string $title, string $text, string $userId, string $threadId) {
+  public static function createPost(string $title, string $text, string $userId, string $threadId)
+  {
     $thread = ThreadQuery::create()->findOneByUid($threadId);
     $user = UserQuery::create()->findOneById($userId);
 
@@ -32,7 +34,8 @@ class PostService {
     }
   }
 
-  public static function findPostsByThreadId(string $threadId) {
+  public static function findPostsByThreadId(string $threadId)
+  {
     $posts = PostQuery::create()->findByThreadid($threadId);
     $response = [];
     foreach ($posts as &$post) {
@@ -45,12 +48,13 @@ class PostService {
           "votes" => $votes,
           "comments" => $comments->toArray()
       ];
-      array_push($response, (object) $tmp);
+      array_push($response, (object)$tmp);
     }
     return $response;
   }
 
-  public static function findOneByUid(string $postId) {
+  public static function findOneByUid(string $postId)
+  {
     $post = PostQuery::create()->findOneByUid($postId);
     $votes = VoteService::getVotesForPost($post->getId());
     $comments = CommentQuery::create()->findByPostid($post->getId());

@@ -7,9 +7,11 @@ use Model\PostQuery;
 use Model\UserQuery;
 use Ramsey\Uuid\Uuid;
 
-class CommentService {
+class CommentService
+{
 
-  public static function commentOnPost(int $postId, string $text, int $userId) {
+  public static function commentOnPost(int $postId, string $text, int $userId)
+  {
     $user = UserQuery::create()->findOneById($userId);
     $post = PostQuery::create()->findOneById($postId);
 

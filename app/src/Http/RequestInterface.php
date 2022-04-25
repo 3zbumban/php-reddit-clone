@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Sem\Weben\Http;
 
-interface RequestInterface {
+interface RequestInterface
+{
   public function getUrl(): string;
+
   public function getMethod(): string;
-  // public function getParams(): array;
+
   public function getBody(): mixed;
+
   public function getHeader(): array;
+
   public function getQueryParams(): array;
 }

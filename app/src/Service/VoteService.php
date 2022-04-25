@@ -39,7 +39,8 @@ class VoteService
     }
   }
 
-  public static function getVotesForPost(int $postId) {
+  public static function getVotesForPost(int $postId)
+  {
     $post = PostQuery::create()->findOneById($postId);
     $votesCount = VoteQuery::create()->findByPostid($post->getId())->count();
     $votesUp = VoteQuery::create()->filterByVote(1)->findByPostid($post->getId())->count();

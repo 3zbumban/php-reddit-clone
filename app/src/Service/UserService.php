@@ -67,4 +67,26 @@ class UserService
       throw new Exception("user not found");
     }
   }
+
+  /**
+   * @throws Exception
+   */
+  public static function checkJwtAndUser(string $jwt, int $userId): bool
+  {
+    $user = UserQuery::create()->findOneById($userId);
+    if (!$user) throw new Exception("user not found");
+    $jwt_secret = $_ENV["JWT_SECRET"];
+    try {
+      $decoded = JWT::decode($jwt, $jwt_secret, ["HS256"]);
+      $usernameFromJwt = $decoded->username;
+      $userIdFromJwt = $decoded->userId;
+      if ($userIdFromJwt === $user->getId() && $usernameFromJwt === $user->getUsername()) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (Exception $exception) {
+      return false;
+    }
+  }
 }

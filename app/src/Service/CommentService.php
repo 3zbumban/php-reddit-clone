@@ -7,6 +7,7 @@ use Model\Base\CommentQuery;
 use Model\Comment;
 use Model\PostQuery;
 use Model\UserQuery;
+use Propel\Runtime\Exception\PropelException;
 use Ramsey\Uuid\Uuid;
 
 class CommentService
@@ -37,7 +38,7 @@ class CommentService
   }
 
   /**
-   * @throws \Propel\Runtime\Exception\PropelException
+   * @throws PropelException
    */
   public static function getCommentsForPost(int $postId): array
   {

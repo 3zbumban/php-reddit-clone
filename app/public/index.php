@@ -30,15 +30,13 @@ $router->addRoute("GET", '/^\/post\/[0-9A-z]{8}-[0-9A-z]{4}-4[0-9A-z]{3}-[0-9A-z
 $router->addRoute("GET", '/^\/post\/?/', PostController::class, "list");
 $router->addRoute("POST", '/^\/comment\/?/', CommentController::class, "create");
 $router->addRoute("POST", '/^\/vote\/?/', VoteController::class, "vote");
-// $router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
-// $router->addRoute("POST", '/^\/threads\/?/', ThreadController::class, "create");
-// $router->addRoute("GET", '/^\/threads\/?/', ThreadController::class, "list");
-// $router->addRoute("GET", '/^\/$/', ThreadController::class, "list");
 
-//$router->addRoute("POST", '/\//', ThreadController::class, "create");
-$router->route($req, $res);
-//print json_encode($req->getQueryParams());
-
-// header('Content-Type: application/json');
-// print json_encode($_ENV);
-//print json_encode($req->getPathParams());
+try {
+  $router->route($req, $res);
+  $res->json();
+} catch (\Exception $exception) {
+  $res->setStatusCode(500);
+  $res->setBody([
+      "message" => "server error"
+  ]);
+}

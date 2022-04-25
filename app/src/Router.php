@@ -39,9 +39,6 @@ class Router
           }
         }
       }
-      // else {
-      // echo "cannot " . $method . " " . $req->getUrl();
-      // }
     }
     echo "cannot " . $method . " " . $req->getUrl();
     return false;

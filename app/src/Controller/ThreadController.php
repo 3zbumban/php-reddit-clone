@@ -4,20 +4,37 @@ namespace Sem\Weben\Controller;
 
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
-use Sem\Weben\Reddit;
+use Sem\Weben\Service\ThreadService;
+
 
 class ThreadController
 
 {
   public function list(RequestInterface $req, ResponseInterface $res): void
   {
-    // $r = new Reddit();
-
-    // $res->json($req->getBody());
+    $threads = ThreadService::getThreads();
+    $res->setStatusCode(200);
+    $res->setBody($threads->toArray());
+    $res->json();
   }
 
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
-    // $res->json([]);
+    try {
+      $body = $req->getBody();
+      $name = $body["name"];
+
+      $thread = ThreadService::createThread($name);
+
+      $res->setStatusCode(200);
+      $res->setBody([
+          "name" => $thread->getName(),
+          "uid" => $thread->getUid(),
+          "createdAt" => $thread->getCreatedat()
+      ]);
+      $res->json();
+    } catch (\Exception $exception) {
+      throw new \Exception($exception->getMessage());
+    }
   }
 }

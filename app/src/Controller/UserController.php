@@ -4,12 +4,17 @@ namespace Sem\Weben\Controller;
 
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
-use Model\User;
+use Sem\Weben\Service\UserService;
 
 class UserController {
 
   public function login(RequestInterface $req, ResponseInterface $res): void {
-    $res->setBody($req->getBody());
+    $username = $req->getBody()['username'];
+    $password = $req->getBody()['password'];
+
+    $user = UserService::signin($username, $password);
+
+    $res->setBody($user);
     $res->setStatusCode(200);
     $res->json();
   }
@@ -18,14 +23,10 @@ class UserController {
     $body = $req->getBody();
     $username = $body["username"];
     $password = $body["password"];
-    $passwordHash = password_hash($password, PASSWORD_ARGON2I);
-    
-    $user = new User();
-    $user->setUsername($username);
-    $user->setPassword($passwordHash);
-    $user->save();
 
-    $res->setBody(array("username" => $username, "pw" => $passwordHash, "created" => date_timestamp_get(date_create()), "id" => $user->getId()));
+    $user = UserService::createUser($username, $password);
+
+    $res->setBody($user);
     $res->setStatusCode(200);
     $res->json();
   }

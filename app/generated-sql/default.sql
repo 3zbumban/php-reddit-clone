@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `uuid` CHAR(39) NOT NULL,
-    `threadId` INTEGER NOT NULL,
+    `uid` CHAR(39) NOT NULL,
     `title` VARCHAR(140) NOT NULL,
     `text` TEXT NOT NULL,
     `createdAt` DATETIME NOT NULL,
+    `threadId` INTEGER NOT NULL,
     `userId` INTEGER NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `post_fi_f4311f` (`userId`),
@@ -38,14 +38,10 @@ DROP TABLE IF EXISTS `thread`;
 CREATE TABLE `thread`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `uuid` CHAR(39) NOT NULL,
+    `uid` CHAR(39) NOT NULL,
     `name` VARCHAR(140) NOT NULL,
-    `postId` INTEGER NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `thread_fi_72d1d6` (`postId`),
-    CONSTRAINT `thread_fk_72d1d6`
-        FOREIGN KEY (`postId`)
-        REFERENCES `post` (`id`)
+    `createdAt` DATETIME NOT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -57,8 +53,8 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(128),
-    `password` VARCHAR(128),
+    `username` VARCHAR(128) NOT NULL,
+    `password` VARCHAR(128) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -71,7 +67,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `uuid` CHAR(39) NOT NULL,
+    `uid` CHAR(39) NOT NULL,
     `text` TEXT NOT NULL,
     `createdAt` DATETIME NOT NULL,
     `postId` INTEGER NOT NULL,

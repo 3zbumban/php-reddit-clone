@@ -2,6 +2,7 @@
 
 namespace Sem\Weben\Controller;
 
+use Model\PostQuery;
 use Ramsey\Uuid\Uuid;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
@@ -37,7 +38,11 @@ class PostController
   }
 
   public function get(RequestInterface $req, ResponseInterface $res) {
-    $postId = $req->getQueryParams()["postId"];
-    echo $postId;
+    $postId = $req->getPathParams()[2];
+    $post = PostService::findOneByUid($postId);
+
+    $res->setStatusCode(200);
+    $res->setBody($post);
+    $res->json();
   }
 }

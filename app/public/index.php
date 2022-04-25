@@ -26,6 +26,7 @@ $router->addRoute("POST", '/^\/auth\/login$/', UserController::class, "login");
 $router->addRoute("POST", '/^\/thread\/?$/', ThreadController::class, "create");
 $router->addRoute("GET", '/^\/thread\/?$/', ThreadController::class, "list");
 $router->addRoute("POST", '/^\/post\/?$/', PostController::class, "create");
+$router->addRoute("GET", '/^\/post\/[0-9A-z]{8}-[0-9A-z]{4}-4[0-9A-z]{3}-[0-9A-z][0-9A-z]{3}-[0-9A-z]{12}\/?/', PostController::class, "get");
 $router->addRoute("GET", '/^\/post\/?/', PostController::class, "list");
 $router->addRoute("POST", '/^\/comment\/?/', CommentController::class, "create");
 $router->addRoute("POST", '/^\/vote\/?/', VoteController::class, "vote");

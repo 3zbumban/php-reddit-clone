@@ -46,11 +46,6 @@ class Request implements RequestInterface
     return $this->pathParams;
   }
 
-  // public function getParam(string $name): string
-  // {
-  //     return $this->params[$name];
-  // }
-
   public function getBody(): mixed
   {
     return $this->body;

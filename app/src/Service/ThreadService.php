@@ -19,14 +19,19 @@ class ThreadService
     $thread->setName($name);
     $thread->setUid($uuid);
     $thread->setCreatedat($createdAt);
-    
-    // echo $uuid . " " . $name;
-    try {
-      $thread->save();
-      return $thread;
-    } catch (\Exception $exception) {
-      throw new \Exception("could not create thread");
+
+    if($thread->validate()) {
+      // echo $uuid . " " . $name;
+      try {
+        $thread->save();
+        return $thread;
+      } catch (\Exception $exception) {
+        throw new \Exception("could not create thread");
+      }
+    } else {
+      throw new \Exception("thread already exists");
     }
+    
   }
 
   public static function getThreads(): ObjectCollection

@@ -16,10 +16,8 @@ class Request implements RequestInterface
 
   public function __construct()
   {
-    // print 'Request created';
     $this->url = $_SERVER['REQUEST_URI'];
     $this->method = $_SERVER['REQUEST_METHOD'];
-    // $this->params = $_SERVER['REQUEST_PARAMS'];
     $this->body = json_decode(file_get_contents('php://input'), true);
     $this->header = getallheaders();
     $this->pathParams = array_filter(explode('/', strtok($this->url, '?')));

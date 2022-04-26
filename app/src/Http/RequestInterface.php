@@ -12,6 +12,8 @@ interface RequestInterface
 
   public function getBody();
 
+  public function getPathParams(): array;
+
   public function getHeader(): array;
 
   public function getQueryParams(): array;

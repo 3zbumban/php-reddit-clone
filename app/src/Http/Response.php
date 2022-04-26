@@ -25,7 +25,11 @@ class Response implements ResponseInterface
   public function json(): void
   {
     if (isset($this->body) && isset($this->statusCode)) {
-      header('Content-Type: application/json');
+      header("Content-Type: application/json");
+      header("Access-Control-Allow-Origin: *");
+      header("Access-Control-Allow-Methods: *");
+      header("Access-Control-Allow-Headers: *");
+
       http_response_code($this->statusCode);
       echo json_encode($this->body);
     } else {

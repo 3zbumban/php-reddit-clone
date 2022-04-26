@@ -1,14 +1,28 @@
-# Readme
+# [Readme](https://inf-git.fh-rosenheim.de/sINFalseme/php-docker-starter/-/commits/main)
 
-## start
+## quickstart 🚀
 
 ```sh
 docker compose up
 ```
 
+## appliaction architecture
+
+<div style="display: flex; flex-direction: row; justify-content: center;">
+ <img src="./docs/arch-schema.png" height="150px" style="">
+</div>
+
+## database schema
+
+<div style="display: flex; flex-direction: row; justify-content: center;">
+ <img src="./docs/db-schema.png" height="300px" style="">
+</div>
+
 ## reference
 
 - [composer inside docker](https://stackoverflow.com/questions/51443557/how-to-install-php-composer-inside-a-docker-container)
+- [composer-allow-superuser](https://getcomposer.org/doc/03-cli.md#composer-allow-superuser)
+- [composer-cant-find-mongodb-extension-required-mongodb-extension](https://stackoverflow.com/questions/54566245/composer-cant-find-mongodb-extension-required-mongodb-extension)
 - [develop php with docker](https://www.sitepoint.com/docker-php-development-environment/)
 - [doctrine](https://github.com/doctrine/orm)~~
 - [doctrine](https://www.doctrine-project.org/projects/orm.html)~~
@@ -28,6 +42,7 @@ docker compose up
 - [wireframes](https://www.figma.com/file/rJgqXhmzwbCIQe8fPSpuv1/we-not-reddit?node-id=0%3A1)
 - [xdebug phpstorm](https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html#configuring-xdebug-vagrant)
 - [xdebug vscode](https://dev.to/jackmiras/xdebug-in-vscode-with-docker-379l)
+- []()
 - []()
 - []()
 - []()

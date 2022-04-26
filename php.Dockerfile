@@ -9,7 +9,7 @@ RUN apt-get update
 RUN apt-get install -y git
 RUN apt-get install -y zip unzip
 
-RUN pecl install mongodb && docker-php-ext-enable mongodb
+# RUN pecl install mongodb && docker-php-ext-enable mongodb
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
@@ -20,12 +20,12 @@ RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
 
-# RUN adduser -D cuser
 # RUN useradd -ms /bin/bash cuser
 # USER cuser
 # RUN pwd
-# RUN composer install
-# RUN test composer.json
+COPY app/ .
+ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN composer install --ignore-platform-reqs
 # USER root
 # RUN whoami
 

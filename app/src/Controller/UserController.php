@@ -18,7 +18,6 @@ class UserController
 
     $res->setBody($user);
     $res->setStatusCode(200);
-//    $res->json();
   }
 
   public function signup(RequestInterface $req, ResponseInterface $res): void
@@ -30,6 +29,18 @@ class UserController
 
     $res->setBody($user);
     $res->setStatusCode(200);
-//    $res->json();
+  }
+
+  public function refresh(RequestInterface $req, ResponseInterface $res): void
+  {
+    $userId = (int)$req->getQueryParams()["userId"];
+    $jwt = $req->getHeader()["Acess-Token"];
+
+    // echo json_encode($jwt);
+
+    $user = UserService::checkJwtAndUser($jwt, $userId);
+
+    $res->setBody($user);
+    $res->setStatusCode(200);
   }
 }

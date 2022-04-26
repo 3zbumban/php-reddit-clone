@@ -12,12 +12,12 @@ class CommentController
 
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
-//    $authenticated = UserService::checkJwtAndUser();
     $query = $req->getQueryParams();
     $postId = $query["postId"];
     $userId = $query["userId"];
     $text = $req->getBody()["text"];
-
+    
+    // $authenticated = UserService::checkJwtAndUser();
     $comment = CommentService::commentOnPost($postId, $text, $userId);
 
     $res->setStatusCode(200);

@@ -6,6 +6,7 @@ use Exception;
 use Model\User;
 use Model\UserQuery;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class UserService
 {
@@ -15,7 +16,8 @@ class UserService
     $jwt_secret = $_ENV["JWT_SECRET"];
     $payload = [
         "username" => $username,
-        "userId" => $userId
+        "userId" => $userId,
+        "iat" => time(),
     ];
     return JWT::encode($payload, $jwt_secret, "HS256");
   }
@@ -71,22 +73,28 @@ class UserService
   /**
    * @throws Exception
    */
-  public static function checkJwtAndUser(string $jwt, int $userId): bool
+  public static function checkJwtAndUser(string $jwt, int $userId): array
   {
     $user = UserQuery::create()->findOneById($userId);
     if (!$user) throw new Exception("user not found");
     $jwt_secret = $_ENV["JWT_SECRET"];
     try {
-      $decoded = JWT::decode($jwt, $jwt_secret, ["HS256"]);
+      $decoded = JWT::decode($jwt, new Key($jwt_secret, 'HS256'));
       $usernameFromJwt = $decoded->username;
       $userIdFromJwt = $decoded->userId;
-      if ($userIdFromJwt === $user->getId() && $usernameFromJwt === $user->getUsername()) {
-        return true;
+      $iat = $decoded->iat;
+      $valid = $usernameFromJwt === $user->getUsername() && $userIdFromJwt === $user->getId() && $iat > time() - 3600;
+      if ($valid) {
+        return [
+          "username" => $user->getUsername(),
+          "userId" => $user->getId(),
+          "jwt" => self::jwtSign($user->getUsername(), $user->getId())
+        ];
       } else {
-        return false;
+        throw new Exception("invalid jwt");
       }
     } catch (Exception $exception) {
-      return false;
+      throw new Exception("invalid jwt");
     }
   }
 }

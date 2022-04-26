@@ -5,16 +5,14 @@ namespace Sem\Weben\Controller;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\CommentService;
+use Sem\Weben\Service\UserService;
 
 class CommentController
 {
 
-//  public function find(RequestInterface $req, ResponseInterface $res): void {
-//    // $res->json($req->getBody());
-//  }
-
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
+//    $authenticated = UserService::checkJwtAndUser();
     $query = $req->getQueryParams();
     $postId = $query["postId"];
     $userId = $query["userId"];
@@ -23,8 +21,7 @@ class CommentController
     $comment = CommentService::commentOnPost($postId, $text, $userId);
 
     $res->setStatusCode(200);
-    $res->setBody($comment->toArray());
-//    $res->json();
+    $res->setBody($comment);
   }
 
 }

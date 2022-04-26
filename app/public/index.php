@@ -37,6 +37,8 @@ try {
 } catch (Exception $exception) {
   $res->setStatusCode(500);
   $res->setBody([
-      "message" => "server error"
+      "message" => "server error",
+      "error" => $exception->getMessage()
   ]);
+  $res->json();
 }

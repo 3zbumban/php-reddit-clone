@@ -31,7 +31,7 @@ class CommentService
       $comment->setUser($user);
       $comment->setPost($post);
       $comment->save();
-      return $comment;
+      return $comment->toArray();
     } catch (Exception $exception) {
       throw new Exception("could not create comment");
     }

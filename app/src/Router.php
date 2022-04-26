@@ -44,8 +44,7 @@ class Router
         }
       }
     }
-    echo "cannot " . $method . " " . $req->getUrl();
-    return false;
+    throw new Exception("cannot " . $method . " " . $req->getUrl());
   }
 
   public function addRoute(string $method, string $path, string $controllerName, string $actionName): void

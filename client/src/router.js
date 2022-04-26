@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Login from "./views/Login.vue";
-import Threads from "./views/Threads.vue";
+import Thread from "./views/Thread.vue";
 import Signup from "./views/Signup.vue";
 import BrowseThreads from "./views/BrowseThreads.vue";
 
@@ -19,6 +19,11 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: Signup
+  },
+  {
+    path: "/thread/:id",
+    name: "Thread",
+    component: Thread
   },
 ];
 

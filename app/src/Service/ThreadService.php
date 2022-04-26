@@ -37,8 +37,8 @@ class ThreadService
     }
   }
 
-  public static function getThreads(): ObjectCollection
+  public static function getThreads(): array
   {
-    return ThreadQuery::create()->find();
+    return ThreadQuery::create()->find()->toArray();
   }
 }

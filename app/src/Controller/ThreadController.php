@@ -14,8 +14,9 @@ class ThreadController
   {
     $threads = ThreadService::getThreads();
     $res->setStatusCode(200);
-    $res->setBody($threads->toArray());
-//    $res->json();
+    $res->setBody([
+      "threads" => $threads
+    ]);
   }
 
   public function create(RequestInterface $req, ResponseInterface $res): void
@@ -31,6 +32,5 @@ class ThreadController
         "uid" => $thread->getUid(),
         "createdAt" => $thread->getCreatedat()
     ]);
-//    $res->json();
   }
 }

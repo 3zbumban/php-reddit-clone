@@ -1,39 +1,39 @@
 <template>
 <div class="thread-view">
-<h1 v-if="posts">
-  /{{ thread.Name}}
-</h1>
-<div v-show="!loading" class="create-post">
-  <form @submit.prevent="createPost">
-    <input v-model="newPost.title" type="text" placeholder="post title..." @submit="">
-    <textarea v-model="newPost.text" rows="5" cols="60" name="text" placeholder="text..."></textarea>
-    <input type="submit" value="create">
-  </form>
-</div>
+  <h1 v-if="posts">
+    /{{ thread.Name}}
+  </h1>
+  <div v-show="!loading" class="create-post">
+    <form @submit.prevent="createPost">
+      <input v-model="newPost.title" type="text" placeholder="post title..." @submit="">
+      <textarea v-model="newPost.text" rows="5" cols="60" name="text" placeholder="text..."></textarea>
+      <input type="submit" value="create">
+    </form>
+  </div>
 <div class="post-list">
-<div v-show="!loading" v-for="post in posts" class="post">
-    <div class="post-title" @click="() => router.push({ name: 'Post', params: { id : post.post.Uid }})">
-      {{ post.post.Title }}
-    </div>
-    <div class="post-text">
-      {{ post.post.Text }}
-    </div>
-    <div class="post-createdAt">
-      {{ formatDistance(addHours(parseISO(post.post.Createdat), 2), new Date(), { addSuffix: true }) }}
-    </div>
-    <div class="post-username">
-      {{ post.username }}
-    </div>
-    <div class="votes">
-      <div class="voting">
-        <span>👍{{ post.votes.up }}</span>
-        <span>👎{{ post.votes.down }}</span>
+  <div v-show="!loading" v-for="post in posts" class="post">
+      <div class="post-title" @click="() => router.push({ name: 'Post', params: { id : post.post.Uid }})">
+        {{ post.post.Title }}
       </div>
-      <div class="voting">
-        voting:{{ post.votes.voting }}
+      <div class="post-text">
+        {{ post.post.Text }}
       </div>
-    </div>
-</div>
+      <div class="post-createdAt">
+        {{ formatDistance(addHours(parseISO(post.post.Createdat), 2), new Date(), { addSuffix: true }) }}
+      </div>
+      <div class="post-username">
+        {{ post.username }}
+      </div>
+      <div class="votes">
+        <div class="voting">
+          <span>👍{{ post.votes.up }}</span>
+          <span>👎{{ post.votes.down }}</span>
+        </div>
+        <div class="voting">
+          voting:{{ post.votes.voting }}
+        </div>
+      </div>
+  </div>
 </div>
 <div v-show="loading" class="loading-screen">
   <div class="loader"></div>

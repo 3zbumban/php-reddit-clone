@@ -22,7 +22,7 @@
     <div v-for="comment in post.comments" class="comment">
       <div class="meta">
         <div class="meta-username">{{ comment.user.username }}</div>
-        <div class="meta-createdat">{{ formatDistance(addHours(parseISO(comment.createdAt.date), 2), new Date(), { addSuffix: true, locale: de }) }}</div>
+        <div class="meta-createdat">{{ formatDistance(addHours(parseISO(comment.createdAt.date), 2), new Date(), { addSuffix: true }) }}</div>
       </div>
       <div class="comment-text">{{ comment.text }}</div>
     </div>

@@ -58,7 +58,7 @@ class UserTableMap extends TableMap
     /**
      * The total number of columns
      */
-    public const NUM_COLUMNS = 3;
+    public const NUM_COLUMNS = 4;
 
     /**
      * The number of lazy-loaded columns
@@ -68,12 +68,17 @@ class UserTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    public const NUM_HYDRATE_COLUMNS = 3;
+    public const NUM_HYDRATE_COLUMNS = 4;
 
     /**
      * the column name for the id field
      */
     public const COL_ID = 'user.id';
+
+    /**
+     * the column name for the uid field
+     */
+    public const COL_UID = 'user.uid';
 
     /**
      * the column name for the username field
@@ -99,11 +104,11 @@ class UserTableMap extends TableMap
      * @var array<string, mixed>
      */
     protected static $fieldNames = [
-        self::TYPE_PHPNAME       => ['Id', 'Username', 'Password', ],
-        self::TYPE_CAMELNAME     => ['id', 'username', 'password', ],
-        self::TYPE_COLNAME       => [UserTableMap::COL_ID, UserTableMap::COL_USERNAME, UserTableMap::COL_PASSWORD, ],
-        self::TYPE_FIELDNAME     => ['id', 'username', 'password', ],
-        self::TYPE_NUM           => [0, 1, 2, ]
+        self::TYPE_PHPNAME       => ['Id', 'Uid', 'Username', 'Password', ],
+        self::TYPE_CAMELNAME     => ['id', 'uid', 'username', 'password', ],
+        self::TYPE_COLNAME       => [UserTableMap::COL_ID, UserTableMap::COL_UID, UserTableMap::COL_USERNAME, UserTableMap::COL_PASSWORD, ],
+        self::TYPE_FIELDNAME     => ['id', 'uid', 'username', 'password', ],
+        self::TYPE_NUM           => [0, 1, 2, 3, ]
     ];
 
     /**
@@ -115,11 +120,11 @@ class UserTableMap extends TableMap
      * @var array<string, mixed>
      */
     protected static $fieldKeys = [
-        self::TYPE_PHPNAME       => ['Id' => 0, 'Username' => 1, 'Password' => 2, ],
-        self::TYPE_CAMELNAME     => ['id' => 0, 'username' => 1, 'password' => 2, ],
-        self::TYPE_COLNAME       => [UserTableMap::COL_ID => 0, UserTableMap::COL_USERNAME => 1, UserTableMap::COL_PASSWORD => 2, ],
-        self::TYPE_FIELDNAME     => ['id' => 0, 'username' => 1, 'password' => 2, ],
-        self::TYPE_NUM           => [0, 1, 2, ]
+        self::TYPE_PHPNAME       => ['Id' => 0, 'Uid' => 1, 'Username' => 2, 'Password' => 3, ],
+        self::TYPE_CAMELNAME     => ['id' => 0, 'uid' => 1, 'username' => 2, 'password' => 3, ],
+        self::TYPE_COLNAME       => [UserTableMap::COL_ID => 0, UserTableMap::COL_UID => 1, UserTableMap::COL_USERNAME => 2, UserTableMap::COL_PASSWORD => 3, ],
+        self::TYPE_FIELDNAME     => ['id' => 0, 'uid' => 1, 'username' => 2, 'password' => 3, ],
+        self::TYPE_NUM           => [0, 1, 2, 3, ]
     ];
 
     /**
@@ -134,6 +139,12 @@ class UserTableMap extends TableMap
         'user.id' => 'ID',
         'UserTableMap::COL_ID' => 'ID',
         'COL_ID' => 'ID',
+        'Uid' => 'UID',
+        'User.Uid' => 'UID',
+        'uid' => 'UID',
+        'user.uid' => 'UID',
+        'UserTableMap::COL_UID' => 'UID',
+        'COL_UID' => 'UID',
         'Username' => 'USERNAME',
         'User.Username' => 'USERNAME',
         'username' => 'USERNAME',
@@ -166,6 +177,7 @@ class UserTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
+        $this->addColumn('uid', 'Uid', 'CHAR', true, 39, null);
         $this->addColumn('username', 'Username', 'VARCHAR', true, 128, null);
         $this->addColumn('password', 'Password', 'VARCHAR', true, 128, null);
     }
@@ -356,10 +368,12 @@ class UserTableMap extends TableMap
     {
         if (null === $alias) {
             $criteria->addSelectColumn(UserTableMap::COL_ID);
+            $criteria->addSelectColumn(UserTableMap::COL_UID);
             $criteria->addSelectColumn(UserTableMap::COL_USERNAME);
             $criteria->addSelectColumn(UserTableMap::COL_PASSWORD);
         } else {
             $criteria->addSelectColumn($alias . '.id');
+            $criteria->addSelectColumn($alias . '.uid');
             $criteria->addSelectColumn($alias . '.username');
             $criteria->addSelectColumn($alias . '.password');
         }
@@ -381,10 +395,12 @@ class UserTableMap extends TableMap
     {
         if (null === $alias) {
             $criteria->removeSelectColumn(UserTableMap::COL_ID);
+            $criteria->removeSelectColumn(UserTableMap::COL_UID);
             $criteria->removeSelectColumn(UserTableMap::COL_USERNAME);
             $criteria->removeSelectColumn(UserTableMap::COL_PASSWORD);
         } else {
             $criteria->removeSelectColumn($alias . '.id');
+            $criteria->removeSelectColumn($alias . '.uid');
             $criteria->removeSelectColumn($alias . '.username');
             $criteria->removeSelectColumn($alias . '.password');
         }

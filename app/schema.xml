@@ -29,6 +29,7 @@
 
     <table name="user" phpName="User">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="uid" type="char" size="39" required="true"/>
         <column name="username" type="varchar" required="true" unique="true" size="128"/>
         <column name="password" type="varchar" required="true" size="128"/>
 

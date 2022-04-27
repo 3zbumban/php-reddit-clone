@@ -21,10 +21,12 @@ use Propel\Runtime\Exception\PropelException;
  *
  *
  * @method     ChildUserQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method     ChildUserQuery orderByUid($order = Criteria::ASC) Order by the uid column
  * @method     ChildUserQuery orderByUsername($order = Criteria::ASC) Order by the username column
  * @method     ChildUserQuery orderByPassword($order = Criteria::ASC) Order by the password column
  *
  * @method     ChildUserQuery groupById() Group by the id column
+ * @method     ChildUserQuery groupByUid() Group by the uid column
  * @method     ChildUserQuery groupByUsername() Group by the username column
  * @method     ChildUserQuery groupByPassword() Group by the password column
  *
@@ -72,6 +74,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUser findOneOrCreate(?ConnectionInterface $con = null) Return the first ChildUser matching the query, or a new ChildUser object populated from the query conditions when no match is found
  *
  * @method     ChildUser|null findOneById(int $id) Return the first ChildUser filtered by the id column
+ * @method     ChildUser|null findOneByUid(string $uid) Return the first ChildUser filtered by the uid column
  * @method     ChildUser|null findOneByUsername(string $username) Return the first ChildUser filtered by the username column
  * @method     ChildUser|null findOneByPassword(string $password) Return the first ChildUser filtered by the password column *
 
@@ -79,6 +82,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUser requireOne(?ConnectionInterface $con = null) Return the first ChildUser matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildUser requireOneById(int $id) Return the first ChildUser filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUser requireOneByUid(string $uid) Return the first ChildUser filtered by the uid column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOneByUsername(string $username) Return the first ChildUser filtered by the username column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOneByPassword(string $password) Return the first ChildUser filtered by the password column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -86,6 +90,8 @@ use Propel\Runtime\Exception\PropelException;
  * @psalm-method ObjectCollection&\Traversable<ChildUser> find(?ConnectionInterface $con = null) Return ChildUser objects based on current ModelCriteria
  * @method     ChildUser[]|ObjectCollection findById(int $id) Return ChildUser objects filtered by the id column
  * @psalm-method ObjectCollection&\Traversable<ChildUser> findById(int $id) Return ChildUser objects filtered by the id column
+ * @method     ChildUser[]|ObjectCollection findByUid(string $uid) Return ChildUser objects filtered by the uid column
+ * @psalm-method ObjectCollection&\Traversable<ChildUser> findByUid(string $uid) Return ChildUser objects filtered by the uid column
  * @method     ChildUser[]|ObjectCollection findByUsername(string $username) Return ChildUser objects filtered by the username column
  * @psalm-method ObjectCollection&\Traversable<ChildUser> findByUsername(string $username) Return ChildUser objects filtered by the username column
  * @method     ChildUser[]|ObjectCollection findByPassword(string $password) Return ChildUser objects filtered by the password column
@@ -189,7 +195,7 @@ abstract class UserQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, username, password FROM user WHERE id = :p0';
+        $sql = 'SELECT id, uid, username, password FROM user WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -322,6 +328,34 @@ abstract class UserQuery extends ModelCriteria
         }
 
         $this->addUsingAlias(UserTableMap::COL_ID, $id, $comparison);
+
+        return $this;
+    }
+
+    /**
+     * Filter the query on the uid column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByUid('fooValue');   // WHERE uid = 'fooValue'
+     * $query->filterByUid('%fooValue%', Criteria::LIKE); // WHERE uid LIKE '%fooValue%'
+     * $query->filterByUid(['foo', 'bar']); // WHERE uid IN ('foo', 'bar')
+     * </code>
+     *
+     * @param string|string[] $uid The value to use as filter.
+     * @param string|null $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this The current query, for fluid interface
+     */
+    public function filterByUid($uid = null, ?string $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($uid)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        $this->addUsingAlias(UserTableMap::COL_UID, $uid, $comparison);
 
         return $this;
     }

@@ -6,15 +6,15 @@
     <input type="submit" value="create">
   </form>
 </div>
-  <div class="thread-list" v-show="!loading">
-      <div 
-        v-for="thrad in threads" 
-        class="thread-item" 
-        @click="() => router.push({ name: 'Thread', params: { id: thrad.Uid }})">
-        <div class="thread-item-title">
-          <span>{{ thrad.Name }}</span>
-        </div>
+<div class="thread-list" v-show="!loading">
+  <div 
+    v-for="thrad in threads" 
+    class="thread-item" 
+    @click="() => router.push({ name: 'Thread', params: { id: thrad.Uid }})">
+    <div class="thread-item-title">
+      <span>{{ thrad.Name }}</span>
     </div>
+  </div>
 </div>
 <div v-show="loading" class="loading-screen">
   <div class="loader"></div>

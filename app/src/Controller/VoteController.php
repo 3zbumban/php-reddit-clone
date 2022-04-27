@@ -10,6 +10,7 @@ class VoteController
 {
   public function vote(RequestInterface $req, ResponseInterface $res): void
   {
+    // todo: auth - user uuid
     $vote = $req->getQueryParams()["vote"];
     $postId = $req->getQueryParams()["postId"];
     $userId = (int)$req->getQueryParams()["userId"];

@@ -21,6 +21,7 @@ class PostController
 
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
+    // todo: auth - user uuid
     $body = $req->getBody();
     $title = $body["title"];
     $text = $body["text"];

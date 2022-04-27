@@ -33,6 +33,7 @@ class UserController
 
   public function refresh(RequestInterface $req, ResponseInterface $res): void
   {
+    // todo: uuid
     $userId = (int)$req->getQueryParams()["userId"];
     $jwt = $req->getHeader()["Acess-Token"];
 

@@ -21,6 +21,7 @@ class ThreadController
 
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
+    // todo: auth
     $body = $req->getBody();
     $name = $body["name"];
 

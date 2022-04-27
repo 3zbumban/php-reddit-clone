@@ -42,7 +42,8 @@ class PostService
    */
   public static function findPostsByThreadId(string $threadId): array
   {
-    $posts = PostQuery::create()->findByThreadid($threadId);
+    $thread = ThreadQuery::create()->findOneByUid($threadId);
+    $posts = PostQuery::create()->findByThreadId($thread->getId());
     $response = [];
     foreach ($posts as $post) {
       $comments = CommentService::getCommentsForPost($post->getId());
@@ -56,7 +57,10 @@ class PostService
           "comments" => $comments
       ];
     }
-    return $response;
+    return [
+      "posts" => $response,
+      "thread" => $thread->toArray()
+    ];
   }
 
   public static function findOneByUid(string $postId): array

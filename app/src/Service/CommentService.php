@@ -16,10 +16,10 @@ class CommentService
   /**
    * @throws Exception
    */
-  public static function commentOnPost(int $postId, string $text, int $userId): Comment
+  public static function commentOnPost(string $postId, string $text, int $userId): array
   {
     $user = UserQuery::create()->findOneById($userId);
-    $post = PostQuery::create()->findOneById($postId);
+    $post = PostQuery::create()->findOneByUid($postId);
 
     $comment = new Comment();
     $createdAt = time();

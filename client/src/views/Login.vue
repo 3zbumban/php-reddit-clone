@@ -3,8 +3,8 @@
     <h1>Login</h1>
     <form @submit.prevent="login" class="user-form">
       <!-- <label>username:</label> -->
-      <input type="text" placeholder="username">
-      <input type="password" placeholder="password">
+      <input v-model="data.username" type="text" placeholder="username">
+      <input v-model="data.password" type="password" placeholder="password">
       <!-- <input type="password" placeholder="repeat password"> -->
       <input type="submit" value="Signup">
     </form>

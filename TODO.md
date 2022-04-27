@@ -1,6 +1,22 @@
 # todo
 
 - [ ] frontend
+  - [ ] service
+    - [ ] auth
+      - [ ] signup
+      - [ ] login
+      - [ ] refresh
+    - [ ] thread
+      - [ ] create
+      - [ ] getAll
+    - [ ] post
+      - [ ] create
+      - [ ] getAll
+      - [ ] vote
+      - [ ] getOne
+    - [ ] comment
+      - [ ] comment
+    - [ ] dates locale
 - [ ] exepction management
 - [ ] uuid id 
 - [ ] schema drawing

@@ -33,7 +33,8 @@ class PostService
       $post->save();
       return $post->toArray();
     } catch (Exception $exception) {
-      throw new Exception("could not create post");
+      // echo $exception->getMessage();
+      throw new Exception($exception->getMessage());
     }
   }
 

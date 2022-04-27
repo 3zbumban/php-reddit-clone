@@ -43,6 +43,7 @@ class UserService
             "jwt" => self::jwtSign($user->getUsername(), $user->getId())
         ];
       } catch (Exception $exception) {
+        // echo $exception->getMessage();
         throw new Exception("could not save or sign user");
       }
     }

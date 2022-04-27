@@ -63,6 +63,7 @@ const createPost = async () => {
   loading.value = true
   console.log('create post')
   console.log(newPost.value)
+  console.log(route.params.id)
   const response = await postService.create({
     title: newPost.value.title,
     text: newPost.value.text,

@@ -16,7 +16,9 @@
       - [ ] getOne
     - [ ] comment
       - [ ] comment
-    - [ ] dates locale
+    - [x] dates locale
+    - [ ] reset create thread
+    - [ ] reset create post
 - [ ] exepction management
 - [ ] uuid id 
 - [ ] schema drawing

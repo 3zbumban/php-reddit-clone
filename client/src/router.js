@@ -3,6 +3,7 @@ import Login from "./views/Login.vue";
 import Thread from "./views/Thread.vue";
 import Signup from "./views/Signup.vue";
 import BrowseThreads from "./views/BrowseThreads.vue";
+import Post from "./views/Post.vue";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: "/thread/:id",
     name: "Thread",
     component: Thread
+  },
+  {
+    path: "/post/:id",
+    name: "Post",
+    component: Post
   },
 ];
 

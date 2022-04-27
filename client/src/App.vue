@@ -1,20 +1,60 @@
 <template>
-  <h1>NOT <span style="color: red;">R</span>EDDIT</h1>
+  <!-- <h1>NOT <span style="color: red;">R</span>EDDIT</h1> -->
+  <header-component></header-component>
   <router-view></router-view>
 </template>
 
 <script setup>
+import HeaderComponent from "./components/Header.vue";
 
 </script>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.user-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    margin-bottom: 10px;
+  }
+}
 
 html, body {
   height: 100vh;
   width: 100vw;
   margin: 0;
   font-family: 'Ubuntu Mono', monospace;
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // height: 100vh;
+  // width: 100vw;
+  height: 100%;
+  width: 100%;
+}
+
+.meta-username {
+  margin-right: 10px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Oswald', sans-serif;
 }
 
 #app {
@@ -24,10 +64,13 @@ html, body {
   display: flex;
   flex-direction: column;
   overflow: auto;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 input {
   box-sizing: border-box;
+  font-size: 1.5rem;
 }
 
 .loader {

@@ -2,7 +2,11 @@ import { defineStore } from 'pinia'
 
 export const useStore = defineStore('main', {
   state: () => ({
-    counter: 0,
+    user: {
+      id: '',
+      name: '',
+      loggedIn: false,
+    },
   }),
   actions: {
     increment() {

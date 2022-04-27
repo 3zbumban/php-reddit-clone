@@ -36,7 +36,4 @@ const login = async () => {
 </script>
 
 <style scoped lang="scss">
-a {
-  color: #42b983;
-}
 </style>

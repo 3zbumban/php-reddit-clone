@@ -7,6 +7,7 @@ use Model\Post;
 use Model\PostQuery;
 use Model\ThreadQuery;
 use Model\UserQuery;
+use Propel\Runtime\Exception\PropelException;
 use Ramsey\Uuid\Uuid;
 
 class PostService
@@ -39,7 +40,7 @@ class PostService
   }
 
   /**
-   * @throws \Propel\Runtime\Exception\PropelException
+   * @throws PropelException
    */
   public static function findPostsByThreadId(string $threadId): array
   {

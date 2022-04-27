@@ -5,7 +5,6 @@ namespace Sem\Weben\Service;
 use Exception;
 use Model\Thread;
 use Model\ThreadQuery;
-use Propel\Runtime\Collection\ObjectCollection;
 use Ramsey\Uuid\Uuid;
 
 

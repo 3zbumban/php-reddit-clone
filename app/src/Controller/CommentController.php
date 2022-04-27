@@ -5,7 +5,6 @@ namespace Sem\Weben\Controller;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\CommentService;
-use Sem\Weben\Service\UserService;
 
 class CommentController
 {

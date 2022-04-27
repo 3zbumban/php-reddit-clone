@@ -5,7 +5,7 @@ const getAll = async (threadId) => {
     const response = await fetch(`${apiUrl}/post?threadId=${threadId}`, {
       method: "GET",
       headers: {
-        // "Content-Type": "application/json", // todo: wtf?
+        // "Content-Type": "application/json",
         // "Accept": "application/json",
         // "access-control-request-headers": "Content-Type"
       }
@@ -23,7 +23,7 @@ const getOne = async (postId) => {
     const response = await fetch(`${apiUrl}/post/${postId}`, {
       method: "GET",
       headers: {
-        // "Content-Type": "application/json", // todo: wtf?
+        // "Content-Type": "application/json",
         // "Accept": "application/json",
         // "access-control-request-headers": "Content-Type"
       }
@@ -38,7 +38,7 @@ const vote = async (postId, userId, vote) => {
   const response = await fetch(`${apiUrl}/vote?postId=${postId}&userId=${userId}&vote=${vote}`, {
     method: "POST",
     headers: {
-      // "Content-Type": "application/json", // todo: wtf?
+      // "Content-Type": "application/json",
       // "Accept": "application/json",
       // "access-control-request-headers": "Content-Type"
     }

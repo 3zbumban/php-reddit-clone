@@ -16,7 +16,7 @@ const getAll = async () => {
   const response = await fetch(`${apiUrl}/thread`, {
     method: "GET",
     headers: {
-      // "Content-Type": "application/json", // todo: wtf?
+      // "Content-Type": "application/json",
       // "Accept": "application/json",
       // "access-control-request-headers": "Content-Type"
     }

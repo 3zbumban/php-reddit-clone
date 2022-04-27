@@ -11,7 +11,7 @@ class VoteController
   public function vote(RequestInterface $req, ResponseInterface $res): void
   {
     $vote = $req->getQueryParams()["vote"];
-    $postId = (int)$req->getQueryParams()["postId"];
+    $postId = $req->getQueryParams()["postId"];
     $userId = (int)$req->getQueryParams()["userId"];
 
     $voteType = $vote === "up" ? 1 : -1;

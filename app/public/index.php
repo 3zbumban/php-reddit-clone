@@ -41,6 +41,6 @@ try {
       "message" => "server error",
       "error" => $exception->getMessage()
   ]);
-  // todo:
+  // todo: custom exception + custom catch for it
   $res->json();
 }

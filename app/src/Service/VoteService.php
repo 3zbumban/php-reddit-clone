@@ -13,9 +13,9 @@ class VoteService
   /**
    * @throws Exception
    */
-  public static function voteOnPost(int $postId, int $userId, int $voteType): array
+  public static function voteOnPost(string $postId, int $userId, int $voteType): array
   {
-    $post = PostQuery::create()->findOneById($postId);
+    $post = PostQuery::create()->findOneByUid($postId);
     $user = UserQuery::create()->findOneById($userId);
     $voteTest = VoteQuery::create()->filterByPostid($post->getId())->findByUserid($user->getId());
 

@@ -7,6 +7,7 @@ use Model\User;
 use Model\UserQuery;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Ramsey\Uuid\Uuid;
 
 class UserService
 {
@@ -29,8 +30,10 @@ class UserService
   {
     $user = new User();
     $passwordHash = password_hash($password, PASSWORD_ARGON2I);
+    $uuid = Uuid::uuid4()->toString();
     $user->setUsername($username);
     $user->setPassword($passwordHash);
+    $user->setUid($uuid);
 
     if (!$user->validate()) {
       throw new Exception("Invalid user");

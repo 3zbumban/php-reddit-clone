@@ -35,7 +35,6 @@ $router->addRoute("POST", '/^\/vote\/?/', VoteController::class, "vote");
 try {
   $router->route($req, $res);
 } catch (Exception $exception) {
-  echo $exception->getTraceAsString();
   $res->setStatusCode(500);
   $res->setBody([
       "message" => "server error",

@@ -24,3 +24,5 @@
 - [ ] schema drawing
 - [ ] architekture
 - [ ] slides
+- [ ] docker compose migrations
+- [ ] docker compose composer dump-autoload

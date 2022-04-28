@@ -1,6 +1,7 @@
 mysqldata/
 mongodata/
 app/vendor
+pnpm-lock.yaml
 .env
 .idea
 .vscode

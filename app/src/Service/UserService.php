@@ -43,6 +43,7 @@ class UserService
         return [
             "username" => $user->getUsername(),
             "userId" => $user->getId(),
+            "userUid" => $user->getUid(),
             "jwt" => self::jwtSign($user->getUsername(), $user->getId())
         ];
       } catch (Exception $exception) {
@@ -64,6 +65,7 @@ class UserService
         return [
             "username" => $user->getUsername(),
             "userId" => $user->getId(),
+            "userUid" => $user->getUid(),
             "jwt" => self::jwtSign($user->getUsername(), $user->getId())
         ];
       } else {
@@ -92,6 +94,7 @@ class UserService
         return [
           "username" => $user->getUsername(),
           "userId" => $user->getId(),
+          "userUid" => $user->getUid(),
           "jwt" => self::jwtSign($user->getUsername(), $user->getId())
         ];
       } else {

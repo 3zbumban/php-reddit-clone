@@ -27,6 +27,9 @@ WORKDIR /app
 COPY app/ ./
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --ignore-platform-reqs
+RUN composer dump-autoload
+# RUN ./vendor/bin/propel migration:up
+
 # USER root
 # RUN whoami
 

@@ -35,7 +35,7 @@ class Router
           } else {
             throw new Exception(
                 sprintf(
-                    'The "%s" controller does not exist of misses the action "%s"',
+                    'The "%s" controller does not exist or misses the action "%s"',
                     $controllerName,
                     $actionName
                 )

@@ -9,11 +9,18 @@ export const useStore = defineStore('main', {
     },
   }),
   actions: {
-    increment() {
-      this.counter++
+    authenticate(id, name) {
+      this.user.id = id
+      this.user.name = name
+      this.user.loggedIn = true
     },
-    randomizeCounter() {
-      this.counter = Math.round(100 * Math.random())
+    unAuthenticate() {
+      this.user.id = ''
+      this.user.name = ''
+      this.user.loggedIn = false
     },
+    async reAuthenticate() {
+
+    }
   },
 });

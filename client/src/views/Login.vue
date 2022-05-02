@@ -6,7 +6,7 @@
       <input v-model="data.username" type="text" placeholder="username">
       <input v-model="data.password" type="password" placeholder="password">
       <!-- <input type="password" placeholder="repeat password"> -->
-      <input type="submit" value="Signup">
+      <input type="submit" value="Login">
     </form>
   </div>
     <div v-show="loading" class="container loading-screen">
@@ -16,9 +16,11 @@
 
 <script setup>
 import { ref } from 'vue'
-import userService from '../service/user.service';
+import userService from '../service/user.service.js';
+import { useStore } from "../store.js";
 
 const count = ref(0)
+const store = useStore()
 const loading = ref(false)
 const data = ref({
   username: "",
@@ -30,6 +32,8 @@ const login = async () => {
   console.log("Logging in")
   const response = await userService.login(data.value)
   console.log(response)
+  // todo:
+  // store.authenticate()
   loading.value = false
 }
 

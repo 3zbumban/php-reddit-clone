@@ -19,6 +19,7 @@
     - [x] dates locale
     - [ ] reset create thread
     - [ ] reset create post
+    - [ ] reset create comment
 - [ ] exepction management
 - [ ] uuid id 
 - [ ] schema drawing

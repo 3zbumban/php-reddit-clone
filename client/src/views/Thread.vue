@@ -49,10 +49,10 @@ import postService from '../service/post.service.js'
 import { parseISO, formatDistance, addHours } from "date-fns"
 
 const router = useRouter()
+const route = useRoute()
 const posts = ref(false)
 const thread = ref(false)
 const loading = ref(true)
-const route = useRoute()
 const newPost = ref({
   title: "",
   text: "",
@@ -68,7 +68,7 @@ const createPost = async () => {
     title: newPost.value.title,
     text: newPost.value.text,
     threadUid: route.params.id,
-    userUid: 1
+    userUid: 1 // todo:
   })
   console.log(response)
   updateContent()

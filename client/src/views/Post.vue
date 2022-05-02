@@ -63,7 +63,7 @@ const createComment = async () => {
   console.log(newComment.value)
   const response = await commentService.comment({
     text: newComment.value.text,
-  }, 1, route.params.id)
+  }, 1, route.params.id) // todo: 
   console.log(response)
   updateContent()
 }
@@ -73,7 +73,7 @@ const vote = async (t) => {
   // todo auth
   // todo already voted
   loading.value = true
-  const response = await postService.vote(route.params.id, 2, t)
+  const response = await postService.vote(route.params.id, 2, t)  // todo
   console.log(response)
   await updateContent()
 }

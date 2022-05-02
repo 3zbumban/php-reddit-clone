@@ -24,7 +24,7 @@
 - [ ] schema drawing
 - [ ] architekture
 - [ ] slides
-- [ ] docker compose migrations
-- [ ] docker compose composer dump-autoload
+- [x] ~~docker compose migrations~~
+- [x] docker compose composer dump-autoload
 - [ ] JWT_SECRETE key
 - [ ] what if query/body/path params missing

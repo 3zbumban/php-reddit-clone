@@ -1,5 +1,6 @@
 FROM php:fpm
 
+WORKDIR /app
 VOLUME /app
 
 RUN docker-php-ext-install pdo pdo_mysql
@@ -8,10 +9,10 @@ RUN apt-get update
 RUN apt-get install -y git
 RUN apt-get install -y zip unzip
 
-# RUN pecl install mongodb && docker-php-ext-enable mongodb
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN pecl install mongodb && docker-php-ext-enable mongodb
+# RUN pecl install xdebug && docker-php-ext-enable xdebug
+# RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+# RUN echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -19,18 +20,13 @@ RUN php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa7
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
+# RUN curl -sS https://getcomposer.org/installer | php
 
-# RUN useradd -ms /bin/bash cuser
-# USER cuser
-# RUN pwd
-WORKDIR /app
 COPY app/ ./
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --ignore-platform-reqs
 RUN composer dump-autoload
 # RUN ./vendor/bin/propel migration:up
 
-# USER root
-# RUN whoami
 
-EXPOSE 9003
+# EXPOSE 9003

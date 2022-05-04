@@ -8,10 +8,10 @@
       - [ ] refresh
     - [ ] thread
       - [ ] create
-      - [ ] getAll
+      - [x] getAll
     - [ ] post
       - [ ] create
-      - [ ] getAll
+      - [x] getAll
       - [ ] vote
       - [ ] getOne
     - [ ] comment
@@ -24,6 +24,7 @@
 - [ ] uuid id 
 - [ ] schema drawing
 - [ ] architekture
+- [ ] logout
 - [ ] slides
 - [x] ~~docker compose migrations~~
 - [x] docker compose composer dump-autoload

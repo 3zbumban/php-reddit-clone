@@ -6,6 +6,7 @@ const create = async (payload) => {
     headers: {
       // "Content-Type": "application/json",
       // "access-control-request-headers": "Content-Type"
+      "access-token": getToken()
     },
     body: JSON.stringify(payload)
   })

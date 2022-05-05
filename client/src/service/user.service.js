@@ -18,6 +18,7 @@ const login = async (payload) => {
     headers: {
       // "Content-Type": "application/json",
       // "access-control-request-headers": "Content-Type"
+      // "access-token": getToken()
     },
     body: JSON.stringify(payload)
   })
@@ -30,6 +31,7 @@ const refreshToken = async (payload, userId) => {
     headers: {
       // "Content-Type": "application/json",
       // "access-control-request-headers": "Content-Type"
+      "access-token": getToken()
     },
     body: JSON.stringify(payload)
   })

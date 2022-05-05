@@ -1,4 +1,5 @@
 import apiUrl from "./apiUrl";
+import getToken from "./getToken";
 
 const comment = async (payload, userId, postId) => {
   const response = await fetch(`${apiUrl}/comment?postId=${postId}&userId=${userId}`, {
@@ -7,6 +8,7 @@ const comment = async (payload, userId, postId) => {
       // "Content-Type": "application/json",
       // "Accept": "application/json",
       // "access-control-request-headers": "Content-Type"
+      "access-token": getToken()
     },
     // {
     //   "text": "hi im a comment"

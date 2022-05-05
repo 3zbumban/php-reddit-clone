@@ -5,7 +5,12 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import HeaderComponent from "./components/Header.vue";
+
+onMounted(() => {
+  console.log("mounted");
+});
 
 </script>
 

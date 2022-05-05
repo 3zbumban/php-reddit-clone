@@ -16,9 +16,9 @@ class CommentService
   /**
    * @throws Exception
    */
-  public static function commentOnPost(string $postId, string $text, int $userId): array
+  public static function commentOnPost(string $postId, string $text, string $userId): array
   {
-    $user = UserQuery::create()->findOneById($userId);
+    $user = UserQuery::create()->findOneByUid($userId);
     $post = PostQuery::create()->findOneByUid($postId);
 
     $comment = new Comment();

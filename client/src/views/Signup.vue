@@ -16,7 +16,9 @@
 <script setup>
 import { ref } from 'vue'
 import userService from "../service/user.service.js"
+import { useStore } from '../store.js';
 
+const store = useStore();
 const loading = ref(false)
 const data = ref({
   username: "",
@@ -26,7 +28,6 @@ const data = ref({
 
 const signup = async () => {
   loading.value = true
-  console.log(data.value.password)
   if (data.value.password !== data.value.passwordRepeat || data.value.password.trim() === "" || data.value.username.trim() === "") {
     alert("something went wrong - please check your data again")
     return
@@ -37,6 +38,7 @@ const signup = async () => {
       password: data.value.password
     })
     console.log(response)
+    store.authenticate(response)
   }
   loading.value = false  
 }

@@ -4,7 +4,7 @@
     <div class="header-end">
       <h2 class="link" @click="() => router.push({ name: 'Login'})">Login</h2>
       <h2 class="link" @click="() => router.push({ name: 'Signup'})">Signup</h2>
-      <h2 v-if="store.user.loggedIn" class="username">USERNAME</h2>
+      <h2 v-if="store.user.loggedIn" class="username">{{ store.user.name }}</h2>
     </div>
     <!-- <span class="link" @click="() => router.push({ name: 'Threads'})">Browse Threads</span> -->
     <!-- <span class="link" @click="() => router.push({ name: 'Threads'})">2</span> -->

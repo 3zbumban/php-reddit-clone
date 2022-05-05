@@ -50,12 +50,14 @@ class UserController
     $query = $req->getQueryParams();
     $header = $req->getHeader();
 
-    if (empty($query['userId']) || empty($header['acess-token'])) {
+    // echo json_encode($header);
+
+    if (empty($query['userId']) || empty($header['Access-Token'])) {
       throw new Exception('Missing parameters');
     }
 
     $userId = $query["userId"];
-    $jwt = $header["acess-token"];
+    $jwt = $header["Access-Token"];
 
     $user = UserService::checkJwtAndUser($jwt, $userId);
 

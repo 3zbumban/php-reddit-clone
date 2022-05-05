@@ -50,7 +50,7 @@ class UserController
     $query = $req->getQueryParams();
     $header = $req->getHeader();
 
-    if (empty($query['userId']) || empty($header['Acess-Token'])) {
+    if (empty($query['userId']) || empty($header['acess-token'])) {
       throw new Exception('Missing parameters');
     }
 

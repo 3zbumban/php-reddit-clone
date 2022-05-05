@@ -43,7 +43,7 @@ docker compose up
 - [wireframes](https://www.figma.com/file/rJgqXhmzwbCIQe8fPSpuv1/we-not-reddit?node-id=0%3A1)
 - [xdebug phpstorm](https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html#configuring-xdebug-vagrant)
 - [xdebug vscode](https://dev.to/jackmiras/xdebug-in-vscode-with-docker-379l)
-- []()
+- [use empty()](https://nehalist.io/better-array-parameter-handling-in-php/)
 - []()
 - []()
 - []()

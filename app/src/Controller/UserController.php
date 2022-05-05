@@ -2,6 +2,7 @@
 
 namespace Sem\Weben\Controller;
 
+use Exception;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\UserService;
@@ -11,8 +12,14 @@ class UserController
 
   public function login(RequestInterface $req, ResponseInterface $res): void
   {
-    $username = $req->getBody()['username'];
-    $password = $req->getBody()['password'];
+    $body = $req->getBody();
+
+    if (empty($body['username']) || empty($body['password'])) {
+      throw new Exception('Missing parameters');
+    }
+
+    $username = $body["username"];
+    $password = $body["password"];
 
     $user = UserService::signin($username, $password);
 
@@ -22,8 +29,14 @@ class UserController
 
   public function signup(RequestInterface $req, ResponseInterface $res): void
   {
-    $username = $req->getBody()["username"];
-    $password = $req->getBody()["password"];
+    $body = $req->getBody();
+
+    if (empty($body['username']) || empty($body['password'])) {
+      throw new Exception('Missing parameters');
+    }
+
+    $username = $body["username"];
+    $password = $body["password"];
 
     $user = UserService::createUser($username, $password);
 
@@ -34,10 +47,15 @@ class UserController
   public function refresh(RequestInterface $req, ResponseInterface $res): void
   {
     // todo: uuid
-    $userId = (int)$req->getQueryParams()["userId"];
-    $jwt = $req->getHeader()["Acess-Token"];
+    $query = $req->getQueryParams();
+    $header = $req->getHeader();
 
-    // echo json_encode($jwt);
+    if (empty($query['userId']) || empty($header['Acess-Token'])) {
+      throw new Exception('Missing parameters');
+    }
+
+    $userId = $query["userId"];
+    $jwt = $header["acess-token"];
 
     $user = UserService::checkJwtAndUser($jwt, $userId);
 

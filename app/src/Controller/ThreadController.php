@@ -2,6 +2,7 @@
 
 namespace Sem\Weben\Controller;
 
+use Exception;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\ThreadService;
@@ -23,6 +24,9 @@ class ThreadController
   {
     // todo: auth - user uuid
     $body = $req->getBody();
+    if (empty($body['name'])) {
+      throw new Exception('Missing parameters');
+    }
     $name = $body["name"];
 
     $thread = ThreadService::createThread($name);

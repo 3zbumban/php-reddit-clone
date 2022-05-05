@@ -30,11 +30,15 @@ const data = ref({
 
 const login = async () => {
   loading.value = true
-  console.log("Logging in")
-  const response = await userService.login(data.value)
-  console.log(response)
-  store.authenticate(response.userUid, response.username, response.jwt)
-  await router.push({ name: 'Threads' })
+  try {
+    console.log("Logging in")
+    const response = await userService.login(data.value)
+    console.log(response)
+    store.authenticate(response.userUid, response.username, response.jwt)
+    await router.push({ name: 'Threads' })
+  } catch (error) {
+    alert(error.error)
+  }
   loading.value = false
 }
 

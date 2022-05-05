@@ -2,8 +2,9 @@
   <div class="header">
     <h1 @click="() => router.push({ name: 'Threads'})">NOT <span style="color: red;">R</span>EDDIT</h1>
     <div class="header-end">
-      <h2 class="link" @click="() => router.push({ name: 'Login'})">Login</h2>
-      <h2 class="link" @click="() => router.push({ name: 'Signup'})">Signup</h2>
+      <h2 v-if="!store.user.loggedIn" class="link" @click="() => router.push({ name: 'Login'})">Login</h2>
+      <h2 v-if="!store.user.loggedIn" class="link" @click="() => router.push({ name: 'Signup'})">Signup</h2>
+      <h2 v-if="store.user.loggedIn" class="link" @click="logout">Logout</h2>
       <h2 v-if="store.user.loggedIn" class="username">{{ store.user.name }}</h2>
     </div>
     <!-- <span class="link" @click="() => router.push({ name: 'Threads'})">Browse Threads</span> -->
@@ -22,6 +23,11 @@ const router = useRouter()
 const route = useRoute()
 const count = ref(0)
 const store = useStore()
+
+const logout = () => {
+  store.unAuthenticate()
+  router.push({ name: 'Threads'})
+}
 </script>
 
 <style scoped lang="scss">

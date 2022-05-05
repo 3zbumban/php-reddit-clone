@@ -70,7 +70,7 @@ const createPost = async () => {
     title: newPost.value.title,
     text: newPost.value.text,
     threadUid: route.params.id,
-    userUid: store.uder.id // todo:
+    userUid: store.user.id // todo:
   })
   console.log(response)
   updateContent()

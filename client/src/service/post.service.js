@@ -1,4 +1,5 @@
-import apiUrl from "./apiUrl";
+import apiUrl from "./apiUrl.js";
+import getToken from "./getToken.js";
 
 const getAll = async (threadId) => {
   const response = await fetch(`${apiUrl}/post?threadId=${threadId}`, {

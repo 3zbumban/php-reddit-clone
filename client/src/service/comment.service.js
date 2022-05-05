@@ -1,5 +1,5 @@
-import apiUrl from "./apiUrl";
-import getToken from "./getToken";
+import apiUrl from "./apiUrl.js";
+import getToken from "./getToken.js";
 
 const comment = async (payload, userId, postId) => {
   const response = await fetch(`${apiUrl}/comment?postId=${postId}&userId=${userId}`, {

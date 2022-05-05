@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import useService from "./service/user.service.js"
 
 export const useStore = defineStore('main', {
   state: () => ({
@@ -27,7 +28,8 @@ export const useStore = defineStore('main', {
     async reAuthenticate() {
       const user = JSON.parse(localStorage.getItem('user'))
       const jwt = localStorage.getItem('jwt')
-      
+      const response = await useService.refreshToken(user.id)
+      console.log(response)
     }
   },
 });

@@ -32,6 +32,19 @@ $router->addRoute("GET", '/^\/post\/?/', PostController::class, "list");
 $router->addRoute("POST", '/^\/comment\/?/', CommentController::class, "create");
 $router->addRoute("POST", '/^\/vote\/?/', VoteController::class, "vote");
 
+// todo: how to do this more elegantly?
+if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
+  header("Access-Control-Allow-Origin: *");
+  if (isset($_SERVER["HTTP_ACCESS_CONTROL_REQUEST_METHOD"])) {
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+  }
+  if (isset($_SERVER["HTTP_ACCESS_CONTROL_REQUEST_HEADERS"])) {
+    header("Access-Control-Allow-Headers:" . $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']);
+  }
+  http_response_code(200);
+  exit(0);
+}
+
 try {
   $router->route($req, $res);
   $res->json();

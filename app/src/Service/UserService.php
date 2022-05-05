@@ -79,9 +79,9 @@ class UserService
   /**
    * @throws Exception
    */
-  public static function checkJwtAndUser(string $jwt, int $userId): array
+  public static function checkJwtAndUser(string $jwt, string $userId): array
   {
-    $user = UserQuery::create()->findOneById($userId);
+    $user = UserQuery::create()->findOneByUid($userId);
     if (!$user) throw new Exception("user not found");
     $jwt_secret = $_ENV["JWT_SECRET"];
     try {

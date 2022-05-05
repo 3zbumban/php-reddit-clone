@@ -10,7 +10,7 @@ export const useStore = defineStore('main', {
     },
   }),
   actions: {
-    async authenticate(useUid, username, jwt) {
+    authenticate(useUid, username, jwt) {
       this.user.id = useUid
       this.user.name = username
       this.user.loggedIn = true
@@ -27,9 +27,10 @@ export const useStore = defineStore('main', {
     },
     async reAuthenticate() {
       const user = JSON.parse(localStorage.getItem('user'))
-      const jwt = localStorage.getItem('jwt')
+      // const jwt = localStorage.getItem('jwt')
       const response = await useService.refreshToken(user.id)
       console.log(response)
+      this.authenticate(response.userUid, response.username, response.jwt)
     }
   },
 });

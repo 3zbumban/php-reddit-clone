@@ -19,7 +19,7 @@ class PostService
   public static function createPost(string $title, string $text, string $userId, string $threadId): array
   {
     $thread = ThreadQuery::create()->findOneByUid($threadId);
-    $user = UserQuery::create()->findOneById($userId);
+    $user = UserQuery::create()->findOneByUid($userId);
 
     $post = new Post();
     $uuid = Uuid::uuid4()->toString();

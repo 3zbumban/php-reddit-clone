@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h1 @click="() => router.push({ name: 'Threads'})">NOT <span style="color: red;">R</span>EDDIT</h1>
+    <h1 class="logo" @click="() => router.push({ name: 'Threads'})">NOT <span style="color: red;">R</span>EDDIT</h1>
     <div class="header-end">
       <h2 v-if="!store.user.loggedIn" class="link" @click="() => router.push({ name: 'Login'})">Login</h2>
       <h2 v-if="!store.user.loggedIn" class="link" @click="() => router.push({ name: 'Signup'})">Signup</h2>
@@ -31,6 +31,17 @@ const logout = () => {
 </script>
 
 <style scoped lang="scss">
+
+.logo {
+  padding: 5px;
+  border-radius: 5px;
+  
+  &:hover {
+    background-color: #99e4c2;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
 .header {
   display: flex;
   flex-direction: row;

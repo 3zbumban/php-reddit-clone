@@ -45,11 +45,13 @@ import postService from '../service/post.service';
 import { useRouter, useRoute } from "vue-router"
 import { parseISO, formatDistance, addHours } from "date-fns"
 import { de } from "date-fns/locale"
+import { useStore } from "../store.js";
 import commentService from '../service/comment.service';
 
 const router = useRouter()
 const route = useRoute()
 const post = ref(false)
+const store = useStore()
 const loading = ref(true)
 const newComment = ref({
   text: "",
@@ -62,8 +64,11 @@ const createComment = async () => {
   console.log('create comment')
   console.log(newComment.value)
   const response = await commentService.comment({
-    text: newComment.value.text,
-  }, 1, route.params.id) // todo: 
+      text: newComment.value.text,
+    },
+    store.user.id, 
+    route.params.id
+  ) 
   console.log(response)
   updateContent()
 }
@@ -73,7 +78,7 @@ const vote = async (t) => {
   // todo auth
   // todo already voted
   loading.value = true
-  const response = await postService.vote(route.params.id, 2, t)  // todo
+  const response = await postService.vote(route.params.id, store.user.id, t)  // todo
   console.log(response)
   await updateContent()
 }

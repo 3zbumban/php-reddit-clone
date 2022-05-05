@@ -18,8 +18,9 @@
 import { ref } from 'vue'
 import userService from '../service/user.service.js';
 import { useStore } from "../store.js";
+import { useRouter } from "vue-router";
 
-const count = ref(0)
+const router = useRouter()
 const store = useStore()
 const loading = ref(false)
 const data = ref({
@@ -32,8 +33,8 @@ const login = async () => {
   console.log("Logging in")
   const response = await userService.login(data.value)
   console.log(response)
-  // todo:
-  // store.authenticate()
+  store.authenticate(response.userUid, response.username, response.jwt)
+  await router.push({ name: 'Threads' })
   loading.value = false
 }
 

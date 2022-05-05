@@ -25,10 +25,12 @@
 import { ref, onMounted } from 'vue'
 import threadService from '../service/thread.service.js'
 import { useRouter } from "vue-router"
+import { useStore } from '../store.js';
 
 const router = useRouter()
 const count = ref(0)
 const threads = ref(false)
+const store = useStore()
 const loading = ref(true)
 const newThread = ref({
   name: "",
@@ -38,7 +40,8 @@ const newThread = ref({
 const createThread = async () => {
   loading.value = true
   console.log('create thread')
-  console.log(newThread.value)
+  // console.log(newThread.value)
+  newThread.value.userId = store.state.user.id
   const created = await threadService.create(newThread.value)
   console.log(created)
   updateContent()

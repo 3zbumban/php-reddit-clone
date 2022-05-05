@@ -17,8 +17,10 @@
 import { ref } from 'vue'
 import userService from "../service/user.service.js"
 import { useStore } from '../store.js';
+import { useRouter } from 'vue-router';
 
 const store = useStore();
+const router = useRouter()
 const loading = ref(false)
 const data = ref({
   username: "",
@@ -38,9 +40,10 @@ const signup = async () => {
       password: data.value.password
     })
     console.log(response)
-    store.authenticate(response)
+    store.authenticate(response.userUid, response.username, response.jwt)
   }
-  loading.value = false  
+  loading.value = false
+  await router.push({ name: 'Threads' })
 }
 
 </script>

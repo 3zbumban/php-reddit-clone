@@ -33,7 +33,7 @@ const vote = async (postId, userId, vote) => {
     headers: {
       // "Content-Type": "application/json",
       // "Accept": "application/json",
-      "access-token": getToken()
+      "Access-Token": getToken()
     }
   });
   return await response.json();
@@ -46,7 +46,7 @@ const create = async (payload) => {
       // "Content-Type": "application/json", // todo: wtf?
       // "Accept": "application/json",
       // "access-control-request-headers": "Content-Type"
-      "access-token": getToken()
+      "Access-Token": getToken()
     },
     body: JSON.stringify(payload)
   });

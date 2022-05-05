@@ -19,22 +19,21 @@ const login = async (payload) => {
     headers: {
       // "Content-Type": "application/json",
       // "access-control-request-headers": "Content-Type"
-      // "access-token": getToken()
+      // "Access-Token": getToken()
     },
     body: JSON.stringify(payload)
   })
   return await response.json()
 }
 
-const refreshToken = async (payload, userId) => {
+const refreshToken = async (userId) => {
   const response = await fetch(`${apiUrl}/auth/refresh?userId=${userId}`, {
     method: "POST",
     headers: {
       // "Content-Type": "application/json",
       // "access-control-request-headers": "Content-Type"
-      "access-token": getToken()
-    },
-    body: JSON.stringify(payload)
+      "Access-Token": getToken()
+    }
   })
   return await response.json()
 }

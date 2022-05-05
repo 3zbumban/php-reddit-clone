@@ -7,8 +7,12 @@
 <script setup>
 import { onMounted } from "vue";
 import HeaderComponent from "./components/Header.vue";
+import { useStore } from "./store.js";
+
+const store = useStore();
 
 onMounted(() => {
+  store.reAuthenticate();
   console.log("mounted");
 });
 

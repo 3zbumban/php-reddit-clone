@@ -9,11 +9,10 @@ export const useStore = defineStore('main', {
     },
   }),
   actions: {
-    async authenticate(user) {
-      this.user.id = user.userUid
-      this.user.name = user.username
+    async authenticate(useUid, username, jwt) {
+      this.user.id = useUid
+      this.user.name = username
       this.user.loggedIn = true
-      const jwt = user.jwt
       console.log(jwt)
       localStorage.setItem('user', JSON.stringify(this.user))
       localStorage.setItem('jwt', jwt)

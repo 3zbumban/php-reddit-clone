@@ -47,8 +47,10 @@ import { onMounted, ref } from 'vue'
 import { useRouter, useRoute } from "vue-router"
 import postService from '../service/post.service.js'
 import { parseISO, formatDistance, addHours } from "date-fns"
+import { useStore } from "../store.js"
 
 const router = useRouter()
+const store = useStore()
 const route = useRoute()
 const posts = ref(false)
 const thread = ref(false)
@@ -68,7 +70,7 @@ const createPost = async () => {
     title: newPost.value.title,
     text: newPost.value.text,
     threadUid: route.params.id,
-    userUid: 1 // todo:
+    userUid: store.uder.id // todo:
   })
   console.log(response)
   updateContent()

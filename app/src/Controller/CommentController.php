@@ -3,7 +3,7 @@
 namespace Sem\Weben\Controller;
 
 use Exception;
-use HttpException;
+use Sem\Weben\HttpException;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\CommentService;
@@ -12,6 +12,9 @@ use Sem\Weben\Service\UserService;
 class CommentController
 {
 
+  /**
+   * @throws HttpException
+   */
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
     // todo: auth - user uuid
@@ -36,6 +39,7 @@ class CommentController
     } catch (Exception $ex) {
       throw new HttpException($ex->getMessage(), 401);
     }
+
     try {
       $comment = CommentService::commentOnPost($postId, $text, $userId);
     } catch (Exception $ex) {

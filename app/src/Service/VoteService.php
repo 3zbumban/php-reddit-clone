@@ -49,6 +49,9 @@ class VoteService
     }
   }
 
+  /**
+   * @throws Exception
+   */
   public static function getVotesForPost(int $postId): array
   {
     $post = PostQuery::create()->findOneById($postId);

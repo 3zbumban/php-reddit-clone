@@ -2,8 +2,6 @@
 
 namespace Sem\Weben\Http;
 
-use Exception;
-
 class Response implements ResponseInterface
 {
   private mixed $body;

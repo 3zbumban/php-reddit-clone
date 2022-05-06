@@ -13,7 +13,6 @@ class PostController
 {
 
   /**
-   * @throws PropelException
    * @throws Exception
    */
   public function list(RequestInterface $req, ResponseInterface $res): void
@@ -65,7 +64,10 @@ class PostController
     }
 
     $res->setStatusCode(200);
-    $res->setBody($post);
+    $res->setBody([
+        "post" => $post,
+        "user" => $user
+    ]);
   }
 
   /**

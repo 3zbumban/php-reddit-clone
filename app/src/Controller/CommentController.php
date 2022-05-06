@@ -17,7 +17,7 @@ class CommentController
    */
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
-    // todo: auth - user uuid
+    // todo: auth - done?
     $query = $req->getQueryParams();
     $body = $req->getBody();
     $header = $req->getHeader();

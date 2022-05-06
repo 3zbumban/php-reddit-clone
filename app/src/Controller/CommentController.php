@@ -33,7 +33,7 @@ class CommentController
     $userId = $query["userId"];
     $text = $body["text"];
     $jwt = $header["Access-Token"];
-    
+
     try {
       $user = UserService::checkJwtAndUser($jwt, $userId);
     } catch (Exception $ex) {
@@ -48,8 +48,8 @@ class CommentController
 
     $res->setStatusCode(200);
     $res->setBody([
-      "comment" => $comment,
-      "user" => $user
+        "comment" => $comment,
+        "user" => $user
     ]);
   }
 

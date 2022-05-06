@@ -22,10 +22,9 @@ class Router
    */
   public function route(RequestInterface $req, ResponseInterface $res): bool
   {
-    
+
     $method = $req->getMethod();
     // todo: how to do this more elegantly?
-    // echo $method;
     if ($method == "OPTIONS") {
       header("Access-Control-Allow-Origin: *");
       if (isset($_SERVER["HTTP_ACCESS_CONTROL_REQUEST_METHOD"])) {
@@ -35,7 +34,6 @@ class Router
         header("Access-Control-Allow-Headers:" . $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']);
       }
       http_response_code(200);
-      // echo $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'];
       exit(0);
     }
 

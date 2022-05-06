@@ -2,15 +2,19 @@ import apiUrl from "./apiUrl.js";
 import getToken from "./getToken.js";
 
 const comment = async (payload, userId, postId) => {
-    const response = await fetch(`${apiUrl}/comment?postId=${postId}&userId=${userId}`, {
-      method: "POST",
-      headers: {
-        "Access-Token": getToken(),
-        "Access-Control-Request-Headers": "Access-Token"
-      },
-      body: JSON.stringify(payload)
-    });
-    return await response.json()
+  const response = await fetch(`${apiUrl}/comment?postId=${postId}&userId=${userId}`, {
+    method: "POST",
+    headers: {
+      "Access-Token": getToken(),
+      "Access-Control-Request-Headers": "Access-Token"
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+  return await response.json()
 }
 
 export default {

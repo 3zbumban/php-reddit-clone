@@ -32,7 +32,8 @@ const refreshToken = async (userId) => {
     headers: {
       // "Content-Type": "application/json",
       // "access-control-request-headers": "Content-Type"
-      "Access-Token": getToken()
+      "Access-Token": getToken(),
+      "Access-Control-Request-Headers": "Access-Token"
     }
   })
   return await response.json()

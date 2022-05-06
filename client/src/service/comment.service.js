@@ -8,7 +8,8 @@ const comment = async (payload, userId, postId) => {
       // "Content-Type": "application/json",
       // "Accept": "application/json",
       // "access-control-request-headers": "Content-Type"
-      "Access-Token": getToken()
+      "Access-Token": getToken(),
+      "Access-Control-Request-Headers": "Access-Token"
     },
     // {
     //   "text": "hi im a comment"

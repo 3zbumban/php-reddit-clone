@@ -3,6 +3,7 @@
 namespace Sem\Weben\Controller;
 
 use Exception;
+use HttpException;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\VoteService;
@@ -15,7 +16,7 @@ class VoteController
     $query = $req->getQueryParams();
 
     if (empty($query['postId']) || empty($query['userId']) || empty($query['vote'])) {
-      throw new Exception('Missing parameters');
+      throw new HttpException('Missing parameters', 400);
     }
 
     $vote = $query["vote"];
@@ -30,12 +31,15 @@ class VoteController
         $voteType = -1;
         break;
       default:
-        throw new Exception('invalid vote type');
+        throw new HttpException('invalid vote type', 400);
     }
 
     // $voteType = $vote === "up" ? 1 : -1;
-
-    $voted = VoteService::voteOnPost($postId, $userId, $voteType);
+    try {
+      $voted = VoteService::voteOnPost($postId, $userId, $voteType);
+    } catch (Exception $e) {
+      throw new HttpException($e->getMessage(), 400);
+    }
 
     $res->setStatusCode(200);
     $res->setBody($voted);

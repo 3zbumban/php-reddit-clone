@@ -4,10 +4,7 @@ import getToken from "./getToken.js";
 const signup = async (payload) => {
   const response = await fetch(`${apiUrl}/auth/signup`, {
     method: "POST",
-    headers: {
-      // "Content-Type": "application/json",
-      // "access-control-request-headers": "Content-Type"
-    },
+    headers: {},
     body: JSON.stringify(payload)
   })
   return await response.json()
@@ -16,11 +13,7 @@ const signup = async (payload) => {
 const login = async (payload) => {
   const response = await fetch(`${apiUrl}/auth/login`, {
     method: "POST",
-    headers: {
-      // "Content-Type": "application/json",
-      // "access-control-request-headers": "Content-Type"
-      // "Access-Token": getToken()
-    },
+    headers: {},
     body: JSON.stringify(payload)
   })
   return await response.json()
@@ -30,8 +23,6 @@ const refreshToken = async (userId) => {
   const response = await fetch(`${apiUrl}/auth/refresh?userId=${userId}`, {
     method: "POST",
     headers: {
-      // "Content-Type": "application/json",
-      // "access-control-request-headers": "Content-Type"
       "Access-Token": getToken(),
       "Access-Control-Request-Headers": "Access-Token"
     }

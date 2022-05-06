@@ -64,16 +64,20 @@ const newPost = ref({
 const createPost = async () => {
   loading.value = true
   console.log('create post')
-  console.log(newPost.value)
-  console.log(route.params.id)
-  const response = await postService.create({
-    title: newPost.value.title,
-    text: newPost.value.text,
-    threadUid: route.params.id,
-    userUid: store.user.id // todo:
-  })
-  console.log(response)
-  updateContent()
+  // console.log(newPost.value)
+  // console.log(route.params.id)
+  try {
+    const response = await postService.create({
+      title: newPost.value.title,
+      text: newPost.value.text,
+      threadUid: route.params.id,
+      userUid: store.user.id // todo:
+    })
+    console.log(response)
+  } catch (error) {
+    alert(error.message)
+  }
+  await updateContent()
 }
 
 const updateContent = async () => {

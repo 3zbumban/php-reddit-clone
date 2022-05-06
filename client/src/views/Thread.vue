@@ -82,6 +82,9 @@ const updateContent = async () => {
   const response = await postService.getAll(route.params.id);
   console.log(response)
   posts.value = response.posts
+  posts.value.sort((a, b) => {
+    return parseISO(b.post.Createdat) - parseISO(a.post.Createdat)
+  })
   thread.value = response.thread
   loading.value = false
 }

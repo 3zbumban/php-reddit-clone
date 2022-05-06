@@ -68,7 +68,7 @@ class UserController
     $header = $req->getHeader();
 
     if (empty($query['userId']) || empty($header['Access-Token'])) {
-      throw new HttpException('Missing parameters', 400);
+      throw new HttpException('Missing authorization header', 401);
     }
 
     $userId = $query["userId"];

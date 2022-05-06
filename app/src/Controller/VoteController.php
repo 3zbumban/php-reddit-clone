@@ -20,13 +20,14 @@ class VoteController
     $query = $req->getQueryParams();
     $header = $req->getHeader();
 
+    if (empty($header['Access-Token'])) {
+      throw new HttpException('Missing authorization header', 401);
+    }
+
     if (empty($query['postId']) || empty($query['userId']) || empty($query['vote'])) {
       throw new HttpException('Missing parameters', 400);
     }
 
-    if (empty($header['Access-Token'])) {
-      throw new HttpException('Missing authorization header', 401);
-    }
 
     $vote = $query["vote"];
     $postId = $query["postId"];

@@ -22,13 +22,14 @@ class CommentController
     $body = $req->getBody();
     $header = $req->getHeader();
 
+    if (empty($header['Access-Token'])) {
+      throw new HttpException('Missing authorization header', 401);
+    }
+
     if (empty($query['postId']) || empty($query['userId']) || empty($body['text'])) {
       throw new HttpException('Missing parameters', 400);
     }
 
-    if (empty($header['Access-Token'])) {
-      throw new HttpException('Missing authorization header', 401);
-    }
     $postId = $query["postId"];
     $userId = $query["userId"];
     $text = $body["text"];

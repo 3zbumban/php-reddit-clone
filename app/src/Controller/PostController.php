@@ -37,13 +37,14 @@ class PostController
     $body = $req->getBody();
     $header = $req->getHeader();
 
+    if (empty($header['Access-Token'])) {
+      throw new HttpException('Missing authorization header', 400);
+    }
+
     if (empty($body['title']) || empty($body['text']) || empty($body['userUid']) || empty($body['threadUid'])) {
       throw new HttpException('Missing parameters', 400);
     }
 
-    if (empty($header['Access-Token'])) {
-      throw new HttpException('Missing authorization header', 400);
-    }
 
     $title = $body["title"];
     $text = $body["text"];

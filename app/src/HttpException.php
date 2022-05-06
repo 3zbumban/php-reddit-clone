@@ -1,5 +1,9 @@
 <?php
 
+namespace Sem\Weben;
+
+use Exception;
+
 class HttpException extends Exception
 {
 

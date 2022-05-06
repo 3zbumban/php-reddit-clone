@@ -165,8 +165,8 @@ a {
   }
 
   .post-text {
-    border: solid black 1px;
-    // margin: 5px;
+    border: dashed black 1px;
+    padding: 5px;
   }
 }
 </style>

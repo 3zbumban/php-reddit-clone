@@ -124,7 +124,7 @@ a {
 }
 
 .comment-text {
-  border: solid black 1px;
+  border: dashed black 1px;
   padding: 5px;
 }
 
@@ -222,8 +222,9 @@ a {
 }
 
 .post-text {
-  border: solid black 1px;
+  border: dashed black 1px;
   margin: 5px;
+  padding: 5px;
 }
 
 .createdat {

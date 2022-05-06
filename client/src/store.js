@@ -28,9 +28,13 @@ export const useStore = defineStore('main', {
     async reAuthenticate() {
       const user = JSON.parse(localStorage.getItem('user'))
       // const jwt = localStorage.getItem('jwt')
-      const response = await useService.refreshToken(user.id)
-      console.log(response)
-      this.authenticate(response.userUid, response.username, response.jwt)
+      try {
+        const response = await useService.refreshToken(user.id)
+        console.log(response)
+        this.authenticate(response.userUid, response.username, response.jwt)
+      } catch (e) {
+        console.log("not authenticated")
+      }
     }
   },
 });

@@ -1,19 +1,24 @@
 <template>
-  <!-- <h1>NOT <span style="color: red;">R</span>EDDIT</h1> -->
   <header-component></header-component>
   <router-view></router-view>
+  <!-- <div v-show="loading" class="loading-screen">
+    <div class="loader"></div>
+  </div> -->
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import HeaderComponent from "./components/Header.vue";
 import { useStore } from "./store.js";
 
 const store = useStore();
+const loading = ref(false);
 
 onMounted(async () => {
+  loading.value = true;
   await store.reAuthenticate();
   console.log("mounted");
+  loading.value = false;
 });
 
 </script>

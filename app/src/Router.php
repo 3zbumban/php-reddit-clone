@@ -22,7 +22,22 @@ class Router
    */
   public function route(RequestInterface $req, ResponseInterface $res): bool
   {
+    
     $method = $req->getMethod();
+    // todo: how to do this more elegantly?
+    // echo $method;
+    if ($method == "OPTIONS") {
+      header("Access-Control-Allow-Origin: *");
+      if (isset($_SERVER["HTTP_ACCESS_CONTROL_REQUEST_METHOD"])) {
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+      }
+      if (isset($_SERVER["HTTP_ACCESS_CONTROL_REQUEST_HEADERS"])) {
+        header("Access-Control-Allow-Headers:" . $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']);
+      }
+      http_response_code(200);
+      exit(0);
+    }
+
     foreach ($this->routes as $route => $routeMapping) {
       if (preg_match($route, strtolower($req->getUrl()))) {
         if (array_key_exists($method, $routeMapping)) {

@@ -11,8 +11,8 @@ import { useStore } from "./store.js";
 
 const store = useStore();
 
-onMounted(() => {
-  store.reAuthenticate();
+onMounted(async () => {
+  await store.reAuthenticate();
   console.log("mounted");
 });
 

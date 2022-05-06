@@ -12,12 +12,12 @@ const create = async (payload) => {
     body: JSON.stringify(payload)
   })
 
+  const json = await response.json()
   if (!response.ok) {
     if (response.code === 401) throw new AuthError(response.error, 401);
-    else throw new Error("Error creating comment");
+    else throw new Error(json.error);
   }
-
-  return await response.json()
+  return json;
 }
 
 const getAll = async () => {
@@ -26,11 +26,12 @@ const getAll = async () => {
     headers: {}
   });
 
+  const json = await response.json()
   if (!response.ok) {
-    throw new Error("Error creating comment");
+    if (response.code === 401) throw new AuthError(response.error, 401);
+    else throw new Error(json.error);
   }
-  
-  return await response.json();
+  return json;
 }
 
 export default {

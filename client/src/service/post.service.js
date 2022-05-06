@@ -8,11 +8,12 @@ const getAll = async (threadId) => {
     headers: {}
   });
 
+  const json = await response.json()
   if (!response.ok) {
-    throw new Error("Error creating comment");
+    if (response.code === 401) throw new AuthError(response.error, 401);
+    else throw new Error(json.error);
   }
-  
-  return await response.json();
+  return json;
 }
 
 const getOne = async (postId) => {
@@ -21,11 +22,12 @@ const getOne = async (postId) => {
     headers: {}
   });
 
+  const json = await response.json()
   if (!response.ok) {
-    throw new Error("Error creating comment");
+    if (response.code === 401) throw new AuthError(response.error, 401);
+    else throw new Error(json.error);
   }
-
-  return await response.json();
+  return json;
 }
 
 const vote = async (postId, userId, vote) => {
@@ -37,12 +39,12 @@ const vote = async (postId, userId, vote) => {
     }
   });
 
+  const json = await response.json()
   if (!response.ok) {
     if (response.code === 401) throw new AuthError(response.error, 401);
-    else throw new Error("Error voting");
+    else throw new Error(json.error);
   }
-  
-  return await response.json();
+  return json;
 }
 
 const create = async (payload) => {
@@ -55,12 +57,12 @@ const create = async (payload) => {
     body: JSON.stringify(payload)
   });
 
+  const json = await response.json()
   if (!response.ok) {
     if (response.code === 401) throw new AuthError(response.error, 401);
-    else throw new Error("Error voting");
+    else throw new Error(json.error);
   }
-  
-  return await response.json();
+  return json;
 }
 
 export default {

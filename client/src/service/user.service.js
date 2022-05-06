@@ -9,11 +9,12 @@ const signup = async (payload) => {
     body: JSON.stringify(payload)
   });
 
+  const json = await response.json()
   if (!response.ok) {
-    throw new Error("Error signing up");
+    if (response.code === 401) throw new AuthError(response.error, 401);
+    else throw new Error(json.error);
   }
-  
-  return await response.json()
+  return json;
 }
 
 const login = async (payload) => {
@@ -23,11 +24,12 @@ const login = async (payload) => {
     body: JSON.stringify(payload)
   });
 
+  const json = await response.json()
   if (!response.ok) {
-    throw new Error("Error logging in");
+    if (response.code === 401) throw new AuthError(response.error, 401);
+    else throw new Error(json.error);
   }
-
-  return await response.json()
+  return json;
 }
 
 const refreshToken = async (userId) => {
@@ -39,12 +41,12 @@ const refreshToken = async (userId) => {
     }
   });
 
+  const json = await response.json()
   if (!response.ok) {
-    if (response.code === 401) throw new AuthError(response.error, 401)
-    throw new Error("Error refreshing");
+    if (response.code === 401) throw new AuthError(response.error, 401);
+    else throw new Error(json.error);
   }
-
-  return await response.json()
+  return json;
 }
 
 export default {

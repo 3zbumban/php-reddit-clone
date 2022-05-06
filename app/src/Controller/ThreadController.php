@@ -29,11 +29,11 @@ class ThreadController
    */
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
-    // todo: auth - user uuid
+    // todo: auth - done?
     $body = $req->getBody();
     $header = $req->getHeader();
 
-    if (empty($body['name'])) {
+    if (empty($body['name']) || empty($body["userId"])) {
       throw new HttpException('Missing parameters', 400);
     }
 
@@ -42,14 +42,14 @@ class ThreadController
     }
 
     $name = $body["name"];
+    $userId = $body["userId"];
     $jwt = $header["Access-Token"];
 
-//    todo: send also userid
-//    try {
-//      $user = UserService::checkJwtAndUser($jwt, $userUid);
-//    } catch (Exception $ex) {
-//      throw new HttpException($ex->getMessage(), 401);
-//    }
+    try {
+      $user = UserService::checkJwtAndUser($jwt, $userId);
+    } catch (Exception $ex) {
+      throw new HttpException($ex->getMessage(), 401);
+    }
 
     try {
       $thread = ThreadService::createThread($name);
@@ -61,7 +61,8 @@ class ThreadController
     $res->setBody([
         "name" => $thread->getName(),
         "uid" => $thread->getUid(),
-        "createdAt" => $thread->getCreatedat()
+        "createdAt" => $thread->getCreatedat(),
+        "user" => $user
     ]);
   }
 }

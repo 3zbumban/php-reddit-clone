@@ -41,10 +41,10 @@ const createThread = async () => {
   loading.value = true
   console.log('create thread')
   // console.log(newThread.value)
-  newThread.value.userId = store.state.user.id
+  newThread.value.userId = store.user.id
   const created = await threadService.create(newThread.value)
   console.log(created)
-  updateContent()
+  await updateContent()
 }
 
 const updateContent = async () => {
@@ -69,17 +69,6 @@ onMounted(async () => {
   flex-wrap: wrap;
   // align-items: center;
 }
-
-// .loading-screen {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   // height: 100vh;
-//   // width: 100vw;
-//   height: 100%;
-//   width: 100%;
-// }
 
 .thread-item {
   display: flex;

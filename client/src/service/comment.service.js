@@ -11,9 +11,6 @@ const comment = async (payload, userId, postId) => {
       "Access-Token": getToken(),
       "Access-Control-Request-Headers": "Access-Token"
     },
-    // {
-    //   "text": "hi im a comment"
-    // }
     body: JSON.stringify(payload)
   });
   return await response.json();

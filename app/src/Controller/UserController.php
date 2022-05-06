@@ -5,45 +5,63 @@ namespace Sem\Weben\Controller;
 use Exception;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
+use Sem\Weben\HttpException;
 use Sem\Weben\Service\UserService;
 
 class UserController
 {
 
+  /**
+   * @throws HttpException
+   */
   public function login(RequestInterface $req, ResponseInterface $res): void
   {
     $body = $req->getBody();
 
     if (empty($body['username']) || empty($body['password'])) {
-      throw new Exception('Missing parameters');
+      throw new HttpException('Missing parameters', 400);
     }
 
     $username = $body["username"];
     $password = $body["password"];
 
-    $user = UserService::signin($username, $password);
+    try {
+      $user = UserService::signin($username, $password);
+    } catch (Exception $e) {
+      throw new HttpException($e->getMessage(), 400);
+    }
 
     $res->setBody($user);
     $res->setStatusCode(200);
   }
 
+  /**
+   * @throws HttpException
+   */
   public function signup(RequestInterface $req, ResponseInterface $res): void
   {
     $body = $req->getBody();
 
     if (empty($body['username']) || empty($body['password'])) {
-      throw new Exception('Missing parameters');
+      throw new HttpException('Missing parameters', 400);
     }
 
     $username = $body["username"];
     $password = $body["password"];
 
-    $user = UserService::createUser($username, $password);
+    try {
+      $user = UserService::createUser($username, $password);
+    } catch (Exception $e) {
+      throw new HttpException($e->getMessage(), 400);
+    }
 
     $res->setBody($user);
     $res->setStatusCode(200);
   }
 
+  /**
+   * @throws HttpException
+   */
   public function refresh(RequestInterface $req, ResponseInterface $res): void
   {
     // todo: uuid
@@ -53,13 +71,17 @@ class UserController
     // echo json_encode($header);
 
     if (empty($query['userId']) || empty($header['Access-Token'])) {
-      throw new Exception('Missing parameters');
+      throw new HttpException('Missing parameters', 400);
     }
 
     $userId = $query["userId"];
     $jwt = $header["Access-Token"];
 
-    $user = UserService::checkJwtAndUser($jwt, $userId);
+    try {
+      $user = UserService::checkJwtAndUser($jwt, $userId);
+    } catch (Exception $e) {
+      throw new HttpException($e->getMessage(), 400);
+    }
 
     $res->setBody($user);
     $res->setStatusCode(200);

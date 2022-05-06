@@ -6,6 +6,7 @@ require_once '../vendor/autoload.php';
 require_once '../generated-conf/config.php';
 
 use Sem\Weben\Router;
+use Sem\Weben\HttpException;
 use Sem\Weben\Http\Request;
 use Sem\Weben\Http\Response;
 use Sem\Weben\Controller\ThreadController;

@@ -2,7 +2,6 @@ import apiUrl from "./apiUrl.js";
 import getToken from "./getToken.js";
 
 const comment = async (payload, userId, postId) => {
-  try {
     const response = await fetch(`${apiUrl}/comment?postId=${postId}&userId=${userId}`, {
       method: "POST",
       headers: {
@@ -12,9 +11,6 @@ const comment = async (payload, userId, postId) => {
       body: JSON.stringify(payload)
     });
     return await response.json()
-  } catch (e) {
-    throw e
-  }
 }
 
 export default {

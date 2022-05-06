@@ -3,6 +3,7 @@
 namespace Sem\Weben\Controller;
 
 use Exception;
+use HttpException;
 use Sem\Weben\Http\RequestInterface;
 use Sem\Weben\Http\ResponseInterface;
 use Sem\Weben\Service\CommentService;
@@ -19,22 +20,33 @@ class CommentController
     $header = $req->getHeader();
 
     if (empty($query['postId']) || empty($query['userId']) || empty($body['text'])) {
-      throw new Exception('Missing parameters');
+      throw new HttpException('Missing parameters', 400);
     }
 
     if (empty($header['access-token'])) {
-      throw new Exception('Missing authorization header');
+      throw new HttpException('Missing authorization header', 401);
     }
     $postId = $query["postId"];
     $userId = $query["userId"];
     $text = $body["text"];
     $jwt = $header["access-token"];
     
-    $user = UserService::checkJwtAndUser($jwt, $userId);
-    $comment = CommentService::commentOnPost($postId, $text, $userId);
+    try {
+      $user = UserService::checkJwtAndUser($jwt, $userId);
+    } catch (Exception $ex) {
+      throw new HttpException($ex->getMessage(), 401);
+    }
+    try {
+      $comment = CommentService::commentOnPost($postId, $text, $userId);
+    } catch (Exception $ex) {
+      throw new HttpException($ex->getMessage(), 400);
+    }
 
     $res->setStatusCode(200);
-    $res->setBody($comment);
+    $res->setBody([
+      "comment" => $comment,
+      "user" => $user
+    ]);
   }
 
 }

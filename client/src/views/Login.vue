@@ -30,16 +30,23 @@ const data = ref({
 
 const login = async () => {
   loading.value = true
-  try {
-    console.log("Logging in")
-    const response = await userService.login(data.value)
-    console.log(response)
-    store.authenticate(response.userUid, response.username, response.jwt)
-    await router.push({ name: 'Threads' })
-  } catch (error) {
-    alert(error.error)
+
+  if (data.value.username.trim() === "" || data.value.password.trim() === "") {
+    alert("something went wrong - please check your data again")
+    loading.value = false
+  } else {
+    try {
+      console.log("Logging in")
+      const response = await userService.login(data.value)
+      console.log(response)
+      store.authenticate(response.userUid, response.username, response.jwt)
+      await router.push({ name: 'Threads' })
+    } catch (error) {
+      console.log(error.message)
+      alert("something went wrong...")
+    }
+    loading.value = false
   }
-  loading.value = false
 }
 
 </script>

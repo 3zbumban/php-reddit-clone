@@ -32,18 +32,23 @@ const signup = async () => {
   loading.value = true
   if (data.value.password !== data.value.passwordRepeat || data.value.password.trim() === "" || data.value.username.trim() === "") {
     alert("something went wrong - please check your data again")
+    loading.value = false
     return
   } else {
     console.log("Signing up")
-    const response = await userService.signup({
-      username: data.value.username,
-      password: data.value.password
-    })
-    console.log(response)
-    store.authenticate(response.userUid, response.username, response.jwt)
+    try {
+      const response = await userService.signup({
+        username: data.value.username,
+        password: data.value.password
+      })
+      console.log(response)
+      store.authenticate(response.userUid, response.username, response.jwt)
+      await router.push({ name: 'Threads' })
+    } catch (error) {
+      alert("something went wrong...")
+    }
   }
   loading.value = false
-  await router.push({ name: 'Threads' })
 }
 
 </script>

@@ -1,5 +1,6 @@
 import apiUrl from "./apiUrl.js";
 import getToken from "./getToken.js";
+import AuthError from "./AuthError.js";
 
 const signup = async (payload) => {
   const response = await fetch(`${apiUrl}/auth/signup`, {
@@ -9,7 +10,7 @@ const signup = async (payload) => {
   });
 
   if (!response.ok) {
-    throw new Error("Error creating comment");
+    throw new Error("Error signing up");
   }
   
   return await response.json()
@@ -23,7 +24,7 @@ const login = async (payload) => {
   });
 
   if (!response.ok) {
-    throw new Error("Error creating comment");
+    throw new Error("Error logging in");
   }
 
   return await response.json()
@@ -39,7 +40,8 @@ const refreshToken = async (userId) => {
   });
 
   if (!response.ok) {
-    throw new Error("Error creating comment");
+    if (response.code === 401) throw new AuthError(response.error, 401)
+    throw new Error("Error refreshing");
   }
 
   return await response.json()

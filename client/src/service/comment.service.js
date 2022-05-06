@@ -1,5 +1,6 @@
 import apiUrl from "./apiUrl.js";
 import getToken from "./getToken.js";
+import AuthError from "./AuthError.js";
 
 const comment = async (payload, userId, postId) => {
   const response = await fetch(`${apiUrl}/comment?postId=${postId}&userId=${userId}`, {
@@ -12,7 +13,8 @@ const comment = async (payload, userId, postId) => {
   });
 
   if (!response.ok) {
-    throw new Error("Error creating comment");
+    if (response.code === 401) throw new AuthError(response.error, 401);
+    else throw new Error("Error voting");
   }
   return await response.json()
 }

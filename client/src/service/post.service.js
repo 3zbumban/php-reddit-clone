@@ -1,5 +1,6 @@
 import apiUrl from "./apiUrl.js";
 import getToken from "./getToken.js";
+import AuthError from "./AuthError.js";
 
 const getAll = async (threadId) => {
   const response = await fetch(`${apiUrl}/post?threadId=${threadId}`, {
@@ -37,7 +38,8 @@ const vote = async (postId, userId, vote) => {
   });
 
   if (!response.ok) {
-    throw new Error("Error creating comment");
+    if (response.code === 401) throw new AuthError(response.error, 401);
+    else throw new Error("Error voting");
   }
   
   return await response.json();
@@ -54,7 +56,8 @@ const create = async (payload) => {
   });
 
   if (!response.ok) {
-    throw new Error("Error creating comment");
+    if (response.code === 401) throw new AuthError(response.error, 401);
+    else throw new Error("Error voting");
   }
   
   return await response.json();

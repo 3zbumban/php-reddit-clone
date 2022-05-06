@@ -6,7 +6,12 @@ const signup = async (payload) => {
     method: "POST",
     headers: {},
     body: JSON.stringify(payload)
-  })
+  });
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+  
   return await response.json()
 }
 
@@ -15,7 +20,12 @@ const login = async (payload) => {
     method: "POST",
     headers: {},
     body: JSON.stringify(payload)
-  })
+  });
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+
   return await response.json()
 }
 
@@ -26,7 +36,12 @@ const refreshToken = async (userId) => {
       "Access-Token": getToken(),
       "Access-Control-Request-Headers": "Access-Token"
     }
-  })
+  });
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+
   return await response.json()
 }
 

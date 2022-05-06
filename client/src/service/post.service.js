@@ -6,6 +6,11 @@ const getAll = async (threadId) => {
     method: "GET",
     headers: {}
   });
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+  
   return await response.json();
 }
 
@@ -14,6 +19,11 @@ const getOne = async (postId) => {
     method: "GET",
     headers: {}
   });
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+
   return await response.json();
 }
 
@@ -25,6 +35,11 @@ const vote = async (postId, userId, vote) => {
       "Access-Control-Request-Headers": "Access-Token"
     }
   });
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+  
   return await response.json();
 }
 
@@ -37,6 +52,11 @@ const create = async (payload) => {
     },
     body: JSON.stringify(payload)
   });
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+  
   return await response.json();
 }
 

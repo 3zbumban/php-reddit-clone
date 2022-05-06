@@ -10,6 +10,11 @@ const create = async (payload) => {
     },
     body: JSON.stringify(payload)
   })
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+
   return await response.json()
 }
 
@@ -18,6 +23,11 @@ const getAll = async () => {
     method: "GET",
     headers: {}
   });
+
+  if (!response.ok) {
+    throw new Error("Error creating comment");
+  }
+  
   return await response.json();
 }
 

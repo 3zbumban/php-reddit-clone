@@ -64,11 +64,8 @@ class UserController
    */
   public function refresh(RequestInterface $req, ResponseInterface $res): void
   {
-    // todo: uuid
     $query = $req->getQueryParams();
     $header = $req->getHeader();
-
-    // echo json_encode($header);
 
     if (empty($query['userId']) || empty($header['Access-Token'])) {
       throw new HttpException('Missing parameters', 400);

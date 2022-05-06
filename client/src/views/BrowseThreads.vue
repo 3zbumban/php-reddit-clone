@@ -41,9 +41,14 @@ const createThread = async () => {
   loading.value = true
   console.log('create thread')
   // console.log(newThread.value)
-  newThread.value.userId = store.user.id
-  const created = await threadService.create(newThread.value)
-  console.log(created)
+  newThread.value.userId = store.user.id || ""
+  try {
+    const created = await threadService.create(newThread.value)
+    console.log(created)
+  } catch (error) {
+    console.log(error)
+    alert(error.message)
+  }
   await updateContent()
 }
 

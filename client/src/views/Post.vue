@@ -62,15 +62,20 @@ const newComment = ref({
 const createComment = async () => {
   loading.value = true
   console.log('create comment')
-  console.log(newComment.value)
-  const response = await commentService.comment({
-      text: newComment.value.text,
-    },
-    store.user.id, 
-    route.params.id
-  ) 
-  console.log(response)
-  updateContent()
+  // console.log(newComment.value)
+
+  try {
+    const response = await commentService.comment({
+        text: newComment.value.text,
+      },
+      store.user.id, 
+      route.params.id
+    ) 
+    console.log(response)
+  } catch (error) {
+    alert(error.message)
+  }
+  await updateContent()
 }
 
 const vote = async (t) => {
@@ -78,8 +83,12 @@ const vote = async (t) => {
   // todo auth
   // todo already voted
   loading.value = true
-  const response = await postService.vote(route.params.id, store.user.id, t)  // todo
-  console.log(response)
+  try {
+    const response = await postService.vote(route.params.id, store.user.id, t)  // todo
+    console.log(response)
+  } catch (error) {
+    alert(error.message)  
+  }
   await updateContent()
 }
 

@@ -1,1 +1,1 @@
-export default () => localStorage.getItem('jwt')
+export default () => localStorage.getItem('jwt') || "";

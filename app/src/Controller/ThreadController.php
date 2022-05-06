@@ -37,12 +37,12 @@ class ThreadController
       throw new HttpException('Missing parameters', 400);
     }
 
-    if (empty($header['access-token'])) {
+    if (empty($header['Access-Token'])) {
       throw new HttpException('Missing authorization header', 400);
     }
 
     $name = $body["name"];
-    $jwt = $header["access-token"];
+    $jwt = $header["Access-Token"];
 
 //    todo: send also userid
 //    try {

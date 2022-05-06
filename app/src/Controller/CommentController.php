@@ -26,13 +26,13 @@ class CommentController
       throw new HttpException('Missing parameters', 400);
     }
 
-    if (empty($header['access-token'])) {
+    if (empty($header['Access-Token'])) {
       throw new HttpException('Missing authorization header', 401);
     }
     $postId = $query["postId"];
     $userId = $query["userId"];
     $text = $body["text"];
-    $jwt = $header["access-token"];
+    $jwt = $header["Access-Token"];
     
     try {
       $user = UserService::checkJwtAndUser($jwt, $userId);

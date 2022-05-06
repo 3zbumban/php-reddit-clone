@@ -41,7 +41,7 @@ class PostController
       throw new HttpException('Missing parameters', 400);
     }
 
-    if (empty($header['access-token'])) {
+    if (empty($header['Access-Token'])) {
       throw new HttpException('Missing authorization header', 400);
     }
 
@@ -49,7 +49,7 @@ class PostController
     $text = $body["text"];
     $userUid = $body["userUid"];
     $threadUid = $body["threadUid"];
-    $jwt = $header["access-token"];
+    $jwt = $header["Access-Token"];
 
     try {
       $user = UserService::checkJwtAndUser($jwt, $userUid);

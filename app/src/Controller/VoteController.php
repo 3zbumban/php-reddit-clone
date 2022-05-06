@@ -24,14 +24,14 @@ class VoteController
       throw new HttpException('Missing parameters', 400);
     }
 
-    if (empty($header['access-token'])) {
+    if (empty($header['Access-Token'])) {
       throw new HttpException('Missing authorization header', 401);
     }
 
     $vote = $query["vote"];
     $postId = $query["postId"];
     $userId = $query["userId"];
-    $jwt = $header["access-token"];
+    $jwt = $header["Access-Token"];
 
     $voteType = match ($vote) {
       'up' => 1,

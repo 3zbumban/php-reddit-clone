@@ -19,9 +19,6 @@ class Response implements ResponseInterface
     $this->statusCode = $statusCode;
   }
 
-  /**
-   * @throws Exception
-   */
   public function json(): void
   {
     if (isset($this->body) && isset($this->statusCode)) {
@@ -31,7 +28,11 @@ class Response implements ResponseInterface
       http_response_code($this->statusCode);
       echo json_encode($this->body);
     } else {
-      throw new Exception('No body or status code set');
+      // todo: is this good?
+      http_response_code(204);
+      echo json_encode([
+          "message" => "nothing to see here 👀"
+      ]);
     }
   }
 }

@@ -15,7 +15,8 @@ const create = async (payload) => {
 
     const json = await response.json()
     if (!response.ok) {
-      if (response.code === 401) throw new AuthError(response.error, 401);
+      console.log(response)
+      if (response.status === 401) throw new AuthError(response.error, 401);
       else throw new Error(json.error);
     }
     return json;
@@ -33,7 +34,8 @@ const getAll = async () => {
 
     const json = await response.json()
     if (!response.ok) {
-      if (response.code === 401) throw new AuthError(response.error, 401);
+      console.log(response.status)
+      if (response.status === 401) throw new AuthError(response.error, 401);
       else throw new Error(json.error);
     }
     return json;

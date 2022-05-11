@@ -11,7 +11,7 @@ const getAll = async (threadId) => {
 
     const json = await response.json()
     if (!response.ok) {
-      if (response.code === 401) throw new AuthError(response.error, 401);
+      if (response.status === 401) throw new AuthError(response.error, 401);
       else throw new Error(json.error);
     }
     return json;
@@ -29,7 +29,7 @@ const getOne = async (postId) => {
 
     const json = await response.json()
     if (!response.ok) {
-      if (response.code === 401) throw new AuthError(response.error, 401);
+      if (response.status === 401) throw new AuthError(response.error, 401);
       else throw new Error(json.error);
     }
     return json;
@@ -50,7 +50,7 @@ const vote = async (postId, userId, vote) => {
 
     const json = await response.json()
     if (!response.ok) {
-      if (response.code === 401) throw new AuthError(response.error, 401);
+      if (response.status === 401) throw new AuthError(response.error, 401);
       else throw new Error(json.error);
     }
     return json;
@@ -72,7 +72,7 @@ const create = async (payload) => {
 
     const json = await response.json()
     if (!response.ok) {
-      if (response.code === 401) throw new AuthError(response.error, 401);
+      if (response.status === 401) throw new AuthError(response.error, 401);
       else throw new Error(json.error);
     }
     return json;

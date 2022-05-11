@@ -12,7 +12,7 @@ const signup = async (payload) => {
 
     const json = await response.json()
     if (!response.ok) {
-      if (response.code === 401) throw new AuthError(response.error, 401);
+      if (response.status === 401) throw new AuthError(response.error, 401);
       else throw new Error(json.error);
     }
     return json;
@@ -31,7 +31,7 @@ const login = async (payload) => {
 
     const json = await response.json()
     if (!response.ok) {
-      if (response.code === 401) throw new AuthError(response.error, 401);
+      if (response.status === 401) throw new AuthError(response.error, 401);
       else throw new Error(json.error);
     }
     return json;
@@ -52,7 +52,7 @@ const refreshToken = async (userId) => {
 
     const json = await response.json()
     if (!response.ok) {
-      if (response.code === 401) throw new AuthError(response.error, 401);
+      if (response.status === 401) throw new AuthError(response.error, 401);
       else throw new Error(json.error);
     }
     return json;

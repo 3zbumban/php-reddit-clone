@@ -90,6 +90,7 @@ const vote = async (t) => {
   } catch (error) {
     if (error instanceof AuthError) {
       console.log(error.message)
+      store.unAuthenticate()
       await router.push({ name: 'Login' })
     } else {
       console.log(error.message)

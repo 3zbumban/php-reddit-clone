@@ -33,8 +33,8 @@ class ThreadController
     $body = $req->getBody();
     $header = $req->getHeader();
 
-    if (empty($header['Access-Token'])) {
-      throw new HttpException('Missing authorization header', 400);
+    if (empty($header['Access-Token']) || empty($body["userId"])) {
+      throw new HttpException('Unauthenticated', 401);
     }
 
     if (empty($body['name']) || empty($body["userId"])) {

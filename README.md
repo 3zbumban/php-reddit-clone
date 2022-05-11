@@ -52,9 +52,9 @@ docker compose up
 
 ## frontend
 
+- [pinia](https://pinia.vuejs.org/getting-started.html#installation)
 - [router.vuejs](https://router.vuejs.org/installation.html)
 - [vuejs](https://vuejs.org/api/)
-- []()
 - []()
 - []()
 - []()

@@ -1,32 +1,36 @@
 # todo
 
 - [ ] frontend
-  - [ ] service
-    - [ ] auth
-      - [ ] signup
-      - [ ] login
-      - [ ] refresh
-    - [ ] thread
-      - [ ] create
+  - [x] service
+    - [x] auth
+      - [x] signup
+      - [x] login
+      - [x] refresh
+    - [x] thread
+      - [x] create
       - [x] getAll
-    - [ ] post
-      - [ ] create
+    - [x] post
+      - [x] create
       - [x] getAll
-      - [ ] vote
-      - [ ] getOne
-    - [ ] comment
-      - [ ] comment
+      - [x] vote
+      - [x] getOne
+    - [x] comment
+      - [x] comment
     - [x] dates locale
     - [ ] reset create thread
     - [ ] reset create post
     - [ ] reset create comment
-- [ ] exepction management
-- [ ] uuid id 
-- [ ] schema drawing
-- [ ] architekture
-- [ ] logout
-- [ ] slides
+- [x] uuid id 
+- [x] logout
 - [x] ~~docker compose migrations~~
 - [x] docker compose composer dump-autoload
-- [ ] JWT_SECRETE key
-- [ ] what if query/body/path params missing
+- [x] JWT_SECRETE key
+- [x] what if query/body/path params missing
+- [ ] exepction management
+- [ ] slides
+- [ ] architekture drawing
+- [ ] schema drawing
+- [ ] readme
+  - [ ] how to run
+  - [ ] arch
+- [ ] check in db - or smth similar

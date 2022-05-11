@@ -47,6 +47,7 @@ import { parseISO, formatDistance, addHours } from "date-fns"
 import { de } from "date-fns/locale"
 import { useStore } from "../store.js";
 import commentService from '../service/comment.service';
+import AuthError from '../service/AuthError.js';
 
 const router = useRouter()
 const route = useRoute()
@@ -87,7 +88,13 @@ const vote = async (t) => {
     const response = await postService.vote(route.params.id, store.user.id, t)  // todo
     console.log(response)
   } catch (error) {
-    alert(error.message)  
+    if (error instanceof AuthError) {
+      console.log(error.message)
+      await router.push({ name: 'Login' })
+    } else {
+      console.log(error.message)
+      alert(error.message)  
+    }
   }
   await updateContent()
 }

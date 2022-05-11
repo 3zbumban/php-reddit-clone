@@ -45,6 +45,7 @@ const signup = async () => {
       store.authenticate(response.userUid, response.username, response.jwt)
       await router.push({ name: 'Threads' })
     } catch (error) {
+      console.log(error.message)
       alert("something went wrong...")
     }
   }

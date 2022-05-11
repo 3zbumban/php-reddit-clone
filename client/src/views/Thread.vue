@@ -48,6 +48,7 @@ import { useRouter, useRoute } from "vue-router"
 import postService from '../service/post.service.js'
 import { parseISO, formatDistance, addHours } from "date-fns"
 import { useStore } from "../store.js"
+import AuthError from '../service/AuthError.js';
 
 const router = useRouter()
 const store = useStore()
@@ -75,7 +76,13 @@ const createPost = async () => {
     })
     console.log(response)
   } catch (error) {
-    alert(error.message)
+    if (error instanceof AuthError) {
+      console.log(error.message)
+      await router.push({ name: 'Login' })
+    } else {
+      console.log(error.message)
+      alert(error.message)
+    }
   }
   await updateContent()
 }

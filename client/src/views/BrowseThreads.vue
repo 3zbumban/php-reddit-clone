@@ -26,6 +26,7 @@ import { ref, onMounted } from 'vue'
 import threadService from '../service/thread.service.js'
 import { useRouter } from "vue-router"
 import { useStore } from '../store.js';
+import AuthError from '../service/AuthError.js';
 
 const router = useRouter()
 const count = ref(0)
@@ -46,8 +47,13 @@ const createThread = async () => {
     const created = await threadService.create(newThread.value)
     console.log(created)
   } catch (error) {
-    console.log(error)
-    alert(error.message)
+    if (error instanceof AuthError) {
+      console.log(error.message)
+      await router.push({ name: 'Login' })
+    } else {
+      console.log(error.message)
+      alert(error.message)
+    }
   }
   await updateContent()
 }

@@ -33,6 +33,7 @@ export const useStore = defineStore('main', {
         console.log(response)
         this.authenticate(response.userUid, response.username, response.jwt)
       } catch (e) {
+        this.unAuthenticate()
         console.log("not authenticated")
       }
     }

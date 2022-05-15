@@ -22,7 +22,7 @@ docker compose up
 ```sh
 # if you have a fresh db exec into php docker container and run migrations
 docker exec -it php-docker-starter-php-1 bash
-cd app
+cd /app
 ./vendor/bin/propel migration:up
 ```
 

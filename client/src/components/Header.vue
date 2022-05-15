@@ -81,7 +81,7 @@ const logout = () => {
       &:hover {
         // background-color: #42b983;
         text-decoration: underline;
-        cursor: pointer;
+        // cursor: pointer;
       }
     }
     // justify-self: flex-end;

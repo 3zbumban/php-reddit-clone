@@ -33,7 +33,6 @@ class PostController
    */
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
-    // todo: auth
     $body = $req->getBody();
     $header = $req->getHeader();
 
@@ -61,7 +60,6 @@ class PostController
     try {
       $post = PostService::createPost($title, $text, $userUid, $threadUid);
     } catch (Exception $e) {
-      // todo: error message
       throw new HttpException($e->getMessage(), 400);
     }
 

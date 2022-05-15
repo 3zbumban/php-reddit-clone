@@ -22,7 +22,7 @@ services:
       - 3037:9003
     depends_on:
       - mysql
-    command: ["/bin/bash", "-c", "php-fpm -F -R", "&&", "./vendor/bin/propel migration:up"]
+    # command: ["/bin/bash", "-c", "php-fpm -F -R", "&&", "./vendor/bin/propel migration:up"]
     # command: ["/bin/bash", "-c", "./vendor/bin/propel migration:up && php-fpm -F -R"]
     # - ["php-fpm", "-F", "-R"]
   
@@ -37,7 +37,7 @@ services:
       - ./mysqldata:/var/lib/mysql
     ports:
       - 3306:3306
-    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    # command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
 
   client:
     build:

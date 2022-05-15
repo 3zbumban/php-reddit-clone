@@ -34,7 +34,7 @@ class PostService
       return $post->toArray();
     } catch (Exception $exception) {
       // echo $exception->getMessage();
-      throw new Exception($exception->getMessage());
+      throw new Exception("could not create post");
     }
   }
 

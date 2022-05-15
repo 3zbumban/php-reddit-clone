@@ -1,9 +1,9 @@
 # build stage
 FROM node:latest as build-stage
 WORKDIR /client
-COPY client/package*.json ./
+COPY client/package*.json .
 RUN npm install
-COPY client/ ./
+COPY client/ .
 RUN npm run build
 
 # production stage

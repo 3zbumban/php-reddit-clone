@@ -29,8 +29,8 @@
 - [x] architekture drawing
 - [ ] exepction management
 - [ ] slides
-- [ ] schema drawing
+- [x] schema drawing
 - [ ] readme
-  - [ ] how to run
-  - [ ] arch
+  - [x] how to run
+  - [x] arch
 - [ ] check in db - or smth similar

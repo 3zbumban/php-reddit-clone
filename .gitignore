@@ -1,4 +1,4 @@
-mysqldata/
+# mysqldata/
 mongodata/
 app/vendor
 pnpm-lock.yaml

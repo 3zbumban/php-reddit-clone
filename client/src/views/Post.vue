@@ -71,7 +71,8 @@ const createComment = async () => {
       },
       store.user.id, 
       route.params.id
-    ) 
+    )
+    newComment.value.text = ""
     console.log(response)
   } catch (error) {
     alert(error.message)

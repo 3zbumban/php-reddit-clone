@@ -46,6 +46,7 @@ const createThread = async () => {
   try {
     const created = await threadService.create(newThread.value)
     console.log(created)
+    newThread.value.name = ""
   } catch (error) {
     if (error instanceof AuthError) {
       console.log(error.message)

@@ -74,6 +74,8 @@ const createPost = async () => {
       threadUid: route.params.id,
       userUid: store.user.id // todo:
     })
+    newPost.value.title = ""
+    newPost.value.text = ""
     console.log(response)
   } catch (error) {
     if (error instanceof AuthError) {

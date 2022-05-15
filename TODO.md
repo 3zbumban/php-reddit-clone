@@ -17,18 +17,18 @@
     - [x] comment
       - [x] comment
     - [x] dates locale
-    - [ ] reset create thread
-    - [ ] reset create post
-    - [ ] reset create comment
+    - [x] reset create thread
+    - [x] reset create post
+    - [x] reset create comment
 - [x] uuid id 
 - [x] logout
 - [x] ~~docker compose migrations~~
 - [x] docker compose composer dump-autoload
 - [x] JWT_SECRETE key
 - [x] what if query/body/path params missing
+- [x] architekture drawing
 - [ ] exepction management
 - [ ] slides
-- [ ] architekture drawing
 - [ ] schema drawing
 - [ ] readme
   - [ ] how to run

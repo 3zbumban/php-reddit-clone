@@ -4,7 +4,7 @@
 
 ### configuration
 
-- everything should be ready to go as long as ports 3001 and 3030 are availiable 
+- everything should be ready to go as long as ports 3031 and 3030 are availiable 
 - you can modify settings like ports and credentials in
   - `docker-compose.yml` (&rarr; ports, db credentails)
   - `./app/.env` ( &rarr; jwt secret)

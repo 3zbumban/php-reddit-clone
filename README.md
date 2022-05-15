@@ -10,6 +10,8 @@
   - `./app/.env` ( &rarr; jwt secret)
   - `./app/propel.json` (&rarr; db credentials)
   - `./client/.env` (&rarr; backend uri)
+  - `client.nginx.conf` (&rarr; nginx config)
+  - `php.nginx.conf` (&rarr; nginx config)
 
 ## start docker compose
 

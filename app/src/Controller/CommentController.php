@@ -26,8 +26,8 @@ class CommentController
       throw new HttpException('Unauthenticated', 401);
     }
 
-    if (empty($query['postId']) || empty($query['userId']) || empty($body['text'])) {
-      throw new HttpException('Missing parameters', 400);
+    if (empty($query['postId']) || empty($body['text'])) {
+      throw new HttpException('missing parameters', 400);
     }
 
     $postId = $query["postId"];

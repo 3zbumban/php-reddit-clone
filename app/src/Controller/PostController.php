@@ -42,7 +42,7 @@ class PostController
     }
 
     if (empty($body['title']) || empty($body['text']) || empty($body['userUid']) || empty($body['threadUid'])) {
-      throw new HttpException('Missing parameters', 400);
+      throw new HttpException('missing parameters...', 400);
     }
 
 

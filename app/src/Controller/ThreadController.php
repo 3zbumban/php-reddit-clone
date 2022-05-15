@@ -37,8 +37,8 @@ class ThreadController
       throw new HttpException('Unauthenticated', 401);
     }
 
-    if (empty($body['name']) || empty($body["userId"])) {
-      throw new HttpException('Missing parameters', 400);
+    if (empty($body['name'])) {
+      throw new HttpException('missing thread name', 400);
     }
 
 

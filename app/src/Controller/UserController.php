@@ -19,7 +19,7 @@ class UserController
     $body = $req->getBody();
 
     if (empty($body['username']) || empty($body['password'])) {
-      throw new HttpException('Missing parameters', 400);
+      throw new HttpException('missing username or password', 400);
     }
 
     $username = $body["username"];
@@ -43,7 +43,7 @@ class UserController
     $body = $req->getBody();
 
     if (empty($body['username']) || empty($body['password'])) {
-      throw new HttpException('Missing parameters', 400);
+      throw new HttpException('missing username or password', 400);
     }
 
     $username = $body["username"];

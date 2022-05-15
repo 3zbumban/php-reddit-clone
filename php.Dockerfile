@@ -17,11 +17,11 @@ RUN apt-get install -y zip unzip
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /app
-COPY app/ ./
+COPY app/ .
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --ignore-platform-reqs
 RUN composer dump-autoload
-RUN ./vendor/bin/propel migration:up
+# RUN ./vendor/bin/propel migration:up
 
 
-# EXPOSE 9003
+EXPOSE 9003

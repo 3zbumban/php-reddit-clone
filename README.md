@@ -17,6 +17,7 @@
 
 ```sh
 docker compose up
+# you must wait composer has installed all dependencies
 ```
 
 ### run db migrations if needed

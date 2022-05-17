@@ -1,5 +1,8 @@
-# mysqldata/
+# dbdata
+mysqldata/
 mongodata/
+
+# other stuff
 app/vendor
 pnpm-lock.yaml
 .env

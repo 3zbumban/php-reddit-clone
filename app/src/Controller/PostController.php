@@ -40,7 +40,7 @@ class PostController
       throw new HttpException('Unauthenticated', 401);
     }
 
-    if (empty($body['title']) || empty($body['text']) || empty($body['userUid']) || empty($body['threadUid'])) {
+    if (empty(trim($body['title'])) || empty(trim($body['text'])) || empty($body['userUid']) || empty($body['threadUid'])) {
       throw new HttpException('missing parameters...', 400);
     }
 

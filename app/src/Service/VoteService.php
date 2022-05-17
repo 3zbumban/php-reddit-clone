@@ -15,21 +15,21 @@ class VoteService
    */
   public static function voteOnPost(string $postId, string $userId, int $voteType): array
   {
-    $post = PostQuery::create()->findOneByUid($postId);
-    if (!$post) {
-      throw new Exception("Post not found");
-    }
-    $user = UserQuery::create()->findOneByUid($userId);
-    if (!$user) {
-      throw new Exception("User not found");
-    }
-    $voteTest = VoteQuery::create()->filterByPostid($post->getId())->findByUserid($user->getId());
+    try {
+      $post = PostQuery::create()->findOneByUid($postId);
+      if (!$post) {
+        throw new Exception("Post not found");
+      }
+      $user = UserQuery::create()->findOneByUid($userId);
+      if (!$user) {
+        throw new Exception("User not found");
+      }
+      $voteTest = VoteQuery::create()->filterByPostid($post->getId())->findByUserid($user->getId());
 
-    if (empty($voteTest->toArray())) {
-      $vote = new Vote();
-      $vote->setVote($voteType);
+      if (empty($voteTest->toArray())) {
+        $vote = new Vote();
+        $vote->setVote($voteType);
 
-      try {
         $vote->setPost($post);
         $vote->setUser($user);
         $vote->save();
@@ -41,11 +41,12 @@ class VoteService
             ],
             "vote" => $vote->toArray()
         ];
-      } catch (Exception $exception) {
-        throw new Exception("could not vote");
+      } else {
+        throw new Exception("already voted");
       }
-    } else {
-      throw new Exception("already voted");
+    } catch (Exception $exception) {
+      error_log($exception->getMessage());
+      throw new Exception("could not vote");
     }
   }
 

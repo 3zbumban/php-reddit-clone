@@ -16,23 +16,29 @@ class ThreadService
    */
   public static function createThread(string $name): Thread
   {
-    $thread = new Thread();
-    $uuid = Uuid::uuid4()->toString();
-    $createdAt = time();
-    $thread->setName($name);
-    $thread->setUid($uuid);
-    $thread->setCreatedat($createdAt);
+    try {
+      $thread = new Thread();
+      $uuid = Uuid::uuid4()->toString();
+      $createdAt = time();
+      $thread->setName($name);
+      $thread->setUid($uuid);
+      $thread->setCreatedat($createdAt);
 
-    if ($thread->validate()) {
+      if ($thread->validate()) {
       // echo $uuid . " " . $name;
-      try {
         $thread->save();
         return $thread;
-      } catch (Exception $exception) {
+      } else {
+        // todo
+        throw new Exception("thread already exists", 2300);
+      }
+    } catch (Exception $exception) {
+      error_log($exception->getMessage());
+      if ($exception->getCode() == 2300) {
+        throw $exception;
+      } else {
         throw new Exception("could not create thread");
       }
-    } else {
-      throw new Exception("thread already exists");
     }
   }
 

@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: nginx:latest
+    image: nginx:1.20.2-alpine
     ports:
       - 3030:80
       - 3001:81
@@ -22,12 +22,22 @@ services:
       - 3037:9003
     depends_on:
       - mysql
-    # command: ["/bin/bash", "-c", "php-fpm -F -R", "&&", "./vendor/bin/propel migration:up"]
+    command: > 
+      sh -cx "wait-for mysql:3306 -t 0 &&
+              composer install --ignore-platform-reqs &&
+              composer dump-autoload &&
+              ./vendor/bin/propel  migration:up; php-fpm -F -R"
+    
+    # composer install --ignore-platform-reqs &&
+    # composer dump-autoload
+    # sh -cx "php-fpm -F -R &&
+    #         wait-for mysql:3306 -- ./vendor/bin/propel  migration:up"
+    # ["sh", "-cx", "php-fpm",  "-F",  "-R", "&&", "./vendor/bin/propel", "migration:up"]
     # command: ["/bin/bash", "-c", "./vendor/bin/propel migration:up && php-fpm -F -R"]
     # - ["php-fpm", "-F", "-R"]
   
   mysql:
-    image: mariadb:latest
+    image: mariadb:10.7.3-focal
     environment:
       MYSQL_ROOT_PASSWORD: 'toor'
       MYSQL_USER: 'tester'

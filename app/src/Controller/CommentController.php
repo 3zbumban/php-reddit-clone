@@ -17,7 +17,6 @@ class CommentController
    */
   public function create(RequestInterface $req, ResponseInterface $res): void
   {
-    // todo: auth - done?
     $query = $req->getQueryParams();
     $body = $req->getBody();
     $header = $req->getHeader();
@@ -26,7 +25,7 @@ class CommentController
       throw new HttpException('Unauthenticated', 401);
     }
 
-    if (empty($query['postId']) || empty($body['text'])) {
+    if (empty($query['postId']) || empty(trim($body['text']))) {
       throw new HttpException('missing parameters', 400);
     }
 
@@ -40,7 +39,7 @@ class CommentController
     } catch (Exception $ex) {
       throw new HttpException($ex->getMessage(), 401);
     }
-
+    
     try {
       $comment = CommentService::commentOnPost($postId, $text, $userId);
     } catch (Exception $ex) {

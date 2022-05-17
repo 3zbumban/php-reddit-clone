@@ -64,7 +64,6 @@ const createComment = async () => {
   loading.value = true
   console.log('create comment')
   // console.log(newComment.value)
-
   try {
     const response = await commentService.comment({
         text: newComment.value.text,
@@ -75,14 +74,21 @@ const createComment = async () => {
     newComment.value.text = ""
     console.log(response)
   } catch (error) {
-    alert(error.message)
+    if (error instanceof AuthError) {
+      console.log(error.message)
+      store.unAuthenticate()
+      await router.push({ name: 'Login' })
+    } else {
+      console.log(error.message)
+      alert(error.message)
+    }
+    // alert(error.message)
   }
   await updateContent()
 }
 
 const vote = async (t) => {
   console.log('vote => ' + t)
-  // todo auth
   // todo already voted
   loading.value = true
   try {

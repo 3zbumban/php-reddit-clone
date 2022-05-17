@@ -18,21 +18,22 @@ class CommentService
    */
   public static function commentOnPost(string $postId, string $text, string $userId): array
   {
-    $user = UserQuery::create()->findOneByUid($userId);
-    $post = PostQuery::create()->findOneByUid($postId);
-
-    $comment = new Comment();
-    $createdAt = time();
-    $uuid = Uuid::uuid4()->toString();
-    $comment->setText($text);
-    $comment->setCreatedat($createdAt);
-    $comment->setUid($uuid);
     try {
+      $user = UserQuery::create()->findOneByUid($userId);
+      $post = PostQuery::create()->findOneByUid($postId);
+
+      $comment = new Comment();
+      $createdAt = time();
+      $uuid = Uuid::uuid4()->toString();
+      $comment->setText($text);
+      $comment->setCreatedat($createdAt);
+      $comment->setUid($uuid);
       $comment->setUser($user);
       $comment->setPost($post);
       $comment->save();
       return $comment->toArray();
     } catch (Exception $exception) {
+      error_log($exception->getMessage());
       throw new Exception("could not create comment");
     }
   }

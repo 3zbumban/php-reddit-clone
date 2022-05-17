@@ -17,23 +17,24 @@ class PostService
    */
   public static function createPost(string $title, string $text, string $userId, string $threadId): array
   {
-    $thread = ThreadQuery::create()->findOneByUid($threadId);
-    $user = UserQuery::create()->findOneByUid($userId);
-
-    $post = new Post();
-    $uuid = Uuid::uuid4()->toString();
-    $createdAt = time();
-    $post->setTitle($title);
-    $post->setText($text);
-    $post->setCreatedat($createdAt);
-    $post->setUid($uuid);
     try {
+      $thread = ThreadQuery::create()->findOneByUid($threadId);
+      $user = UserQuery::create()->findOneByUid($userId);
+
+      $post = new Post();
+      $uuid = Uuid::uuid4()->toString();
+      $createdAt = time();
+      $post->setTitle($title);
+      $post->setText($text);
+      $post->setCreatedat($createdAt);
+      $post->setUid($uuid);
       $post->setThread($thread);
       $post->setUser($user);
       $post->save();
       return $post->toArray();
     } catch (Exception $exception) {
       // echo $exception->getMessage();
+      error_log($exception->getMessage());
       throw new Exception("could not create post");
     }
   }

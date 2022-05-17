@@ -47,14 +47,19 @@ cd /app
 - [composer inside docker](https://stackoverflow.com/questions/51443557/how-to-install-php-composer-inside-a-docker-container)
 - [composer-allow-superuser](https://getcomposer.org/doc/03-cli.md#composer-allow-superuser)
 - [composer-cant-find-mongodb-extension-required-mongodb-extension](https://stackoverflow.com/questions/54566245/composer-cant-find-mongodb-extension-required-mongodb-extension)
+- [composer-in-custom-docker-image](https://dev.to/jonesrussell/install-composer-in-custom-docker-image-3f71)
 - [develop php with docker](https://www.sitepoint.com/docker-php-development-environment/)
-- ~~[doctrine](https://github.com/doctrine/orm)~~
-- ~~[doctrine](https://www.doctrine-project.org/projects/orm.html)~~
+- [docker image: mariadb](https://hub.docker.com/_/mariadb)
+- [docker image: nginx](https://hub.docker.com/_/nginx)
+- [docker image: php](https://hub.docker.com/_/php/?tab=tags)
+- [doctrine](https://github.com/doctrine/orm)~~
+- [doctrine](https://www.doctrine-project.org/projects/orm.html)~~
 - [getcomposer](https://getcomposer.org/download/)
 - [liveregex](https://www.phpliveregex.com/)
 - [mongodb](https://www.mongodb.com/docs/php-library/current/tutorial/install-php-library/)
 - [php-docs](https://www.php.net/manual/en/control-structures.foreach.php)
 - [php-jwt](https://github.com/firebase/php-jwt)
+- [php: `error-log`](https://www.php.net/manual/en/function.error-log.php)
 - [php: datetime](https://www.php.net/manual/en/datetime.gettimestamp.php)
 - [phpdotenv](https://github.com/vlucas/phpdotenv)
 - [phptherightway](https://phptherightway.com/)
@@ -68,6 +73,7 @@ cd /app
 - [wireframes](https://www.figma.com/file/rJgqXhmzwbCIQe8fPSpuv1/we-not-reddit?node-id=0%3A1)
 - [xdebug phpstorm](https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html#configuring-xdebug-vagrant)
 - [xdebug vscode](https://dev.to/jackmiras/xdebug-in-vscode-with-docker-379l)
+- []()
 
 ### frontend
 

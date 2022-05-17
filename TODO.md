@@ -30,7 +30,9 @@
 - [ ] exepction management
 - [ ] slides
 - [x] schema drawing
-- [ ] readme
+- [x] readme
   - [x] how to run
   - [x] arch
 - [ ] check in db - or smth similar
+
+SELECT * FROM INFORMATION_SCHEMA.SCHEMATA;

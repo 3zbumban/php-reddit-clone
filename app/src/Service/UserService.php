@@ -28,6 +28,7 @@ class UserService
    */
   public static function createUser(string $username, string $password): array
   {
+    try {
     $user = new User();
     $passwordHash = password_hash($password, PASSWORD_ARGON2I);
     $uuid = Uuid::uuid4()->toString();
@@ -38,7 +39,6 @@ class UserService
     if (!$user->validate()) {
       throw new Exception("Invalid user");
     } else {
-      try {
         $user->save();
         return [
             "username" => $user->getUsername(),
@@ -46,10 +46,11 @@ class UserService
             "userUid" => $user->getUid(),
             "jwt" => self::jwtSign($user->getUsername(), $user->getId())
         ];
-      } catch (Exception $exception) {
-        // echo $exception->getMessage();
-        throw new Exception("could not save or sign user");
       }
+    } catch (Exception $exception) {
+      // echo $exception->getMessage();
+      error_log($exception->getMessage());
+      throw new Exception("could not save or sign user");
     }
   }
 
@@ -101,6 +102,7 @@ class UserService
         throw new Exception("invalid jwt");
       }
     } catch (Exception $exception) {
+      error_log($exception->getMessage());
       throw new Exception("invalid jwt");
     }
   }

@@ -4,7 +4,7 @@
 
 ### configuration
 
-- everything should be ready to go as long as ports 3031 and 3030 are availiable 
+- everything should be ready to go as long as ports 3031 and 3030 are availiables
 - you can modify settings like ports and credentials in
   - `docker-compose.yml` (&rarr; ports, db credentails)
   - `./app/.env` ( &rarr; jwt secret)
@@ -17,7 +17,7 @@
 
 ```sh
 docker compose up
-# you must wait composer has installed all dependencies
+# you must wait until composer has installed all dependencies
 ```
 
 ### run db migrations if needed

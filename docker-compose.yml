@@ -46,7 +46,7 @@ services:
       character_set_server: "utf8mb4"
       collation_server: 'utf8mb4_unicode_ci'
     volumes:
-      - ./mysqldata:/var/lib/mysql
+      - mysqldata:/var/lib/mysql
     ports:
       - 3306:3306
     # command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
@@ -64,5 +64,5 @@ services:
       - web
 
 # to not store with project
-# volumes:
-#   mysqldata: {}
+volumes:
+  mysqldata: {}

@@ -1,1 +1,1 @@
-export default import.meta.env.VITE_API_URL || 'http://localhost:3031'; 
+export default import.meta.env.VITE_API_URL || 'http://localhost:3030'; 

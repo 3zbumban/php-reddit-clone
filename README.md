@@ -4,6 +4,12 @@
 
 ### configuration
 
+```
+# create .env files from sample
+cp ./app/.env.sample ./app/.env
+cp ./client/.env.sample ./client/.env
+```
+
 - everything should be ready to go as long as ports 3031 and 3030 are availiables
 - you can modify settings like ports and credentials in
   - `docker-compose.yml` (&rarr; ports, db credentails)

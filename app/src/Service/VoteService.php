@@ -42,11 +42,15 @@ class VoteService
             "vote" => $vote->toArray()
         ];
       } else {
-        throw new Exception("already voted");
+        throw new Exception("already voted", 2440);
       }
     } catch (Exception $exception) {
       error_log($exception->getMessage());
-      throw new Exception("could not vote");
+      if ($exception->getCode() == 2440) {
+        throw $exception;
+      } else {
+        throw new Exception("could not vote");
+      }
     }
   }
 

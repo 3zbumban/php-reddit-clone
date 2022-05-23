@@ -3,7 +3,7 @@
 namespace Sem\Weben\Service;
 
 use Exception;
-use Model\Base\CommentQuery;
+use Model\CommentQuery;
 use Model\Comment;
 use Model\PostQuery;
 use Model\UserQuery;

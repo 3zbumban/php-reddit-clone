@@ -34,7 +34,8 @@ class Router
         header("Access-Control-Allow-Headers:" . $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']);
       }
       http_response_code(200);
-      exit(0);
+      // exit(0);
+      return true;
     }
 
     foreach ($this->routes as $route => $routeMapping) {

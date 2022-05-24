@@ -6,7 +6,7 @@ use Exception;
 use Model\Thread;
 use Model\ThreadQuery;
 use Ramsey\Uuid\Uuid;
-
+use Sem\Weben\HttpException;
 
 class ThreadService
 {
@@ -29,16 +29,14 @@ class ThreadService
         $thread->save();
         return $thread;
       } else {
-        // todo
-        throw new Exception("thread already exists", 2300);
+        throw new HttpException("thread already exists", 400);
       }
+
+    } catch (HttpException $e) {
+      throw $e;
     } catch (Exception $exception) {
       error_log($exception->getMessage());
-      if ($exception->getCode() == 2300) {
-        throw $exception;
-      } else {
-        throw new Exception("could not create thread");
-      }
+      throw new Exception("could not create thread");
     }
   }
 

@@ -7,6 +7,7 @@ use Model\UserQuery;
 use Model\Vote;
 use Model\PostQuery;
 use Model\VoteQuery;
+use Sem\Weben\HttpException;
 
 class VoteService
 {
@@ -42,15 +43,13 @@ class VoteService
             "vote" => $vote->toArray()
         ];
       } else {
-        throw new Exception("already voted", 2440);
+        throw new HttpException("already voted", 400);
       }
+    } catch (HttpException $e) {
+      throw $e;
     } catch (Exception $exception) {
       error_log($exception->getMessage());
-      if ($exception->getCode() == 2440) {
-        throw $exception;
-      } else {
-        throw new Exception("could not vote");
-      }
+      throw new Exception("could not vote");
     }
   }
 

@@ -67,6 +67,7 @@ html, body {
 
 .meta-username {
   margin-right: 10px;
+  // todo: overrides
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-family: 'Oswald', sans-serif;
 }

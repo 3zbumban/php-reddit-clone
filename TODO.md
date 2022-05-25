@@ -1,6 +1,6 @@
 # todo
 
-- [ ] frontend
+- [x] frontend
   - [x] service
     - [x] auth
       - [x] signup
@@ -27,12 +27,12 @@
 - [x] JWT_SECRETE key
 - [x] what if query/body/path params missing
 - [x] architekture drawing
-- [ ] exepction management
-- [ ] slides
+- [x] exepction management
+- [x] ~~slides~~
 - [x] schema drawing
 - [x] readme
   - [x] how to run
   - [x] arch
-- [ ] check in db - or smth similar
-
-SELECT * FROM INFORMATION_SCHEMA.SCHEMATA;
+- [x] check in db - or smth similar
+- [ ] final check
+- [ ] code inspect

@@ -3,45 +3,37 @@ import getToken from "./getToken.js";
 import AuthError from "./AuthError.js";
 
 const create = async (payload) => {
-  try {
-    const response = await fetch(`${apiUrl}/thread`, {
-      method: "POST",
-      headers: {
-        "Access-Token": getToken(),
-        "Access-Control-Request-Headers": "Access-Token"
-      },
-      body: JSON.stringify(payload)
-    })
+  const response = await fetch(`${apiUrl}/thread`, {
+    method: "POST",
+    headers: {
+      "Access-Token": getToken(),
+      "Access-Control-Request-Headers": "Access-Token"
+    },
+    body: JSON.stringify(payload)
+  })
 
-    const json = await response.json()
-    if (!response.ok) {
-      console.log(response)
-      if (response.status === 401) throw new AuthError(response.error, 401);
-      else throw new Error(json.error);
-    }
-    return json;
-  } catch (e) {
-    throw e
+  const json = await response.json()
+  if (!response.ok) {
+    console.log(response)
+    if (response.status === 401) throw new AuthError(response.error, 401);
+    else throw new Error(json.error);
   }
+  return json;
 }
 
 const getAll = async () => {
-  try {
-    const response = await fetch(`${apiUrl}/thread`, {
-      method: "GET",
-      headers: {}
-    });
+  const response = await fetch(`${apiUrl}/thread`, {
+    method: "GET",
+    headers: {}
+  });
 
-    const json = await response.json()
-    if (!response.ok) {
-      console.log(response.status)
-      if (response.status === 401) throw new AuthError(response.error, 401);
-      else throw new Error(json.error);
-    }
-    return json;
-  } catch (e) {
-    throw e
+  const json = await response.json()
+  if (!response.ok) {
+    console.log(response.status)
+    if (response.status === 401) throw new AuthError(response.error, 401);
+    else throw new Error(json.error);
   }
+  return json;
 }
 
 export default {

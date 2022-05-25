@@ -2,13 +2,22 @@
 
 ## quickstart 🚀
 
-### configuration
+## configuration
 
 ```
 # create .env files from sample
 cp ./app/.env.sample ./app/.env
 cp ./client/.env.sample ./client/.env
 ```
+
+## start docker compose
+
+```sh
+docker compose up
+# you must wait until composer has installed all dependencies
+```
+
+### further configuraition
 
 - everything should be ready to go as long as ports 3031 and 3030 are availiables
 - you can modify settings like ports and credentials in
@@ -18,13 +27,6 @@ cp ./client/.env.sample ./client/.env
   - `./client/.env` (&rarr; backend uri)
   - `client.nginx.conf` (&rarr; nginx config)
   - `php.nginx.conf` (&rarr; nginx config)
-
-## start docker compose
-
-```sh
-docker compose up
-# you must wait until composer has installed all dependencies
-```
 
 ### run db migrations if needed
 
@@ -59,8 +61,8 @@ cd /app
 - [docker image: mariadb](https://hub.docker.com/_/mariadb)
 - [docker image: nginx](https://hub.docker.com/_/nginx)
 - [docker image: php](https://hub.docker.com/_/php/?tab=tags)
-- [doctrine](https://github.com/doctrine/orm)~~
-- [doctrine](https://www.doctrine-project.org/projects/orm.html)~~
+- ~~[doctrine](https://github.com/doctrine/orm)~~
+- ~~[doctrine](https://www.doctrine-project.org/projects/orm.html)~~
 - [getcomposer](https://getcomposer.org/download/)
 - [liveregex](https://www.phpliveregex.com/)
 - [mongodb](https://www.mongodb.com/docs/php-library/current/tutorial/install-php-library/)
@@ -80,7 +82,6 @@ cd /app
 - [wireframes](https://www.figma.com/file/rJgqXhmzwbCIQe8fPSpuv1/we-not-reddit?node-id=0%3A1)
 - [xdebug phpstorm](https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html#configuring-xdebug-vagrant)
 - [xdebug vscode](https://dev.to/jackmiras/xdebug-in-vscode-with-docker-379l)
-- []()
 
 ### frontend
 

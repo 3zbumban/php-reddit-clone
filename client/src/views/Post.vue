@@ -44,7 +44,7 @@ import { onMounted, ref } from 'vue'
 import postService from '../service/post.service';
 import { useRouter, useRoute } from "vue-router"
 import { parseISO, formatDistance, addHours } from "date-fns"
-import { de } from "date-fns/locale"
+// import { de } from "date-fns/locale"
 import { useStore } from "../store.js";
 import commentService from '../service/comment.service';
 import AuthError from '../service/AuthError.js';

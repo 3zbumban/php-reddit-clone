@@ -1,0 +1,16 @@
+stages:
+  - build
+
+build client:
+  image: node:18
+  stage: build
+  script:
+    - cd client
+    - npm i
+    - npm run build
+
+build image:
+  image: docker/compose:1.29.2
+  stage: build
+  script:
+    - docker compose build

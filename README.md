@@ -10,11 +10,11 @@ cp ./app/.env.sample ./app/.env
 cp ./client/.env.sample ./client/.env
 ```
 
-## start docker compose
+## docker compose
 
 ```sh
 docker compose up
-# you must wait until composer has installed all dependencies
+# notice: you must wait until composer has installed all dependencies
 ```
 
 ### further configuraition
@@ -28,7 +28,7 @@ docker compose up
   - `client.nginx.conf` (&rarr; nginx config)
   - `php.nginx.conf` (&rarr; nginx config)
 
-### run db migrations if needed
+### runing db migrations if needed
 
 ```sh
 # if you have a fresh db exec into php docker container and run migrations

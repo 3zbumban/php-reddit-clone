@@ -41,8 +41,7 @@ Simple Reddit Clone
 
 - [x] Stack: HTML, CSS, PHP, JS
 - [x] No Web Frameworks but my own PHP
-- [x] Database Persistence Layer: `mariadb`
-  - `propel ORM`
+- [x] Database Persistence Layer: `mariadb`, `propel ORM`
 - [x] Userinputs: requests with `JSON`
 - [x] Architecture: `Router` -> `Controller` -> `Service` -> `Model`
 - [x] Login/Signup: `JWT` Authentication

@@ -37,6 +37,9 @@ cd /app
 ./vendor/bin/propel migration:up
 ```
 
+- sql dump can be found in `./docs/sqldump.sql` but should't be necessary as migrations are runned automatically by docker compose
+
+
 ## appliaction architecture
 
 <div style="display: flex; flex-direction: row; justify-content: center;">

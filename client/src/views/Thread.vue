@@ -77,6 +77,7 @@ const createPost = async () => {
     newPost.value.title = ""
     newPost.value.text = ""
     console.log(response)
+    await updateContent()
   } catch (error) {
     if (error instanceof AuthError) {
       console.log(error.message)
@@ -85,22 +86,28 @@ const createPost = async () => {
     } else {
       console.log(error.message)
       alert(error.message)
+      await updateContent()
     }
   }
-  await updateContent()
 }
 
 const updateContent = async () => {
   console.log('update content')
   loading.value = true
-  const response = await postService.getAll(route.params.id);
-  console.log(response)
-  posts.value = response.posts
-  posts.value.sort((a, b) => {
-    return parseISO(b.post.Createdat) - parseISO(a.post.Createdat)
-  })
-  thread.value = response.thread
-  loading.value = false
+  try {
+    const response = await postService.getAll(route.params.id);
+    console.log(response)
+    posts.value = response.posts
+    posts.value.sort((a, b) => {
+      return parseISO(b.post.Createdat) - parseISO(a.post.Createdat)
+    })
+    thread.value = response.thread
+  } catch (error) {
+    console.log(error.message)
+    alert(error.message)
+  } finally {
+    loading.value = false
+  }
 }
 
 onMounted(async () => {

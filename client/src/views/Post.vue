@@ -73,6 +73,7 @@ const createComment = async () => {
     )
     newComment.value.text = ""
     console.log(response)
+    await updateContent()
   } catch (error) {
     if (error instanceof AuthError) {
       console.log(error.message)
@@ -81,10 +82,10 @@ const createComment = async () => {
     } else {
       console.log(error.message)
       alert(error.message)
+      await updateContent()
     }
     // alert(error.message)
   }
-  await updateContent()
 }
 
 const vote = async (t) => {
@@ -94,6 +95,7 @@ const vote = async (t) => {
   try {
     const response = await postService.vote(route.params.id, store.user.id, t)  // todo
     console.log(response)
+    await updateContent()
   } catch (error) {
     if (error instanceof AuthError) {
       console.log(error.message)
@@ -101,19 +103,25 @@ const vote = async (t) => {
       await router.push({ name: 'Login' })
     } else {
       console.log(error.message)
-      alert(error.message)  
+      alert(error.message)
+      await updateContent()
     }
   }
-  await updateContent()
 }
 
 const updateContent = async () => {
   loading.value = true
-  const response = await postService.getOne(route.params.id);
-  // console.log(route.params.id)
-  console.log(response)
-  post.value = response
-  loading.value = false
+  try {
+    const response = await postService.getOne(route.params.id);
+    // console.log(route.params.id)
+    console.log(response)
+    post.value = response
+  } catch (error) {
+    alert(error.message)
+    post.value = false
+  } finally {
+    loading.value = false
+  }
 }
 
 onMounted(async () => {

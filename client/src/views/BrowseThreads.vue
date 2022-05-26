@@ -47,6 +47,7 @@ const createThread = async () => {
     const created = await threadService.create(newThread.value)
     console.log(created)
     newThread.value.name = ""
+    await updateContent()
   } catch (error) {
     if (error instanceof AuthError) {
       console.log(error.message)
@@ -55,17 +56,24 @@ const createThread = async () => {
     } else {
       console.log(error.message)
       alert(error.message)
+      await updateContent()
     }
   }
-  await updateContent()
 }
 
 const updateContent = async () => {
   loading.value = true
-  const response = await threadService.getAll();
-  count.value = threads.length
-  threads.value = response.threads
-  loading.value = false
+  try {
+    const response = await threadService.getAll();
+    count.value = threads.length
+    threads.value = response.threads
+  } catch (error) {
+    alert(error.message)
+    count.value = 0
+    threads.value = []
+  } finally {
+    loading.value = false
+  }
 }
 
 onMounted(async () => {

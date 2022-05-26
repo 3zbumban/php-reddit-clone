@@ -28,7 +28,8 @@ class UserController
     try {
       $user = UserService::signin($username, $password);
     } catch (Exception $e) {
-      throw new HttpException($e->getMessage(), 400);
+      error_log($e->getMessage());
+      throw new HttpException("could not login", 400);
     }
 
     $res->setBody($user);

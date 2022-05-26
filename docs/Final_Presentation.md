@@ -17,13 +17,14 @@ Simple Reddit Clone
 - Demo
   - Signup
   - Create Thread
+    - can't create existing thread
   - Chreate Post
   - Comment
   - Vote
   - Seccond account
   - Comment
   - Vote
-  - Vote Again
+    - can't vote again
   - Invalidate JWT
 - backend
   - index.php
@@ -50,7 +51,7 @@ Simple Reddit Clone
 ---
 
 - [x] JS for Async communication: `fetch()`
-- [x] UI Usability: `loaders`, `alerts`, `routing`, `pathparams`
+- [x] UI Usability: `loaders`, `submit`, `alerts`, `routing`, `pathparams`
 - [x] Setup with Docker containers and `docker compose`
 - [x] SOLID
   - maintainable

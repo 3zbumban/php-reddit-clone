@@ -1,0 +1,409 @@
+{
+	"info": {
+		"_postman_id": "cd5abbc2-6a9f-4c43-b634-18a318070e4d",
+		"name": "php-not-reddit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user8\",\r\n    \"password\": \"passw\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3030/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"auth",
+								"signup"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "acess-token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJ1c2VySWQiOjEsImlhdCI6MTY1MDk4MDE3NH0.TPs6H90FsEJeYLyboLfrrmNPGLqDEiszQ9KnX81aJz0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user8\",\r\n    \"password\": \"passw\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3030/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "acess-token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJ1c2VySWQiOjEsImlhdCI6MTY1MDk4MDE3NH0.TPs6H90FsEJeYLyboLfrrmNPGLqDEiszQ9KnX81aJz0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJ1c2VySWQiOjEsImlhdCI6MTY1MTc4NTc1NX0.991D-6h7TUSGvMKdoMJPWxg42IXzrN7RX3tAQyahUKE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3030/auth/refresh?userId=56df1fee-6d51-4268-bb55-b3b0c62c6432",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"auth",
+								"refresh"
+							],
+							"query": [
+								{
+									"key": "acess-token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJ1c2VySWQiOjEsImlhdCI6MTY1MDk4MDE3NH0.TPs6H90FsEJeYLyboLfrrmNPGLqDEiszQ9KnX81aJz0",
+									"disabled": true
+								},
+								{
+									"key": "userId",
+									"value": "56df1fee-6d51-4268-bb55-b3b0c62c6432"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "thread",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXI4IiwidXNlcklkIjozLCJpYXQiOjE2NTM1ODY3MDZ9.coOslfGJ3FUx1fBxGmSCT3B5wHZSMeqZ7Hko2SZtAPE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tes1\",\r\n    \"userId\": \"ac1dbdf6-b38f-47c0-bb1a-534e9a6dc894\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3030/thread",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"thread"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true,
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "access-control-request-headers",
+								"value": "content-type",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3030/thread",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"thread"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "post",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXI4IiwidXNlcklkIjozLCJpYXQiOjE2NTM1ODY3MDZ9.coOslfGJ3FUx1fBxGmSCT3B5wHZSMeqZ7Hko2SZtAPE",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Headers",
+								"value": "access-token",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Request-Method",
+								"value": "POST",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"1\",\r\n    \"text\": \"1\",\r\n    \"userUid\": \"ac1dbdf6-b38f-47c0-bb1a-534e9a6dc891\",\r\n    \"threadUid\": \"ed78b38d-b4d0-4719-95b7-4551b48b0fb2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3030/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3030/post?threadId=ed78b38d-b4d0-4719-95b7-4551b48b0fb2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"post"
+							],
+							"query": [
+								{
+									"key": "threadId",
+									"value": "ed78b38d-b4d0-4719-95b7-4551b48b0fb2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vote",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXI4IiwidXNlcklkIjozLCJpYXQiOjE2NTM1ODY3MDZ9.coOslfGJ3FUx1fBxGmSCT3B5wHZSMeqZ7Hko2SZtAPE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3030/vote?postId=644a27a2-1694-4ae8-bd48-e00662c1a69f&userId=ac1dbdf6-b38f-47c0-bb1a-534e9a6dc894&vote=down",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"vote"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "644a27a2-1694-4ae8-bd48-e00662c1a69f"
+								},
+								{
+									"key": "userId",
+									"value": "ac1dbdf6-b38f-47c0-bb1a-534e9a6dc894"
+								},
+								{
+									"key": "vote",
+									"value": "down"
+								},
+								{
+									"key": "Access-Token",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3030/post/5171c57f-7704-4abd-bfad-ebd9980a09ec",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"post",
+								"5171c57f-7704-4abd-bfad-ebd9980a09ec"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Access-Token",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXI4IiwidXNlcklkIjozLCJpYXQiOjE2NTM1ODY3MDZ9.coOslfGJ3FUx1fBxGmSCT3B5wHZSMeqZ7Hko2SZtAPE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"hi im a comment\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3030/comment?postId=644a27a2-1694-4ae8-bd48-e00662c1a69f&userId=ac1dbdf6-b38f-47c0-bb1a-534e9a6dc89",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"comment"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "644a27a2-1694-4ae8-bd48-e00662c1a69f"
+								},
+								{
+									"key": "userId",
+									"value": "ac1dbdf6-b38f-47c0-bb1a-534e9a6dc89"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

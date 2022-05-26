@@ -15,6 +15,7 @@ cp ./client/.env.sample ./client/.env
 ```sh
 docker compose up
 # notice: you must wait until composer has installed all dependencies
+# and migrations have been executed
 ```
 
 ### further configuraition

@@ -82,10 +82,10 @@ class UserService
    */
   public static function checkJwtAndUser(string $jwt, string $userId): array
   {
-    $user = UserQuery::create()->findOneByUid($userId);
-    if (!$user) throw new Exception("user not found");
-    $jwt_secret = $_ENV["JWT_SECRET"];
     try {
+      $user = UserQuery::create()->findOneByUid($userId);
+      if (!$user) throw new Exception("user not found");
+      $jwt_secret = $_ENV["JWT_SECRET"];
       $decoded = JWT::decode($jwt, new Key($jwt_secret, 'HS256'));
       $usernameFromJwt = $decoded->username;
       $userIdFromJwt = $decoded->userId;
@@ -103,7 +103,7 @@ class UserService
       }
     } catch (Exception $exception) {
       error_log($exception->getMessage());
-      throw new Exception("invalid jwt");
+      throw new Exception("unauthenticated");
     }
   }
 }

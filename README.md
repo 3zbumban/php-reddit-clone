@@ -16,6 +16,7 @@ cp ./client/.env.sample ./client/.env
 docker compose up
 # notice: you must wait until composer has installed all dependencies
 # and migrations have been executed
+# client runs on http://localhost:3031/
 ```
 
 ### further configuraition

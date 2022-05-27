@@ -117,8 +117,11 @@ const updateContent = async () => {
     console.log(response)
     post.value = response
   } catch (error) {
-    alert(error.message)
     post.value = false
+    alert(error.message)
+    if (error.message === "Failed to fetch") {
+      await router.push({ name: 'Threads' })
+    }
   } finally {
     loading.value = false
   }

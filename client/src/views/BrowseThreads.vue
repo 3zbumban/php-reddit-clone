@@ -16,7 +16,7 @@
     </div>
   </div>
 </div>
-<div v-if="!threads && !loading">
+<div v-if="threads.length === 0 && !loading">
   <h2>nothing here yet...</h2>
 </div>
 <div v-show="loading" class="loading-screen">
@@ -68,11 +68,11 @@ const updateContent = async () => {
   loading.value = true
   try {
     const response = await threadService.getAll();
-    count.value = threads.length
     threads.value = response.threads
+    count.value = threads.length
   } catch (error) {
     count.value = 0
-    threads.value = false
+    threads.value = []
     console.log(error)
     alert(error.message)
   } finally {

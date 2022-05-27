@@ -34,5 +34,5 @@
   - [x] how to run
   - [x] arch
 - [x] check in db - or smth similar
+- [x] code inspect
 - [ ] final check
-- [ ] code inspect

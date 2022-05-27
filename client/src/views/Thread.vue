@@ -10,7 +10,7 @@
       <input type="submit" value="create">
     </form>
   </div>
-<div class="post-list">
+<div class="post-list" v-if="posts.length > 0">
   <div v-show="!loading" v-for="post in posts" class="post">
       <div class="post-title" @click="() => router.push({ name: 'Post', params: { id : post.post.Uid }})">
         {{ post.post.Title }}
@@ -34,6 +34,9 @@
         </div>
       </div>
   </div>
+</div>
+<div v-if="posts && !loading">
+  <h2>nothing here yet...</h2>
 </div>
 <div v-show="loading" class="loading-screen">
   <div class="loader"></div>
@@ -103,8 +106,12 @@ const updateContent = async () => {
     })
     thread.value = response.thread
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
+    posts.value = false
     alert(error.message)
+    if (error.message === "Failed to fetch") {
+      await router.push({ name: 'Threads' })
+    }
   } finally {
     loading.value = false
   }
@@ -154,6 +161,9 @@ a {
 
 .thread-view {
   min-width: 60%;
+  // margin: 3rem;
+  margin: 1rem 8rem 0 8rem;
+
 }
 
 .post {

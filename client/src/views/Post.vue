@@ -193,6 +193,7 @@ a {
   align-items: center;
   min-width: 60%;
   margin-top: 10px;
+  margin: 1rem 8rem 0 8rem;
 }
 
 .comment {

@@ -35,7 +35,7 @@
       </div>
   </div>
 </div>
-<div v-if="posts && !loading">
+<div v-if="posts.length === 0 && !loading">
   <h2>nothing here yet...</h2>
 </div>
 <div v-show="loading" class="loading-screen">

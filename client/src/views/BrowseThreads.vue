@@ -16,6 +16,9 @@
     </div>
   </div>
 </div>
+<div v-if="!threads && !loading">
+  <h2>nothing here yet...</h2>
+</div>
 <div v-show="loading" class="loading-screen">
   <div class="loader"></div>
 </div>
@@ -68,9 +71,10 @@ const updateContent = async () => {
     count.value = threads.length
     threads.value = response.threads
   } catch (error) {
-    alert(error.message)
     count.value = 0
-    threads.value = []
+    threads.value = false
+    console.log(error)
+    alert(error.message)
   } finally {
     loading.value = false
   }

@@ -26,7 +26,7 @@ class Response implements ResponseInterface
       http_response_code($this->statusCode);
       echo json_encode($this->body);
     } else {
-      // todo: is this good?
+      // // todo: is this good?
       http_response_code(204);
       echo json_encode([
           "message" => "nothing to see here 👀"

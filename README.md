@@ -1,4 +1,4 @@
-# [Readme](https://inf-git.fh-rosenheim.de/sINFalseme/php-docker-starter/-/commits/main)
+# Readme
 
 ## description
 Reddit Clone – PHP, Vue.js, Docker

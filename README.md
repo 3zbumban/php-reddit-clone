@@ -1,5 +1,21 @@
 # [Readme](https://inf-git.fh-rosenheim.de/sINFalseme/php-docker-starter/-/commits/main)
 
+## description
+Reddit Clone – PHP, Vue.js, Docker
+A fullstack Reddit-style web app with:
+
+- Backend: Plain PHP with a JSON REST API
+- Frontend: Vue.js single-page application
+- Database: MariaDB using Propel ORM
+- Environment: Dockerized for easy setup and development 
+ 
+Features
+- User signup and login with username and password
+- Create threads, posts, comments on posts
+- Voting system for posts
+
+A solid starting point for PHP developers to learn fullstack development with a clean backend-frontend split and containerized setup.
+
 ## quickstart 🚀
 
 ## configuration

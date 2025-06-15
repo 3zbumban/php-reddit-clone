@@ -2,6 +2,10 @@
 <!-- <h1>POST</h1> -->
 <div class="post-view" v-if="post">
   <div class="post">
+    <!-- <div class="post-author">
+      {{ post.post }}
+      {{ post.post.Author }}
+    </div> -->
     <div class="post-title">
       {{ post.post.Title }}
     </div>

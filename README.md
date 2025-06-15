@@ -16,6 +16,8 @@ Features
 
 A solid starting point for PHP developers to learn fullstack development with a clean backend-frontend split and containerized setup.
 
+![screenshot](docs/localhost_3031_.png)
+
 ## quickstart 🚀
 
 ## configuration

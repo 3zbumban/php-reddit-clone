@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h1 class="logo" @click="() => router.push({ name: 'Threads'})">NOT <span style="color: red;">R</span>EDDIT</h1>
+    <h1 class="logo" @click="() => router.push({ name: 'Threads'})">th<span style="color: red;">r</span>eaddit</h1>
     <div class="header-end">
       <h2 v-if="!store.user.loggedIn" class="link" @click="() => router.push({ name: 'Login'})">Login</h2>
       <h2 v-if="!store.user.loggedIn" class="link" @click="() => router.push({ name: 'Signup'})">Signup</h2>

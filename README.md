@@ -1,10 +1,9 @@
 # Readme
 
 ## description
-Reddit Clone – PHP, Vue.js, Docker
-A fullstack Reddit-style web app with:
+A fullstack Reddit-style web app with PHP, Vue.js, Docker:
 
-- Backend: Plain PHP with a JSON REST API
+- Backend: Plain PHP with a JSON REST API using Composer
 - Frontend: Vue.js single-page application
 - Database: MariaDB using Propel ORM
 - Environment: Dockerized for easy setup and development 
